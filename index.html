@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NWP Logistics Command Center</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-border: #2a2d3a;
+    --text: #e4e6eb;
+    --text-dim: #8b8fa3;
+    --accent: #4ade80;
+    --red: #ef4444;
+    --orange: #f59e0b;
+    --yellow: #eab308;
+    --blue: #3b82f6;
+    --purple: #a78bfa;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .header h1 span { color: var(--accent); }
+  .refresh-info {
+    font-size: 12px;
+    color: var(--text-dim);
+    background: var(--card);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--card-border);
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+  .kpi-card.green::before { background: var(--accent); }
+  .kpi-card.red::before { background: var(--red); }
+  .kpi-card.orange::before { background: var(--orange); }
+  .kpi-card.blue::before { background: var(--blue); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-card.yellow::before { background: var(--yellow); }
+  .kpi-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .kpi-value.critical { color: var(--red); }
+  .kpi-value.warning { color: var(--orange); }
+  .kpi-value.ok { color: var(--accent); }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .chart-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .chart-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .chart-container { width: 100%; height: 300px; }
+
+  .table-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+  }
+  .table-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--card-border);
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--card-border);
+    white-space: nowrap;
+  }
+  tr:hover { background: rgba(255,255,255,0.03); }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge.delivered { background: rgba(74,222,128,0.15); color: var(--accent); }
+  .badge.in-transit { background: rgba(59,130,246,0.15); color: var(--blue); }
+  .badge.delayed { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge.pending { background: rgba(245,158,11,0.15); color: var(--orange); }
+  .badge.in-production { background: rgba(167,139,250,0.15); color: var(--purple); }
+  .badge.oos { background: rgba(239,68,68,0.25); color: var(--red); font-weight: 700; }
+
+  .alert-banner {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .alert-banner .icon { font-size: 20px; flex-shrink: 0; }
+  .alert-banner .content { font-size: 13px; line-height: 1.5; }
+  .alert-banner strong { color: var(--red); }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-value { font-size: 22px; }
+    .header h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NWP <span>Logistics Command Center</span></h1>
+  <div class="refresh-info" id="refresh-ts">Last refreshed: loading...</div>
+</div>
+
+<!-- ALERTS -->
+<div id="alerts-container"></div>
+
+<!-- KPI CARDS -->
+<div class="kpi-grid" id="kpi-grid"></div>
+
+<!-- CHARTS ROW 1 -->
+<div class="section-title">Demand & Fulfillment</div>
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>Daily Demand — Units (30 Days)</h3>
+    <div class="chart-container" id="chart-demand"></div>
+  </div>
+  <div class="chart-card">
+    <h3>Fulfillment Status Breakdown</h3>
+    <div class="chart-container" id="chart-status"></div>
+  </div>
+</div>
+
+<!-- CHARTS ROW 2 -->
+<div class="section-title">Stock & Pipeline</div>
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>Stock Projection — TFM & Bailiny</h3>
+    <div class="chart-container" id="chart-stock"></div>
+  </div>
+  <div class="chart-card">
+    <h3>Shipment Pipeline by Destination</h3>
+    <div class="chart-container" id="chart-pipeline"></div>
+  </div>
+</div>
+
+<!-- SHIPMENT TABLE -->
+<div class="section-title">Active Shipments</div>
+<div class="table-card">
+  <h3>Production & Shipping Pipeline</h3>
+  <table id="shipment-table">
+    <thead>
+      <tr>
+        <th>Ref</th>
+        <th>Supplier</th>
+        <th>Qty</th>
+        <th>Method</th>
+        <th>Destination</th>
+        <th>Status</th>
+        <th>Ship Date</th>
+        <th>ETA</th>
+        <th>Payment</th>
+      </tr>
+    </thead>
+    <tbody id="shipment-tbody"></tbody>
+  </table>
+</div>
+
+<!-- PAYMENTS TABLE -->
+<div class="section-title">Payments & Airwallex</div>
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>Payment Status Overview</h3>
+    <div class="chart-container" id="chart-payments"></div>
+  </div>
+  <div class="table-card" style="border:none; padding:0;">
+    <h3>Pending Approvals</h3>
+    <table id="payments-table">
+      <thead>
+        <tr>
+          <th>Recipient</th>
+          <th>Amount</th>
+          <th>Reference</th>
+          <th>Urgency</th>
+          <th>Days Waiting</th>
+        </tr>
+      </thead>
+      <tbody id="payments-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA — Replace with live Google Sheet CSV fetch (Step 2)
+// ============================================================
+
+const DATA = {
+  lastRefreshed: new Date().toISOString(),
+
+  kpis: {
+    tfmStock: { value: 0, dos: 0, status: 'OOS' },
+    bailinyStock: { value: 34000, dos: 15, status: 'WATCH' },
+    amazonStock: { value: 4880, dos: 17, status: 'RED' },
+    rebillBacklog: { value: 8000, label: 'Bailiny' },
+    totalIncoming: 635000,
+    awBalance: 284176,
+    awPending: 309001,
+    awShortfall: -24826,
+    dailyDemandTFM: 4396,
+    dailyDemandBailiny: 1283,
+  },
+
+  // 30 days of daily demand (placeholder — will come from Daily Sales tab)
+  dailyDemand: [
+    { date: '03/09', newSales: 2800, rebill: 1800 },
+    { date: '03/10', newSales: 3100, rebill: 2000 },
+    { date: '03/11', newSales: 2900, rebill: 2200 },
+    { date: '03/12', newSales: 3200, rebill: 2400 },
+    { date: '03/13', newSales: 3000, rebill: 2600 },
+    { date: '03/14', newSales: 2700, rebill: 2300 },
+    { date: '03/15', newSales: 2500, rebill: 2100 },
+    { date: '03/16', newSales: 3300, rebill: 2800 },
+    { date: '03/17', newSales: 3100, rebill: 3000 },
+    { date: '03/18', newSales: 3400, rebill: 3200 },
+    { date: '03/19', newSales: 3200, rebill: 3400 },
+    { date: '03/20', newSales: 3500, rebill: 3600 },
+    { date: '03/21', newSales: 3000, rebill: 3300 },
+    { date: '03/22', newSales: 2800, rebill: 3100 },
+    { date: '03/23', newSales: 3600, rebill: 3800 },
+    { date: '03/24', newSales: 3800, rebill: 4000 },
+    { date: '03/25', newSales: 4553, rebill: 5604 },
+    { date: '03/26', newSales: 5719, rebill: 4470 },
+    { date: '03/27', newSales: 4427, rebill: 6351 },
+    { date: '03/28', newSales: 3675, rebill: 7922 },
+    { date: '03/29', newSales: 3321, rebill: 8343 },
+    { date: '03/30', newSales: 2800, rebill: 7000 },
+    { date: '03/31', newSales: 3000, rebill: 6500 },
+    { date: '04/01', newSales: 2900, rebill: 6200 },
+    { date: '04/02', newSales: 3100, rebill: 5800 },
+    { date: '04/03', newSales: 2800, rebill: 5500 },
+    { date: '04/04', newSales: 2600, rebill: 5200 },
+    { date: '04/05', newSales: 2400, rebill: 4800 },
+    { date: '04/06', newSales: 3000, rebill: 5000 },
+    { date: '04/07', newSales: 3200, rebill: 4600 },
+  ],
+
+  // Stock projection (placeholder — will come from Stock Forecast tab)
+  stockProjection: [
+    { date: 'Apr 8', tfm: 0, bailiny: 34000 },
+    { date: 'Apr 10', tfm: 25000, bailiny: 31400 },
+    { date: 'Apr 13', tfm: 11800, bailiny: 27500 },
+    { date: 'Apr 15', tfm: 36800, bailiny: 24900 },
+    { date: 'Apr 18', tfm: 123600, bailiny: 21000 },
+    { date: 'Apr 21', tfm: 110400, bailiny: 17100 },
+    { date: 'Apr 25', tfm: 181400, bailiny: 11900 },
+    { date: 'Apr 30', tfm: 159400, bailiny: 5500 },
+    { date: 'May 5', tfm: 137400, bailiny: 82500 },
+    { date: 'May 10', tfm: 265400, bailiny: 76100 },
+    { date: 'May 19', tfm: 225400, bailiny: 264100 },
+  ],
+
+  // Shipment pipeline (from Production Pipeline tab)
+  shipments: [
+    { ref: '300K-AIR1', supplier: 'Sendy Li', qty: 50000, method: 'Air', dest: 'TFM', status: 'In Transit', shipDate: 'Mar 31', eta: 'Apr 8-10', payment: 'Paid' },
+    { ref: '300K-AIR1b', supplier: 'Sendy Li', qty: 50000, method: 'Air', dest: 'TFM', status: 'In Transit', shipDate: 'Mar 31', eta: 'Apr 13-15', payment: 'Paid' },
+    { ref: '300K-AIR2', supplier: 'Sendy Li', qty: 100000, method: 'Air', dest: 'TFM', status: 'Ready to Ship', shipDate: 'Apr 6-8', eta: 'Apr 16-18', payment: 'In Approval' },
+    { ref: '300K-SEA', supplier: 'Sendy Li', qty: 150000, method: 'Sea', dest: 'TFM', status: 'Ready to Ship', shipDate: 'Apr 8', eta: 'May 7-9', payment: 'In Approval' },
+    { ref: '335K-AIR', supplier: 'Sendy Li', qty: 85000, method: 'Air', dest: 'TFM', status: 'In Production', shipDate: 'Apr 10', eta: 'Apr 24-27', payment: 'Not Submitted' },
+    { ref: '335K-BAI', supplier: 'Sendy Li', qty: 50000, method: 'Sea/Land', dest: 'Bailiny', status: 'In Production', shipDate: 'TBD', eta: 'Apr 25', payment: 'Pending' },
+    { ref: '335K-SEA', supplier: 'Sendy Li', qty: 200000, method: 'Sea', dest: 'TFM', status: 'In Production', shipDate: 'Apr 14', eta: 'May 19', payment: 'Pending' },
+    { ref: 'LW-100K', supplier: 'Laura Wong', qty: 100000, method: 'Sea', dest: 'Bailiny', status: 'Delayed', shipDate: 'TBD', eta: 'May 5', payment: 'Partial' },
+    { ref: 'EL-28K', supplier: 'Eagle Labs', qty: 28000, method: 'Land', dest: 'Amazon', status: 'In Transit', shipDate: 'Mar 28', eta: 'Apr 3', payment: 'Paid' },
+    { ref: '300K-REC', supplier: 'Sendy Li', qty: 300000, method: 'TBD', dest: 'TBD', status: 'Deposit Due', shipDate: '—', eta: 'Jun-Jul', payment: 'In Approval' },
+  ],
+
+  // Payments pending (from Payments tab)
+  payments: [
+    { recipient: 'Sendy Li (Be Queen)', amount: 118800, ref: '300K recurring deposit', urgency: 'CRITICAL', days: 6 },
+    { recipient: 'TFM (Soloflight)', amount: 29906, ref: 'Feb monthly bill', urgency: 'Routine', days: 7 },
+    { recipient: 'Bailiny (Qingdao Star)', amount: 59079, ref: 'Feb 12-28 bill', urgency: 'Routine', days: 9 },
+    { recipient: 'TFM (Soloflight)', amount: 95711, ref: 'Mar 23 bill', urgency: 'Routine', days: 9 },
+    { recipient: 'FulfilmentPros', amount: 5506, ref: 'Various LC invoices', urgency: 'Routine', days: 9 },
+  ],
+
+  fulfillmentStatus: {
+    shipped: 12,
+    hold: 68,
+    inTransit: 8,
+    delayed: 7,
+    delivered: 5,
+  }
+};
+
+// ============================================================
+// RENDER
+// ============================================================
+
+function init() {
+  renderTimestamp();
+  renderAlerts();
+  renderKPIs();
+  renderDemandChart();
+  renderStatusChart();
+  renderStockChart();
+  renderPipelineChart();
+  renderShipmentTable();
+  renderPaymentsChart();
+  renderPaymentsTable();
+}
+
+function renderTimestamp() {
+  const d = new Date(DATA.lastRefreshed);
+  document.getElementById('refresh-ts').textContent =
+    'Last refreshed: ' + d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) +
+    ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+
+function renderAlerts() {
+  const container = document.getElementById('alerts-container');
+  const alerts = [];
+
+  if (DATA.kpis.tfmStock.status === 'OOS')
+    alerts.push('TFM is <strong>OUT OF STOCK</strong> — 0 cream units. 50K air Batch 1 ETA today (Apr 8-10).');
+  if (DATA.kpis.awShortfall < 0)
+    alerts.push('Airwallex is <strong>UNDERFUNDED</strong> — shortfall $' + Math.abs(DATA.kpis.awShortfall).toLocaleString() + '. $309K pending Nicola approval.');
+  if (DATA.kpis.amazonStock.dos <= 17)
+    alerts.push('Amazon FBA <strong>RED</strong> — ' + DATA.kpis.amazonStock.value.toLocaleString() + ' units, ~' + DATA.kpis.amazonStock.dos + ' days. Bridge stock from Eagle Labs in transit.');
+
+  container.innerHTML = alerts.map(a =>
+    '<div class="alert-banner"><span class="icon">&#9888;</span><div class="content">' + a + '</div></div>'
+  ).join('');
+}
+
+function renderKPIs() {
+  const k = DATA.kpis;
+  const cards = [
+    { label: 'TFM Stock', value: k.tfmStock.value.toLocaleString(), sub: k.tfmStock.dos + ' days cover', cls: 'red', valCls: 'critical' },
+    { label: 'Bailiny Stock', value: k.bailinyStock.value.toLocaleString(), sub: k.bailinyStock.dos + ' days cover', cls: 'orange', valCls: 'warning' },
+    { label: 'Amazon Stock', value: k.amazonStock.value.toLocaleString(), sub: k.amazonStock.dos + ' days cover', cls: 'orange', valCls: 'warning' },
+    { label: 'Rebill Backlog', value: k.rebillBacklog.value.toLocaleString(), sub: k.rebillBacklog.label + ' orders on hold', cls: 'red', valCls: 'critical' },
+    { label: 'Total Incoming', value: k.totalIncoming.toLocaleString(), sub: 'units in pipeline', cls: 'blue', valCls: '' },
+    { label: 'Daily Demand TFM', value: k.dailyDemandTFM.toLocaleString(), sub: 'units/day', cls: 'purple', valCls: '' },
+    { label: 'Daily Demand Bailiny', value: k.dailyDemandBailiny.toLocaleString(), sub: 'units/day', cls: 'purple', valCls: '' },
+    { label: 'AW Balance', value: '$' + k.awBalance.toLocaleString(), sub: 'Pending: $' + k.awPending.toLocaleString(), cls: k.awShortfall < 0 ? 'red' : 'green', valCls: k.awShortfall < 0 ? 'critical' : 'ok' },
+  ];
+
+  document.getElementById('kpi-grid').innerHTML = cards.map(c =>
+    '<div class="kpi-card ' + c.cls + '">' +
+    '<div class="kpi-label">' + c.label + '</div>' +
+    '<div class="kpi-value ' + c.valCls + '">' + c.value + '</div>' +
+    '<div class="kpi-sub">' + c.sub + '</div></div>'
+  ).join('');
+}
+
+function darkTheme() {
+  return {
+    backgroundColor: 'transparent',
+    textStyle: { color: '#8b8fa3' },
+    legend: { textStyle: { color: '#8b8fa3' } },
+    grid: { left: 50, right: 20, top: 30, bottom: 30 },
+  };
+}
+
+function renderDemandChart() {
+  const chart = echarts.init(document.getElementById('chart-demand'));
+  chart.setOption({
+    ...darkTheme(),
+    tooltip: { trigger: 'axis', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb' } },
+    legend: { data: ['New Sales', 'Rebill'], top: 0, textStyle: { color: '#8b8fa3' } },
+    xAxis: { type: 'category', data: DATA.dailyDemand.map(d => d.date), axisLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3' } },
+    yAxis: { type: 'value', splitLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3' } },
+    series: [
+      { name: 'New Sales', type: 'line', data: DATA.dailyDemand.map(d => d.newSales), smooth: true, lineStyle: { width: 2 }, itemStyle: { color: '#3b82f6' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(59,130,246,0.25)' }, { offset: 1, color: 'rgba(59,130,246,0)' }] } } },
+      { name: 'Rebill', type: 'line', data: DATA.dailyDemand.map(d => d.rebill), smooth: true, lineStyle: { width: 2 }, itemStyle: { color: '#a78bfa' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(167,139,250,0.25)' }, { offset: 1, color: 'rgba(167,139,250,0)' }] } } },
+    ]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderStatusChart() {
+  const s = DATA.fulfillmentStatus;
+  const chart = echarts.init(document.getElementById('chart-status'));
+  chart.setOption({
+    ...darkTheme(),
+    tooltip: { trigger: 'item', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb' } },
+    series: [{
+      type: 'pie',
+      radius: ['45%', '75%'],
+      center: ['50%', '55%'],
+      label: { color: '#8b8fa3', fontSize: 12 },
+      data: [
+        { value: s.shipped, name: 'Shipped', itemStyle: { color: '#4ade80' } },
+        { value: s.hold, name: 'On Hold', itemStyle: { color: '#ef4444' } },
+        { value: s.inTransit, name: 'In Transit', itemStyle: { color: '#3b82f6' } },
+        { value: s.delayed, name: 'Delayed', itemStyle: { color: '#f59e0b' } },
+        { value: s.delivered, name: 'Delivered', itemStyle: { color: '#06b6d4' } },
+      ]
+    }]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderStockChart() {
+  const chart = echarts.init(document.getElementById('chart-stock'));
+  const proj = DATA.stockProjection;
+  chart.setOption({
+    ...darkTheme(),
+    tooltip: { trigger: 'axis', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb' } },
+    legend: { data: ['TFM (US)', 'Bailiny (CN)'], top: 0, textStyle: { color: '#8b8fa3' } },
+    xAxis: { type: 'category', data: proj.map(d => d.date), axisLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3' } },
+    yAxis: { type: 'value', splitLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3', formatter: v => v >= 1000 ? (v/1000) + 'K' : v } },
+    series: [
+      { name: 'TFM (US)', type: 'line', data: proj.map(d => d.tfm), smooth: true, lineStyle: { width: 3 }, itemStyle: { color: '#4ade80' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(74,222,128,0.2)' }, { offset: 1, color: 'rgba(74,222,128,0)' }] } }, markLine: { silent: true, data: [{ yAxis: 85500, lineStyle: { color: '#ef4444', type: 'dashed' }, label: { formatter: 'Safety Stock', color: '#ef4444', fontSize: 10 } }] } },
+      { name: 'Bailiny (CN)', type: 'line', data: proj.map(d => d.bailiny), smooth: true, lineStyle: { width: 3 }, itemStyle: { color: '#f59e0b' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(245,158,11,0.2)' }, { offset: 1, color: 'rgba(245,158,11,0)' }] } } },
+    ]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderPipelineChart() {
+  const chart = echarts.init(document.getElementById('chart-pipeline'));
+  const tfm = DATA.shipments.filter(s => s.dest === 'TFM').reduce((a, s) => a + s.qty, 0);
+  const bailiny = DATA.shipments.filter(s => s.dest === 'Bailiny').reduce((a, s) => a + s.qty, 0);
+  const amazon = DATA.shipments.filter(s => s.dest === 'Amazon').reduce((a, s) => a + s.qty, 0);
+  const tbd = DATA.shipments.filter(s => s.dest === 'TBD').reduce((a, s) => a + s.qty, 0);
+
+  chart.setOption({
+    ...darkTheme(),
+    tooltip: { trigger: 'axis', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb' } },
+    xAxis: { type: 'category', data: ['TFM (US)', 'Bailiny (CN)', 'Amazon', 'TBD'], axisLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3' } },
+    yAxis: { type: 'value', splitLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3', formatter: v => v >= 1000 ? (v/1000) + 'K' : v } },
+    series: [{
+      type: 'bar',
+      data: [
+        { value: tfm, itemStyle: { color: '#4ade80' } },
+        { value: bailiny, itemStyle: { color: '#f59e0b' } },
+        { value: amazon, itemStyle: { color: '#3b82f6' } },
+        { value: tbd, itemStyle: { color: '#8b8fa3' } },
+      ],
+      barWidth: '50%',
+      label: { show: true, position: 'top', color: '#e4e6eb', formatter: p => (p.value/1000) + 'K' },
+    }]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function statusBadge(status) {
+  const cls = status.toLowerCase().replace(/\s+/g, '-');
+  return '<span class="badge ' + cls + '">' + status + '</span>';
+}
+
+function renderShipmentTable() {
+  document.getElementById('shipment-tbody').innerHTML = DATA.shipments.map(s =>
+    '<tr><td>' + s.ref + '</td><td>' + s.supplier + '</td><td>' + s.qty.toLocaleString() +
+    '</td><td>' + s.method + '</td><td>' + s.dest + '</td><td>' + statusBadge(s.status) +
+    '</td><td>' + s.shipDate + '</td><td>' + s.eta + '</td><td>' + s.payment + '</td></tr>'
+  ).join('');
+}
+
+function renderPaymentsChart() {
+  const chart = echarts.init(document.getElementById('chart-payments'));
+  const k = DATA.kpis;
+  chart.setOption({
+    ...darkTheme(),
+    tooltip: { trigger: 'item', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb' } },
+    series: [{
+      type: 'pie',
+      radius: ['45%', '75%'],
+      center: ['50%', '55%'],
+      label: { color: '#8b8fa3', fontSize: 12, formatter: '{b}\n${c}' },
+      data: [
+        { value: k.awBalance, name: 'AW Balance', itemStyle: { color: '#4ade80' } },
+        { value: k.awPending, name: 'Pending Approval', itemStyle: { color: '#f59e0b' } },
+        { value: Math.abs(k.awShortfall), name: 'Shortfall', itemStyle: { color: '#ef4444' } },
+      ]
+    }]
+  });
+  window.addEventListener('resize', () => chart.resize());
+}
+
+function renderPaymentsTable() {
+  document.getElementById('payments-tbody').innerHTML = DATA.payments.map(p =>
+    '<tr><td>' + p.recipient + '</td><td>$' + p.amount.toLocaleString() +
+    '</td><td>' + p.ref + '</td><td>' + statusBadge(p.urgency === 'CRITICAL' ? 'Delayed' : 'Pending') +
+    ' ' + p.urgency + '</td><td>' + p.days + '</td></tr>'
+  ).join('');
+}
+
+// ============================================================
+// GOOGLE SHEET LIVE DATA (Step 2 — uncomment when ready)
+// ============================================================
+/*
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1_ReY1psaHmQ4oqcFYROdCUJq3eoAWpMIft-1q2pHJPQ/gviz/tq?tqx=out:csv&sheet=';
+
+function fetchSheetTab(tabName) {
+  return new Promise((resolve, reject) => {
+    Papa.parse(SHEET_CSV_URL + encodeURIComponent(tabName), {
+      download: true,
+      header: true,
+      complete: results => resolve(results.data),
+      error: err => reject(err)
+    });
+  });
+}
+
+async function loadLiveData() {
+  try {
+    const [dailySales, tfmStock, bailinyStock, pipeline, payments, forecast] = await Promise.all([
+      fetchSheetTab('Daily Sales'),
+      fetchSheetTab('TFM Stock'),
+      fetchSheetTab('Bailiny Stock'),
+      fetchSheetTab('Production Pipeline'),
+      fetchSheetTab('Payments'),
+      fetchSheetTab('Stock Forecast'),
+    ]);
+
+    // Transform CSV rows into DATA object
+    // ... (map columns to DATA structure based on your sheet layout)
+
+    DATA.lastRefreshed = new Date().toISOString();
+    init();
+  } catch (e) {
+    console.error('Failed to load sheet data:', e);
+    init(); // Fall back to placeholder data
+  }
+}
+
+loadLiveData();
+*/
+
+// ============================================================
+// INIT WITH PLACEHOLDER DATA
+// ============================================================
+init();
+</script>
+</body>
+</html>
