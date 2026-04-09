@@ -50,27 +50,39 @@
     border: 1px solid var(--card-border);
   }
 
-  /* NAV */
+  /* NAV TABS */
   .nav {
     display: flex;
     gap: 8px;
     margin-bottom: 24px;
     flex-wrap: wrap;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 12px;
   }
   .nav a {
     color: var(--text-dim);
     text-decoration: none;
-    font-size: 12px;
-    padding: 6px 14px;
+    font-size: 13px;
+    padding: 8px 18px;
     border-radius: 20px;
     border: 1px solid var(--card-border);
     transition: all 0.2s;
+    cursor: pointer;
+    user-select: none;
   }
-  .nav a:hover, .nav a.active {
+  .nav a:hover {
     color: var(--text);
     background: var(--card);
     border-color: var(--accent);
   }
+  .nav a.active {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .section { display: none; }
+  .section.active { display: block; }
 
   /* KPI */
   .kpi-grid {
@@ -249,19 +261,22 @@
 
 <div class="header">
   <h1>NWP <span>Logistics Command Center</span></h1>
-  <div class="refresh-info" id="refresh-ts">Last refreshed: loading...</div>
+  <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+    <div class="refresh-info" id="today-date"></div>
+    <div class="refresh-info" id="refresh-ts">Last refreshed: loading...</div>
+  </div>
 </div>
 
 <nav class="nav">
-  <a href="#alerts" class="active">Alerts</a>
-  <a href="#stock">Stock & OOS</a>
-  <a href="#demand">Daily Demand</a>
-  <a href="#pipeline">Production Pipeline</a>
-  <a href="#payments">Payments</a>
+  <a data-tab="alerts" class="active">Alerts</a>
+  <a data-tab="stock">Stock & OOS</a>
+  <a data-tab="demand">Daily Demand</a>
+  <a data-tab="pipeline">Production Pipeline</a>
+  <a data-tab="payments">Payments</a>
 </nav>
 
 <!-- ===== SECTION 1: ALERTS ===== -->
-<div class="section" id="alerts">
+<div class="section active" id="alerts">
   <div class="section-header"><h2>Active Alerts</h2></div>
   <p class="section-desc">Critical issues requiring immediate attention. Auto-generated from stock levels, payment deadlines, and shipment status.</p>
   <div id="alerts-container"></div>
@@ -354,7 +369,7 @@
 </div>
 
 <div style="text-align:center; padding:30px 0 10px; font-size:11px; color:var(--text-dim);">
-  NWP Logistics Command Center &mdash; Data from NWP Logistics Tracker (Google Sheet)
+  NWP Logistics Command Center &mdash; Git-hosted DS | Last refresh: 09/04/2026
 </div>
 
 <script>
@@ -362,84 +377,386 @@
 // DATA — From WORKING tab screenshots (Apr 8, 2026)
 // ============================================================
 const DATA = {
-  lastRefreshed: '2026-04-08T12:00:00',
-  updatedOn: '08/04/2026',
-
-  // STOCK (from Stock Levels & OOS Projections)
-  stock: {
-    warehouses: [
-      { name: 'TFM', stock: 0, demand: 4396, dos: 0, incoming: 765000, effOOS: '29 Sep 2026', status: 'OOS NOW — stock arriving', statusCls: 'oos', qtyNeeded: 0 },
-      { name: 'Bailiny', stock: 34000, demand: 1283, dos: 27, incoming: 170000, effOOS: '14 Sep 2026', statusCls: 'green-status', status: 'GREEN — 159d', qtyNeeded: 0 },
-      { name: 'Amazon FBA', stock: 4880, demand: 280, dos: 17, incoming: 0, effOOS: '25 Apr 2026', status: 'RED — 17d', statusCls: 'red-status', qtyNeeded: 20320 },
+  "lastRefreshed": "2026-04-09T09:52:02",
+  "updatedOn": "09/04/2026",
+  "stock": {
+    "warehouses": [
+      {
+        "name": "TFM",
+        "stock": 8064,
+        "demand": 7086,
+        "dos": 1,
+        "incoming": 885000,
+        "effOOS": "2026-04-10",
+        "status": "RED - 1d",
+        "statusCls": "red-status",
+        "qtyNeeded": 0
+      },
+      {
+        "name": "Bailiny",
+        "stock": 29600,
+        "demand": 2534,
+        "dos": 12,
+        "incoming": 450000,
+        "effOOS": "2026-04-21",
+        "status": "RED - 12d",
+        "statusCls": "red-status",
+        "qtyNeeded": 0
+      },
+      {
+        "name": "Amazon FBA",
+        "stock": 4760,
+        "demand": 280,
+        "dos": 17,
+        "incoming": 0,
+        "effOOS": "2026-04-26",
+        "status": "YELLOW - 17d",
+        "statusCls": "yellow-status",
+        "qtyNeeded": 0
+      }
     ],
-    totalStock: 38880,
-    totalDemand: 5959,
-    totalIncoming: 935000,
+    "totalStock": 42424,
+    "totalDemand": 9900,
+    "totalIncoming": 1335000
   },
-
-  // Stock projection
-  stockProjection: [
-    { date: 'Apr 8', tfm: 0, bailiny: 34000 },
-    { date: 'Apr 12', tfm: 25000, bailiny: 28900 },
-    { date: 'Apr 15', tfm: 11800, bailiny: 25100 },
-    { date: 'Apr 17', tfm: 103000, bailiny: 22500 },
-    { date: 'Apr 20', tfm: 89800, bailiny: 18600 },
-    { date: 'Apr 27', tfm: 147000, bailiny: 9600 },
-    { date: 'May 1', tfm: 129400, bailiny: 4500 },
-    { date: 'May 7', tfm: 103000, bailiny: 74500 },
-    { date: 'May 14', tfm: 72200, bailiny: 65500 },
-    { date: 'May 19', tfm: 315200, bailiny: 155500 },
+  "stockProjection": [
+    {
+      "date": "Apr 09",
+      "tfm": 978,
+      "bailiny": 27066
+    },
+    {
+      "date": "Apr 14",
+      "tfm": 0,
+      "bailiny": 14396
+    },
+    {
+      "date": "Apr 19",
+      "tfm": 0,
+      "bailiny": 1726
+    },
+    {
+      "date": "Apr 24",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "Apr 29",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "May 04",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "May 09",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "May 14",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "May 19",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "May 24",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "May 29",
+      "tfm": 0,
+      "bailiny": 0
+    },
+    {
+      "date": "Jun 03",
+      "tfm": 0,
+      "bailiny": 0
+    }
   ],
-
-  // DAILY SALES (from Daily Sales section)
-  demand: {
-    avg7d: { total: 5680, tfm: 4397, bailiny: 1283 },
-    tfmNew: 3087, tfmRebill: 1309,
-    bailinyNew: 1124, bailinyRebill: 159,
-    daily: [
-      { date: '03/26', tfmNew: 3043, tfmRebill: 1062, bailNew: 971, bailRebill: 105 },
-      { date: '03/27', tfmNew: 2487, tfmRebill: 1055, bailNew: 885, bailRebill: 148 },
-      { date: '03/28', tfmNew: 3100, tfmRebill: 1468, bailNew: 1018, bailRebill: 232 },
-      { date: '03/29', tfmNew: 2748, tfmRebill: 1498, bailNew: 1273, bailRebill: 190 },
-      { date: '03/30', tfmNew: 3241, tfmRebill: 1047, bailNew: 1037, bailRebill: 115 },
-      { date: '03/31', tfmNew: 3381, tfmRebill: 1534, bailNew: 1373, bailRebill: 144 },
-      { date: '04/01', tfmNew: 3612, tfmRebill: 1501, bailNew: 1308, bailRebill: 182 },
-    ],
+  "demand": {
+    "avg7d": {
+      "tfm": 7086,
+      "bail": 2534,
+      "total": 9620
+    },
+    "tfmNew": 5169,
+    "tfmRebill": 1917,
+    "bailinyNew": 2076,
+    "bailinyRebill": 458,
+    "daily": [
+      {
+        "date": "03/27",
+        "tfmNew": 2265,
+        "tfmRebill": 1013,
+        "bailNew": 1107,
+        "bailRebill": 190
+      },
+      {
+        "date": "03/28",
+        "tfmNew": 2813,
+        "tfmRebill": 1370,
+        "bailNew": 1305,
+        "bailRebill": 330
+      },
+      {
+        "date": "03/29",
+        "tfmNew": 2567,
+        "tfmRebill": 1416,
+        "bailNew": 1454,
+        "bailRebill": 272
+      },
+      {
+        "date": "03/30",
+        "tfmNew": 3043,
+        "tfmRebill": 1011,
+        "bailNew": 1234,
+        "bailRebill": 151
+      },
+      {
+        "date": "03/31",
+        "tfmNew": 3615,
+        "tfmRebill": 1435,
+        "bailNew": 1848,
+        "bailRebill": 243
+      },
+      {
+        "date": "04/01",
+        "tfmNew": 3310,
+        "tfmRebill": 1431,
+        "bailNew": 1614,
+        "bailRebill": 252
+      },
+      {
+        "date": "04/02",
+        "tfmNew": 5194,
+        "tfmRebill": 2613,
+        "bailNew": 2358,
+        "bailRebill": 465
+      },
+      {
+        "date": "04/03",
+        "tfmNew": 5771,
+        "tfmRebill": 2747,
+        "bailNew": 2415,
+        "bailRebill": 458
+      },
+      {
+        "date": "04/04",
+        "tfmNew": 5123,
+        "tfmRebill": 2439,
+        "bailNew": 2302,
+        "bailRebill": 560
+      },
+      {
+        "date": "04/05",
+        "tfmNew": 4469,
+        "tfmRebill": 2111,
+        "bailNew": 2174,
+        "bailRebill": 472
+      },
+      {
+        "date": "04/06",
+        "tfmNew": 5808,
+        "tfmRebill": 2055,
+        "bailNew": 2198,
+        "bailRebill": 594
+      },
+      {
+        "date": "04/07",
+        "tfmNew": 7284,
+        "tfmRebill": 1846,
+        "bailNew": 2610,
+        "bailRebill": 562
+      },
+      {
+        "date": "04/08",
+        "tfmNew": 7189,
+        "tfmRebill": 1995,
+        "bailNew": 2541,
+        "bailRebill": 498
+      },
+      {
+        "date": "04/09",
+        "tfmNew": 538,
+        "tfmRebill": 228,
+        "bailNew": 290,
+        "bailRebill": 61
+      }
+    ]
   },
-
-  // PIPELINE (from Production Pipeline section)
-  pipeline: [
-    { po: 'SL-300K-50K', supplier: 'Sendy Li', qty: 50000, dest: 'TFM', status: 'In Transit', method: 'Air', eta: 'Apr 8-15', payment: 'PAID', paymentCls: 'paid' },
-    { po: 'SL-300K-100K', supplier: 'Sendy Li', qty: 100000, dest: 'TFM', status: 'In Transit', method: 'Air', eta: 'Apr 15-17', payment: 'PAID', paymentCls: 'paid' },
-    { po: 'SL-300K-85K', supplier: 'Sendy Li', qty: 85000, dest: 'TFM', status: 'Ready to Ship', method: 'Fast Sea', eta: 'May 1-3', payment: 'DUE: ~$116K', paymentCls: 'due' },
-    { po: 'SL-300K-65K', supplier: 'Sendy Li', qty: 65000, dest: 'TFM', status: 'Ready to Ship', method: 'Sea', eta: 'May 14+', payment: 'Covered above', paymentCls: 'paid' },
-    { po: 'SL-335K-70K', supplier: 'Sendy Li', qty: 70000, dest: 'Bailiny', status: 'In Production', method: 'Land', eta: 'Apr 15', payment: 'Pending', paymentCls: 'pending' },
-    { po: 'SL-335K-265K', supplier: 'Sendy Li', qty: 265000, dest: 'TFM', status: 'In Production', method: 'Sea', eta: 'TBD', payment: 'Pending', paymentCls: 'pending' },
-    { po: 'SL-APR-300K', supplier: 'Sendy Li', qty: 100000, dest: 'TFM', status: 'Not Started', method: 'Sea', eta: 'W4 May', payment: 'IN_APPROVAL ($118.8K)', paymentCls: 'in-approval' },
-    { po: 'SL-APR-300K', supplier: 'Sendy Li', qty: 100000, dest: 'Bailiny', status: 'Not Started', method: 'Sea', eta: 'W4 May / W1 Jun', payment: 'IN_APPROVAL ($118.8K)', paymentCls: 'in-approval' },
+  "pipeline": [
+    {
+      "po": "PO-SL-300K-AIR1",
+      "supplier": "Sendy Li",
+      "qty": 50000,
+      "dest": "TFM",
+      "status": "In Transit",
+      "method": "Air",
+      "eta": "2026-04-13",
+      "payment": "PAID ($95,800)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-300K-AIR2",
+      "supplier": "Sendy Li",
+      "qty": 100000,
+      "dest": "TFM",
+      "status": "In Transit",
+      "method": "Air",
+      "eta": "2026-04-17",
+      "payment": "PAID ($191,600)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-300K-SEA",
+      "supplier": "Sendy Li",
+      "qty": 150000,
+      "dest": "TFM",
+      "status": "Ready To Ship",
+      "method": "Sea",
+      "eta": "2026-05-08",
+      "payment": "PENDING ($116,400)",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-SL-335K-85K",
+      "supplier": "Sendy Li",
+      "qty": 85000,
+      "dest": "TFM",
+      "status": "In Production",
+      "method": "Air",
+      "eta": "2026-04-27",
+      "payment": "PENDING ($162,860)",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-SL-335K-50K",
+      "supplier": "Sendy Li",
+      "qty": 50000,
+      "dest": "Bailiny",
+      "status": "In Production",
+      "method": "Sea",
+      "eta": "TBD",
+      "payment": "PENDING",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-SL-335K-200K",
+      "supplier": "Sendy Li",
+      "qty": 200000,
+      "dest": "TFM",
+      "status": "In Production",
+      "method": "Sea",
+      "eta": "2026-05-19",
+      "payment": "PENDING",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-SL-300K-REC",
+      "supplier": "Sendy Li",
+      "qty": 300000,
+      "dest": "TFM+Bailiny",
+      "status": "Ordered",
+      "method": "Sea",
+      "eta": "2026-06-01",
+      "payment": "IN_APPROVAL ($118,800)",
+      "paymentCls": "due"
+    },
+    {
+      "po": "PO-LW-100K",
+      "supplier": "Laura Wong",
+      "qty": 100000,
+      "dest": "Bailiny",
+      "status": "Relabeling",
+      "method": "Sea",
+      "eta": "2026-05-05",
+      "payment": "PARTIAL",
+      "paymentCls": "due"
+    },
+    {
+      "po": "PO-EL-28K-AMZ",
+      "supplier": "Eagle Labs",
+      "qty": 28000,
+      "dest": "Amazon FBA",
+      "status": "Delivered",
+      "method": "Ground",
+      "eta": "2026-04-03",
+      "payment": "PAID",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-EL-72K",
+      "supplier": "Eagle Labs",
+      "qty": 72000,
+      "dest": "Amazon FBA",
+      "status": "Pending",
+      "method": "TBD",
+      "eta": "TBD",
+      "payment": "PENDING",
+      "paymentCls": "pending"
+    }
   ],
-
-  // PAYMENTS (from Airwallex & Payments section)
-  payments: {
-    balance: 284176,
-    pendingApproval: 309001,
-    fundsNeeded: 531261,
-    maxFundsDate: '8 April 2026',
-    shortfall: -24826,
-
-    inApproval: [
-      { recipient: 'Sendy Li (Be Queen)', amount: 118800, ref: '300K recurring deposit', urgency: 'CRITICAL — supplier needs by Apr 7', awRef: 'P260402-4398FL1' },
-      { recipient: 'TFM (Soloflight)', amount: 29906, ref: 'Feb monthly bill', urgency: 'Routine', awRef: 'P260401-TGBFE5F' },
-      { recipient: 'Bailiny (Qingdao Star)', amount: 59079, ref: 'Feb 12-28', urgency: 'Routine', awRef: 'Not found — check if paid' },
-      { recipient: 'TFM (Soloflight)', amount: 95711, ref: 'Mar 23 bill', urgency: 'Routine', awRef: 'P260324-1FIAUBX' },
-      { recipient: 'FulfilmentPros', amount: 5506, ref: 'Various LC invoices', urgency: 'Routine', awRef: 'Multiple (7)' },
+  "payments": {
+    "balance": 284175,
+    "pendingApproval": 211488,
+    "fundsNeeded": 433748,
+    "maxFundsDate": "09 April 2026",
+    "shortfall": -149572,
+    "inApproval": [
+      {
+        "recipient": "Kunming Be Queen (Sendy Li)",
+        "amount": 118800,
+        "ref": "Invoice 202604",
+        "urgency": "CRITICAL",
+        "awRef": "AW-SL-APR"
+      },
+      {
+        "recipient": "Soloflight Shipping (TFM)",
+        "amount": 29905,
+        "ref": "Feb invoice",
+        "urgency": "ROUTINE",
+        "awRef": ""
+      },
+      {
+        "recipient": "Fulfilment Pros Ltd",
+        "amount": 3703,
+        "ref": "Multiple invoices",
+        "urgency": "ROUTINE",
+        "awRef": ""
+      },
+      {
+        "recipient": "Qingdao Star Ho (Bailiny)",
+        "amount": 59078,
+        "ref": "Invoice 68.0",
+        "urgency": "ROUTINE",
+        "awRef": ""
+      }
     ],
-
-    upcoming: [
-      { recipient: 'Sendy Li', amount: 59400, dueBy: 'Apr 8', fundBy: '2026-04-03', overdue: true },
-      { recipient: 'Sendy Li', amount: 162860, dueBy: 'Apr 10', fundBy: '2026-04-05', overdue: true },
-    ],
-  },
+    "upcoming": [
+      {
+        "recipient": "Sendy Li",
+        "amount": 59400,
+        "dueBy": "2026-04-08",
+        "fundBy": "2026-04-03",
+        "overdue": true
+      },
+      {
+        "recipient": "Sendy Li",
+        "amount": 162860,
+        "dueBy": "2026-04-10",
+        "fundBy": "2026-04-05",
+        "overdue": true
+      }
+    ]
+  }
 };
 
 // ============================================================
@@ -452,11 +769,16 @@ function init() {
   renderDemand();
   renderPipeline();
   renderPayments();
-  // Smooth scroll for nav
+  // Tab switching
   document.querySelectorAll('.nav a').forEach(a => {
-    a.addEventListener('click', e => {
+    a.addEventListener('click', () => {
       document.querySelectorAll('.nav a').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       a.classList.add('active');
+      const tab = a.getAttribute('data-tab');
+      document.getElementById(tab).classList.add('active');
+      // Re-trigger chart resize for the newly visible tab
+      window.dispatchEvent(new Event('resize'));
     });
   });
 }
@@ -465,7 +787,9 @@ function fmt(n) { return n.toLocaleString(); }
 function fmtUSD(n) { return '$' + n.toLocaleString(); }
 
 function renderTimestamp() {
-  document.getElementById('refresh-ts').textContent = 'Updated: ' + DATA.updatedOn;
+  document.getElementById('refresh-ts').textContent = 'Data updated: ' + DATA.updatedOn;
+  const now = new Date();
+  document.getElementById('today-date').textContent = 'Today: ' + now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 // --- ALERTS ---
