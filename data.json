@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-09T11:12:56",
+  "lastRefreshed": "2026-04-09T11:53:39",
   "updatedOn": "09/04/2026",
   "stock": {
     "warehouses": [
@@ -108,6 +108,11 @@
       "tfm": 8092,
       "bailiny": 2887,
       "total": 10979
+    },
+    "avg30d": {
+      "tfm": 6125,
+      "bailiny": 2255,
+      "total": 8380
     },
     "tfmNew": 5834,
     "tfmRebill": 2258,
