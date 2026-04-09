@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-09T14:32:27",
+  "lastRefreshed": "2026-04-09T14:49:53",
   "updatedOn": "09/04/2026",
   "stock": {
     "warehouses": [
@@ -337,9 +337,9 @@
   "payments": {
     "balance": 160185,
     "pendingApproval": 70510,
-    "fundsNeeded": 292770,
+    "fundsNeeded": 70510,
     "maxFundsDate": "09 April 2026",
-    "shortfall": -132585,
+    "shortfall": 89674,
     "inApproval": [
       {
         "recipient": "Daniel Paz",
@@ -489,21 +489,6 @@
         "awRef": "P260403-KUCHYY6"
       }
     ],
-    "upcoming": [
-      {
-        "recipient": "Sendy Li",
-        "amount": 59400,
-        "dueBy": "2026-04-08",
-        "fundBy": "2026-04-03",
-        "overdue": true
-      },
-      {
-        "recipient": "Sendy Li",
-        "amount": 162860,
-        "dueBy": "2026-04-10",
-        "fundBy": "2026-04-05",
-        "overdue": true
-      }
-    ]
+    "upcoming": []
   }
 }
