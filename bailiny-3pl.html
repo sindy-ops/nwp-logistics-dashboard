@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NWP — Bailiny 3PL Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --card-border: #2a2d3a;
+    --text: #e4e6eb; --text-dim: #8b8fa3; --accent: #4ade80;
+    --red: #ef4444; --orange: #f59e0b; --yellow: #eab308;
+    --blue: #3b82f6; --purple: #a78bfa; --cyan: #06b6d4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px; max-width: 1400px; margin: 0 auto; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
+  .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .header h1 span { color: var(--orange); }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .refresh-info { font-size: 12px; color: var(--text-dim); background: var(--card); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--card-border); }
+  .back-link { font-size: 12px; color: var(--accent); text-decoration: none; padding: 6px 14px; border-radius: 6px; border: 1px solid var(--accent); transition: all 0.2s; }
+  .back-link:hover { background: rgba(74,222,128,0.1); }
+  .sub-header { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+  .nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .nav a { color: var(--text-dim); text-decoration: none; font-size: 12px; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--card-border); transition: all 0.2s; cursor: pointer; }
+  .nav a:hover, .nav a.active { color: var(--text); background: var(--card); border-color: var(--orange); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 8px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+  .kpi-card.green::before { background: var(--accent); }
+  .kpi-card.red::before { background: var(--red); }
+  .kpi-card.orange::before { background: var(--orange); }
+  .kpi-card.blue::before { background: var(--blue); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-card.cyan::before { background: var(--cyan); }
+  .kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px; }
+  .kpi-value { font-size: 26px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .kpi-value.critical { color: var(--red); }
+  .kpi-value.warning { color: var(--orange); }
+  .kpi-value.ok { color: var(--accent); }
+  .kpi-sub { font-size: 11px; color: var(--text-dim); }
+  .section { margin-bottom: 32px; scroll-margin-top: 20px; }
+  .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+  .section-header h2 { font-size: 18px; font-weight: 700; }
+  .section-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; line-height: 1.5; }
+  .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; }
+  .chart-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; }
+  .chart-card h3, .table-card h3 { font-size: 12px; font-weight: 600; margin-bottom: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .chart-container { width: 100%; height: 280px; }
+  .table-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--card-border); color: var(--text-dim); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--card-border); white-space: nowrap; }
+  tr:hover { background: rgba(255,255,255,0.03); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+  .badge.in-transit { background: rgba(59,130,246,0.15); color: var(--blue); }
+  .badge.ready-to-ship { background: rgba(6,182,212,0.15); color: var(--cyan); }
+  .badge.in-production { background: rgba(167,139,250,0.15); color: var(--purple); }
+  .badge.relabeling { background: rgba(245,158,11,0.15); color: var(--orange); }
+  .badge.delivered { background: rgba(74,222,128,0.15); color: var(--accent); }
+  .badge.paid { background: rgba(74,222,128,0.15); color: var(--accent); }
+  .badge.pending { background: rgba(245,158,11,0.15); color: var(--orange); }
+  .badge.due { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge.oos { background: rgba(239,68,68,0.25); color: var(--red); font-weight: 700; }
+  .badge.red-status { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge.green-status { background: rgba(74,222,128,0.15); color: var(--accent); }
+  .badge.orange-status { background: rgba(245,158,11,0.15); color: var(--orange); }
+  .alert-banner { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.4; }
+  .alert-banner .icon { flex-shrink: 0; }
+  .alert-banner strong { color: var(--red); }
+  .alert-info { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.25); }
+  .alert-info strong { color: var(--blue); }
+  .alert-warn { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.25); }
+  .alert-warn strong { color: var(--orange); }
+  @media (max-width: 768px) { body { padding: 12px; } .charts-grid { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: repeat(2, 1fr); } .kpi-value { font-size: 20px; } .header h1 { font-size: 18px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NWP <span>Bailiny Dashboard</span></h1>
+  <div class="header-right">
+    <div class="refresh-info" id="refresh-ts">Loading...</div>
+    <a href="hub.html" class="back-link">&larr; All Dashboards</a>
+  </div>
+</div>
+<div class="sub-header">3PL Partner View &mdash; Bailiny / Qingdao Star Hongyuan (CN Warehouse)</div>
+
+<nav class="nav">
+  <a onclick="showTab('overview')" class="active" id="nav-overview">Overview & Alerts</a>
+  <a onclick="showTab('pipeline')" id="nav-pipeline">Incoming Shipments</a>
+  <a onclick="showTab('stock')" id="nav-stock">Stock & Demand</a>
+</nav>
+
+<div class="tab-content active" id="tab-overview">
+  <div class="kpi-grid" id="kpi-overview"></div>
+  <div style="height:14px"></div>
+  <div class="section" id="alerts">
+    <div class="section-header"><h2>Active Alerts</h2></div>
+    <div id="alerts-container"></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><h2>Stock Projection &mdash; Next 6 Weeks</h2></div>
+    <p class="section-desc">Accounts for incoming shipments from the pipeline.</p>
+    <div class="charts-grid">
+      <div class="chart-card"><div class="chart-container" id="chart-stock-proj"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-pipeline">
+  <div class="section">
+    <div class="section-header"><h2>Incoming Shipments to Bailiny</h2></div>
+    <p class="section-desc">All purchase orders destined for Bailiny CN warehouse. ETA = estimated arrival at Bailiny warehouse.</p>
+    <div class="kpi-grid" id="kpi-pipeline"></div>
+    <div style="height:14px"></div>
+    <div class="charts-grid">
+      <div class="chart-card"><h3>Units by Status</h3><div class="chart-container" id="chart-status"></div></div>
+      <div class="table-card">
+        <h3>Active Purchase Orders</h3>
+        <table>
+          <thead><tr><th>PO Code</th><th>Supplier</th><th>Qty (units)</th><th>Status</th><th>Ship Method</th><th>ETA at Bailiny</th><th>Payment</th></tr></thead>
+          <tbody id="pipeline-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-stock">
+  <div class="section">
+    <div class="section-header"><h2>Bailiny Stock & Daily Demand</h2></div>
+    <p class="section-desc">Current inventory at Bailiny warehouse and daily units being fulfilled. Stock data is manually updated from Slack #logistic channel.</p>
+    <div class="kpi-grid" id="kpi-stock"></div>
+    <div style="height:14px"></div>
+    <div class="charts-grid">
+      <div class="chart-card"><h3>Daily Demand &mdash; New vs Rebill (Units)</h3><div class="chart-container" id="chart-demand"></div></div>
+      <div class="chart-card"><h3>Stock Projection</h3><div class="chart-container" id="chart-stock-detail"></div></div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center; padding:30px 0 10px; font-size:11px; color:var(--text-dim);">
+  NWP &mdash; Bailiny 3PL Dashboard &middot; Data from NWP Logistics Tracker
+</div>
+
+<script>
+const WH = 'Bailiny';
+
+function showTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('nav-' + tab).classList.add('active');
+  setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+}
+
+function fmt(n) { return n.toLocaleString(); }
+
+function kpi(label, value, sub, cls, valCls) {
+  return '<div class="kpi-card ' + cls + '"><div class="kpi-label">' + label + '</div><div class="kpi-value ' + (valCls||'') + '">' + value + '</div><div class="kpi-sub">' + sub + '</div></div>';
+}
+
+fetch('data.json').then(r => r.json()).then(DATA => {
+  const wh = DATA.stock.warehouses.find(w => w.name === WH);
+  const bailPipeline = DATA.pipeline.filter(p => {
+    const d = p.dest.toUpperCase();
+    return d.includes('BAILINY') || d.includes('BAIL');
+  });
+
+  document.getElementById('refresh-ts').textContent = 'Updated ' + DATA.updatedOn;
+
+  // Overview KPIs
+  const inTransit = bailPipeline.filter(p => p.status === 'In Transit').reduce((a, p) => a + p.qty, 0);
+  const other = bailPipeline.filter(p => !['In Transit', 'Delivered'].includes(p.status)).reduce((a, p) => a + p.qty, 0);
+  const totalPipe = bailPipeline.reduce((a, p) => a + p.qty, 0);
+
+  document.getElementById('kpi-overview').innerHTML = [
+    kpi('Current Stock', fmt(wh.stock), wh.dos + ' days of stock', wh.dos < 3 ? 'red' : wh.dos < 15 ? 'orange' : 'green', wh.dos < 3 ? 'critical' : wh.dos < 15 ? 'warning' : 'ok'),
+    kpi('In Transit', fmt(inTransit), 'on the way to Bailiny', 'blue', ''),
+    kpi('Pipeline', fmt(other), 'production/relabeling/ordered', 'purple', ''),
+    kpi('Total Incoming', fmt(totalPipe), bailPipeline.length + ' purchase orders', 'cyan', ''),
+    kpi('Daily Demand', fmt(wh.demand), '7-day avg (units/day)', 'orange', ''),
+    kpi('Effective OOS', wh.effOOS, 'with incoming shipments', wh.dos > 30 ? 'green' : 'orange', wh.dos > 30 ? 'ok' : 'warning'),
+  ].join('');
+
+  // Alerts
+  const alerts = [];
+  if (wh.stock === 0) {
+    alerts.push('<div class="alert-banner"><span class="icon">&#9888;</span><div><strong>OUT OF STOCK</strong> — 0 units at Bailiny warehouse.</div></div>');
+  } else if (wh.dos < 15) {
+    alerts.push('<div class="alert-banner alert-warn"><span class="icon">&#9888;</span><div><strong>' + (wh.dos < 3 ? 'CRITICAL' : 'LOW') + ' STOCK</strong> — ' + fmt(wh.stock) + ' units remaining (' + wh.dos + ' days). Demand is ' + fmt(wh.demand) + ' units/day.</div></div>');
+  }
+  const relabeling = bailPipeline.filter(p => p.status === 'Relabeling');
+  if (relabeling.length > 0) {
+    relabeling.forEach(p => {
+      alerts.push('<div class="alert-banner alert-warn"><span class="icon">&#x1f4e6;</span><div><strong>RELABELING</strong> — ' + fmt(p.qty) + ' units (' + p.po + ') being relabeled. ETA ' + p.eta + '.</div></div>');
+    });
+  }
+  document.getElementById('alerts-container').innerHTML = alerts.join('') || '<div style="color:var(--accent);padding:12px;">All clear — no active alerts.</div>';
+
+  // Pipeline tab
+  const statusGroups = {};
+  bailPipeline.forEach(p => { statusGroups[p.status] = (statusGroups[p.status] || 0) + p.qty; });
+  document.getElementById('kpi-pipeline').innerHTML = Object.entries(statusGroups).map(([s, q]) => {
+    const cls = s === 'In Transit' ? 'blue' : s === 'Delivered' ? 'green' : s === 'Relabeling' ? 'orange' : s.includes('Production') ? 'purple' : 'cyan';
+    return kpi(s, fmt(q), '', cls, '');
+  }).join('') + kpi('Total Pipeline', fmt(totalPipe), bailPipeline.length + ' POs', 'green', '');
+
+  document.getElementById('pipeline-tbody').innerHTML = bailPipeline.map(p => {
+    const sCls = p.status.toLowerCase().replace(/\s+/g, '-');
+    return '<tr><td>' + p.po + '</td><td>' + p.supplier + '</td><td>' + fmt(p.qty) +
+      '</td><td><span class="badge ' + sCls + '">' + p.status +
+      '</span></td><td>' + p.method + '</td><td>' + p.eta +
+      '</td><td><span class="badge ' + p.paymentCls + '">' + p.payment + '</span></td></tr>';
+  }).join('');
+
+  // Stock tab
+  document.getElementById('kpi-stock').innerHTML = [
+    kpi('Current Stock', fmt(wh.stock), wh.status, wh.stock === 0 ? 'red' : 'green', wh.stock === 0 ? 'critical' : 'ok'),
+    kpi('Daily Demand (7d)', fmt(wh.demand), 'new ' + fmt(DATA.demand.bailinyNew) + ' + rebill ' + fmt(DATA.demand.bailinyRebill), 'blue', ''),
+    kpi('Days of Stock', wh.dos.toString(), wh.dos === 0 ? 'OUT OF STOCK' : 'based on current burn rate', wh.dos < 3 ? 'red' : 'green', wh.dos < 3 ? 'critical' : ''),
+    kpi('Incoming Units', fmt(wh.incoming), 'in pipeline to Bailiny', 'cyan', ''),
+  ].join('');
+
+  // Charts
+  renderCharts(DATA, bailPipeline, wh);
+
+}).catch(err => {
+  document.getElementById('refresh-ts').textContent = 'Data unavailable';
+  console.error('Failed to load data:', err);
+});
+
+function renderCharts(DATA, bailPipeline, wh) {
+  const chartOpts = { backgroundColor: 'transparent', tooltip: { trigger: 'axis', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb', fontSize: 11 } } };
+
+  // Stock projection
+  ['chart-stock-proj', 'chart-stock-detail'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const c = echarts.init(el);
+    const p = DATA.stockProjection;
+    c.setOption({
+      ...chartOpts,
+      grid: { left: 55, right: 20, top: 20, bottom: 25 },
+      xAxis: { type: 'category', data: p.map(d => d.date), axisLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3', fontSize: 10 } },
+      yAxis: { type: 'value', splitLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3', fontSize: 10, formatter: v => v >= 1000 ? (v/1000)+'K' : v } },
+      series: [{
+        name: 'Bailiny Stock', type: 'line', data: p.map(d => d.bailiny), smooth: true, lineStyle: { width: 2.5 },
+        itemStyle: { color: '#f59e0b' },
+        areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(245,158,11,0.25)' }, { offset: 1, color: 'rgba(245,158,11,0)' }] } },
+      }]
+    });
+  });
+
+  // Demand chart
+  const demandEl = document.getElementById('chart-demand');
+  if (demandEl) {
+    const c = echarts.init(demandEl);
+    const d = DATA.demand.daily;
+    c.setOption({
+      ...chartOpts,
+      legend: { data: ['New Sales', 'Rebill'], top: 0, textStyle: { color: '#8b8fa3', fontSize: 11 } },
+      grid: { left: 50, right: 20, top: 35, bottom: 25 },
+      xAxis: { type: 'category', data: d.map(r => r.date), axisLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3', fontSize: 10 } },
+      yAxis: { type: 'value', splitLine: { lineStyle: { color: '#2a2d3a' } }, axisLabel: { color: '#8b8fa3', fontSize: 10 } },
+      series: [
+        { name: 'New Sales', type: 'bar', stack: 'total', data: d.map(r => r.bailNew), itemStyle: { color: '#f59e0b' } },
+        { name: 'Rebill', type: 'bar', stack: 'total', data: d.map(r => r.bailRebill), itemStyle: { color: '#a78bfa', borderRadius: [3,3,0,0] } },
+      ]
+    });
+  }
+
+  // Pipeline status pie
+  const statusEl = document.getElementById('chart-status');
+  if (statusEl) {
+    const c = echarts.init(statusEl);
+    const byStatus = {};
+    bailPipeline.forEach(p => { byStatus[p.status] = (byStatus[p.status] || 0) + p.qty; });
+    const colors = { 'In Transit': '#3b82f6', 'Ready To Ship': '#06b6d4', 'In Production': '#a78bfa', 'Ordered': '#8b8fa3', 'Relabeling': '#f59e0b', 'Delivered': '#4ade80' };
+    c.setOption({
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'item', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb', fontSize: 11 } },
+      series: [{
+        type: 'pie', radius: ['45%', '75%'], center: ['50%', '55%'],
+        label: { color: '#8b8fa3', fontSize: 11, formatter: '{b}\n{c|{c}}', rich: { c: { fontSize: 16, fontWeight: 700, color: '#e4e6eb', lineHeight: 24 } } },
+        data: Object.entries(byStatus).map(([name, value]) => ({ name, value, itemStyle: { color: colors[name] || '#8b8fa3' } }))
+      }]
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.chart-container').forEach(el => {
+      const inst = echarts.getInstanceByDom(el);
+      if (inst) inst.resize();
+    });
+  });
+}
+</script>
+</body>
+</html>

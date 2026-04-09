@@ -284,6 +284,8 @@
   <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
     <div class="refresh-info" id="today-date"></div>
     <div class="refresh-info" id="refresh-ts">Last refreshed: loading...</div>
+    <a href="hub.html" style="font-size:12px; color:var(--accent); text-decoration:none; padding:6px 14px; border-radius:6px; border:1px solid var(--accent); transition:all 0.2s;"
+       onmouseover="this.style.background='rgba(74,222,128,0.1)'" onmouseout="this.style.background='transparent'">&larr; All Dashboards</a>
   </div>
 </div>
 
@@ -394,14 +396,14 @@
 // DATA — From WORKING tab screenshots (Apr 8, 2026)
 // ============================================================
 const DATA = {
-  "lastRefreshed": "2026-04-09T10:07:02",
+  "lastRefreshed": "2026-04-09T11:12:56",
   "updatedOn": "09/04/2026",
   "stock": {
     "warehouses": [
       {
         "name": "TFM",
         "stock": 8064,
-        "demand": 7086,
+        "demand": 8092,
         "dos": 1,
         "incoming": 885000,
         "effOOS": "2026-04-10",
@@ -412,11 +414,11 @@ const DATA = {
       {
         "name": "Bailiny",
         "stock": 29600,
-        "demand": 2534,
-        "dos": 12,
+        "demand": 2887,
+        "dos": 10,
         "incoming": 450000,
-        "effOOS": "2026-04-21",
-        "status": "RED - 12d",
+        "effOOS": "2026-04-19",
+        "status": "RED - 10d",
         "statusCls": "red-status",
         "qtyNeeded": 0
       },
@@ -433,82 +435,89 @@ const DATA = {
       }
     ],
     "totalStock": 37961,
-    "totalDemand": 9900,
+    "totalDemand": 11259,
     "totalIncoming": 1335000
   },
   "stockProjection": [
     {
       "date": "Apr 09",
-      "tfm": 978,
-      "bailiny": 27066
+      "tfm": 0,
+      "bailiny": 26713
     },
     {
       "date": "Apr 14",
-      "tfm": 0,
-      "bailiny": 14396
+      "tfm": 9512,
+      "bailiny": 12278
     },
     {
       "date": "Apr 19",
-      "tfm": 0,
-      "bailiny": 1726
+      "tfm": 69052,
+      "bailiny": 0
     },
     {
       "date": "Apr 24",
-      "tfm": 0,
+      "tfm": 28592,
       "bailiny": 0
     },
     {
       "date": "Apr 29",
-      "tfm": 0,
+      "tfm": 73132,
       "bailiny": 0
     },
     {
       "date": "May 04",
-      "tfm": 0,
+      "tfm": 32672,
       "bailiny": 0
     },
     {
       "date": "May 09",
-      "tfm": 0,
-      "bailiny": 0
+      "tfm": 142212,
+      "bailiny": 40103
     },
     {
       "date": "May 14",
-      "tfm": 0,
-      "bailiny": 0
+      "tfm": 101752,
+      "bailiny": 25668
     },
     {
       "date": "May 19",
-      "tfm": 0,
-      "bailiny": 0
+      "tfm": 261292,
+      "bailiny": 11233
     },
     {
       "date": "May 24",
-      "tfm": 0,
+      "tfm": 220832,
       "bailiny": 0
     },
     {
       "date": "May 29",
-      "tfm": 0,
+      "tfm": 180372,
       "bailiny": 0
     },
     {
       "date": "Jun 03",
-      "tfm": 0,
-      "bailiny": 0
+      "tfm": 439912,
+      "bailiny": 267928
     }
   ],
   "demand": {
     "avg7d": {
-      "tfm": 7086,
-      "bail": 2534,
-      "total": 9620
+      "tfm": 8092,
+      "bailiny": 2887,
+      "total": 10979
     },
-    "tfmNew": 5169,
-    "tfmRebill": 1917,
-    "bailinyNew": 2076,
-    "bailinyRebill": 458,
+    "tfmNew": 5834,
+    "tfmRebill": 2258,
+    "bailinyNew": 2371,
+    "bailinyRebill": 516,
     "daily": [
+      {
+        "date": "03/26",
+        "tfmNew": 2811,
+        "tfmRebill": 1008,
+        "bailNew": 1203,
+        "bailRebill": 159
+      },
       {
         "date": "03/27",
         "tfmNew": 2265,
@@ -599,13 +608,6 @@ const DATA = {
         "tfmRebill": 1995,
         "bailNew": 2541,
         "bailRebill": 498
-      },
-      {
-        "date": "04/09",
-        "tfmNew": 538,
-        "tfmRebill": 228,
-        "bailNew": 290,
-        "bailRebill": 61
       }
     ]
   },

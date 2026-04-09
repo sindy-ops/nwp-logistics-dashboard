@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NWP — Dashboard Hub</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-border: #2a2d3a;
+    --text: #e4e6eb;
+    --text-dim: #8b8fa3;
+    --accent: #4ade80;
+    --blue: #3b82f6;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --purple: #a78bfa;
+    --cyan: #06b6d4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+  }
+  .hub-title { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 6px; }
+  .hub-subtitle { font-size: 15px; color: var(--text-dim); margin-bottom: 12px; }
+  .hub-meta {
+    display: flex; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center;
+  }
+  .hub-badge {
+    font-size: 12px; padding: 5px 14px; border-radius: 20px; font-weight: 600;
+  }
+  .hub-badge.green { background: rgba(74,222,128,0.12); color: var(--accent); }
+  .hub-badge.blue { background: rgba(59,130,246,0.12); color: var(--blue); }
+  .hub-badge.red { background: rgba(239,68,68,0.12); color: var(--red); }
+
+  .search-box { width: 100%; max-width: 700px; margin-bottom: 36px; }
+  .search-box input {
+    width: 100%; background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 12px 18px; color: var(--text); font-size: 14px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box input::placeholder { color: var(--text-dim); }
+  .search-box input:focus { border-color: var(--accent); }
+
+  .section-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+    width: 100%; max-width: 900px;
+  }
+  .section-label .tag {
+    font-size: 9px; padding: 3px 10px; border-radius: 4px;
+    background: var(--accent); color: var(--bg); font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; width: 100%; max-width: 900px; margin-bottom: 40px;
+  }
+  .dashboard-card {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 14px;
+    padding: 24px; text-decoration: none; color: var(--text); transition: all 0.25s;
+    position: relative; overflow: hidden; cursor: pointer;
+  }
+  .dashboard-card:hover {
+    border-color: var(--accent); transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .dashboard-card .dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 8px;
+  }
+  .dot.green { background: var(--accent); }
+  .dot.orange { background: var(--orange); }
+  .dot.blue { background: var(--blue); }
+  .dot.purple { background: var(--purple); }
+  .dot.red { background: var(--red); }
+  .dashboard-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; }
+  .dashboard-card .desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; }
+  .dashboard-card .card-meta { font-size: 11px; color: var(--text-dim); }
+  .dashboard-card .card-meta span { color: var(--text); font-weight: 600; }
+  .dashboard-card .card-status {
+    display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px;
+    border-radius: 10px; margin-left: 8px;
+  }
+  .card-status.red { background: rgba(239,68,68,0.15); color: var(--red); }
+  .card-status.green { background: rgba(74,222,128,0.15); color: var(--accent); }
+  .card-status.orange { background: rgba(245,158,11,0.15); color: var(--orange); }
+
+  .footer { font-size: 11px; color: var(--text-dim); margin-top: auto; padding-top: 40px; }
+
+  @media (max-width: 600px) {
+    .hub-title { font-size: 24px; }
+    .grid { grid-template-columns: 1fr; }
+    body { padding: 30px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hub-title">NWP</div>
+<div class="hub-subtitle">Logistics Dashboard Hub</div>
+
+<div class="hub-meta">
+  <span class="hub-badge green">3 dashboards</span>
+  <span class="hub-badge blue" id="meta-refresh">Loading data...</span>
+</div>
+
+<div class="search-box">
+  <input type="text" id="search" placeholder="Search dashboards... ( / )" oninput="filterCards()">
+</div>
+
+<div class="section-label">
+  3PL Dashboards <span class="tag">LIVE</span>
+</div>
+
+<div class="grid" id="grid">
+
+  <a class="dashboard-card" href="tfm-3pl.html" id="card-tfm">
+    <h3><span class="dot green"></span>TFM (Soloflight)<span class="card-status" id="tfm-status"></span></h3>
+    <div class="desc">3PL Dashboard — US Warehouse<br>Incoming Shipments | Stock | Demand | Pipeline</div>
+    <div class="card-meta" id="tfm-meta">Loading...</div>
+  </a>
+
+  <a class="dashboard-card" href="bailiny-3pl.html" id="card-bailiny">
+    <h3><span class="dot orange"></span>Bailiny (Qingdao Star)<span class="card-status" id="bail-status"></span></h3>
+    <div class="desc">3PL Dashboard — CN Warehouse<br>Incoming Shipments | Stock | Demand | Pipeline</div>
+    <div class="card-meta" id="bail-meta">Loading...</div>
+  </a>
+
+  <a class="dashboard-card" href="index.html">
+    <h3><span class="dot blue"></span>Logistics Command Center</h3>
+    <div class="desc">Internal Dashboard — All Warehouses<br>Stock | Demand | Pipeline | Payments | Alerts</div>
+    <div class="card-meta">Internal only &middot; Updated <span id="cmd-date">...</span></div>
+  </a>
+
+</div>
+
+<div class="footer" id="footer">NWP Logistics Dashboard Hub</div>
+
+<script>
+  function filterCards() {
+    const q = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.dashboard-card').forEach(card => {
+      card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+      e.preventDefault();
+      document.getElementById('search').focus();
+    }
+  });
+
+  fetch('data.json').then(r => r.json()).then(data => {
+    const updated = data.updatedOn;
+    document.getElementById('meta-refresh').textContent = 'Data refreshed ' + updated;
+    document.getElementById('cmd-date').textContent = updated;
+    document.getElementById('footer').textContent = 'NWP Logistics Dashboard Hub \u2014 Last updated ' + updated;
+
+    // TFM card
+    const tfm = data.stock.warehouses.find(w => w.name === 'TFM');
+    if (tfm) {
+      const s = document.getElementById('tfm-status');
+      s.textContent = tfm.status;
+      s.className = 'card-status ' + (tfm.dos <= 0 ? 'red' : tfm.dos < 15 ? 'orange' : 'green');
+      document.getElementById('tfm-meta').innerHTML = 'Stock <span>' + tfm.stock.toLocaleString() + '</span> · Demand <span>' + tfm.demand.toLocaleString() + '/day</span> · Updated <span>' + updated + '</span>';
+    }
+
+    // Bailiny card
+    const bail = data.stock.warehouses.find(w => w.name === 'Bailiny');
+    if (bail) {
+      const s = document.getElementById('bail-status');
+      s.textContent = bail.status;
+      s.className = 'card-status ' + (bail.dos <= 0 ? 'red' : bail.dos < 15 ? 'orange' : 'green');
+      document.getElementById('bail-meta').innerHTML = 'Stock <span>' + bail.stock.toLocaleString() + '</span> · Demand <span>' + bail.demand.toLocaleString() + '/day</span> · Updated <span>' + updated + '</span>';
+    }
+  }).catch(() => {
+    document.getElementById('meta-refresh').textContent = 'Data unavailable';
+  });
+</script>
+
+</body>
+</html>
