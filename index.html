@@ -261,8 +261,9 @@
 
 <div class="header">
   <h1>NWP <span>Logistics Command Center</span></h1>
-  <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+  <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
     <div class="refresh-info" id="today-date"></div>
+    <div class="refresh-info" id="tz-clocks"></div>
     <div class="refresh-info" id="refresh-ts">Last refreshed: loading...</div>
   </div>
 </div>
@@ -377,7 +378,7 @@
 // DATA — From WORKING tab screenshots (Apr 8, 2026)
 // ============================================================
 const DATA = {
-  "lastRefreshed": "2026-04-09T09:52:02",
+  "lastRefreshed": "2026-04-09T09:55:21",
   "updatedOn": "09/04/2026",
   "stock": {
     "warehouses": [
@@ -762,24 +763,39 @@ const DATA = {
 // ============================================================
 // RENDER
 // ============================================================
+const renderedTabs = {};
+
+function renderTab(tabId) {
+  if (renderedTabs[tabId]) {
+    // Charts need resize after becoming visible
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+    return;
+  }
+  renderedTabs[tabId] = true;
+  try {
+    if (tabId === 'alerts') renderAlerts();
+    else if (tabId === 'stock') renderStock();
+    else if (tabId === 'demand') renderDemand();
+    else if (tabId === 'pipeline') renderPipeline();
+    else if (tabId === 'payments') renderPayments();
+  } catch(e) { console.error('Render error on ' + tabId + ':', e); }
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.nav a').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelector('.nav a[data-tab="' + tabId + '"]').classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+  renderTab(tabId);
+}
+
 function init() {
   renderTimestamp();
-  renderAlerts();
-  renderStock();
-  renderDemand();
-  renderPipeline();
-  renderPayments();
+  // Render only the active tab first
+  renderTab('alerts');
   // Tab switching
   document.querySelectorAll('.nav a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.querySelectorAll('.nav a').forEach(x => x.classList.remove('active'));
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      a.classList.add('active');
-      const tab = a.getAttribute('data-tab');
-      document.getElementById(tab).classList.add('active');
-      // Re-trigger chart resize for the newly visible tab
-      window.dispatchEvent(new Event('resize'));
-    });
+    a.addEventListener('click', () => switchTab(a.getAttribute('data-tab')));
   });
 }
 
@@ -789,7 +805,13 @@ function fmtUSD(n) { return '$' + n.toLocaleString(); }
 function renderTimestamp() {
   document.getElementById('refresh-ts').textContent = 'Data updated: ' + DATA.updatedOn;
   const now = new Date();
-  document.getElementById('today-date').textContent = 'Today: ' + now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('today-date').textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+  const paris = now.toLocaleString('en-GB', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false });
+  const lisbon = now.toLocaleString('en-GB', { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', hour12: false });
+  const est = now.toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false });
+  document.getElementById('tz-clocks').textContent = 'Paris ' + paris + ' | Portugal ' + lisbon + ' | EST ' + est;
 }
 
 // --- ALERTS ---
