@@ -227,25 +227,45 @@
   .badge.orange-status { background: rgba(245,158,11,0.15); color: var(--orange); }
 
   /* ALERTS */
-  .alert-banner {
-    background: rgba(239,68,68,0.08);
-    border: 1px solid rgba(239,68,68,0.25);
+  .alert-group { margin-bottom: 20px; }
+  .alert-group-header {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 6px 0; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+  }
+  .alert-group-header .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .alert-group-header.critical { color: var(--red); }
+  .alert-group-header.critical .dot { background: var(--red); }
+  .alert-group-header.warning { color: var(--orange); }
+  .alert-group-header.warning .dot { background: var(--orange); }
+  .alert-group-header.info { color: var(--blue); }
+  .alert-group-header.info .dot { background: var(--blue); }
+  .alert-item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 10px;
-    padding: 14px 18px;
-    margin-bottom: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    gap: 12px;
     font-size: 13px;
     line-height: 1.4;
+    border-left: 3px solid transparent;
   }
-  .alert-banner .icon { flex-shrink: 0; }
-  .alert-banner strong { color: var(--red); }
-  .alert-warn {
-    background: rgba(245,158,11,0.08);
-    border-color: rgba(245,158,11,0.25);
+  .alert-item.critical { border-left-color: var(--red); }
+  .alert-item.warning { border-left-color: var(--orange); }
+  .alert-item.info { border-left-color: var(--blue); }
+  .alert-item .alert-text { flex: 1; }
+  .alert-item .alert-text strong { color: var(--text); }
+  .alert-tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    flex-shrink: 0; white-space: nowrap;
   }
-  .alert-warn strong { color: var(--orange); }
+  .alert-tag.stock { background: rgba(167,139,250,0.15); color: var(--purple); }
+  .alert-tag.payment { background: rgba(234,179,8,0.15); color: var(--yellow); }
+  .alert-tag.shipping { background: rgba(6,182,212,0.15); color: var(--cyan); }
+  .alert-tag.pipeline { background: rgba(74,222,128,0.15); color: var(--accent); }
 
   @media (max-width: 768px) {
     body { padding: 12px; }
@@ -374,7 +394,7 @@
 // DATA — From WORKING tab screenshots (Apr 8, 2026)
 // ============================================================
 const DATA = {
-  "lastRefreshed": "2026-04-09T09:58:56",
+  "lastRefreshed": "2026-04-09T10:01:53",
   "updatedOn": "09/04/2026",
   "stock": {
     "warehouses": [
@@ -814,23 +834,65 @@ function renderTimestamp() {
 // --- ALERTS ---
 function renderAlerts() {
   const el = document.getElementById('alerts-container');
-  const html = [];
+  const alerts = []; // {priority: 1-3, category, text}
 
-  if (DATA.stock.warehouses[0].dos === 0)
-    html.push('<div class="alert-banner"><span class="icon">&#9888;</span><div><strong>TFM OUT OF STOCK</strong> — 0 cream units at US warehouse. 50K air shipment (Batch 1) ETA today Apr 8-10. 100K air ETA Apr 15-17.</div></div>');
-
-  if (DATA.stock.warehouses[2].dos <= 17)
-    html.push('<div class="alert-banner"><span class="icon">&#9888;</span><div><strong>Amazon FBA RED</strong> — ' + fmt(DATA.stock.warehouses[2].stock) + ' units, ' + DATA.stock.warehouses[2].dos + ' days. OOS ~Apr 25. No incoming shipments. Need 20,320 units for 90-day coverage.</div></div>');
-
-  DATA.payments.upcoming.forEach(p => {
-    if (p.overdue)
-      html.push('<div class="alert-banner"><span class="icon">&#9888;</span><div><strong>PAYMENT OVERDUE</strong> — ' + p.recipient + ' ' + fmtUSD(p.amount) + ' due ' + p.dueBy + '. Fund Airwallex deadline was ' + p.fundBy + '.</div></div>');
+  // STOCK alerts
+  DATA.stock.warehouses.forEach(w => {
+    if (w.dos === 0 || w.statusCls === 'oos')
+      alerts.push({ p: 1, cat: 'stock', text: '<strong>' + w.name + ' OUT OF STOCK</strong> ' + fmt(w.stock) + ' units. ' + (w.incoming > 0 ? fmt(w.incoming) + ' incoming.' : 'No incoming.') });
+    else if (w.dos <= 7)
+      alerts.push({ p: 1, cat: 'stock', text: '<strong>' + w.name + ' CRITICAL</strong> ' + fmt(w.stock) + ' units, ' + w.dos + ' days. ' + fmt(w.incoming) + ' incoming.' });
+    else if (w.dos <= 15)
+      alerts.push({ p: 2, cat: 'stock', text: '<strong>' + w.name + ' LOW</strong> ' + fmt(w.stock) + ' units, ' + w.dos + ' days. ' + fmt(w.incoming) + ' incoming.' });
+    else if (w.dos <= 30)
+      alerts.push({ p: 2, cat: 'stock', text: '<strong>' + w.name + '</strong> ' + fmt(w.stock) + ' units, ' + w.dos + ' days.' });
   });
 
+  // PAYMENT alerts
+  DATA.payments.upcoming.forEach(u => {
+    if (u.overdue)
+      alerts.push({ p: 1, cat: 'payment', text: '<strong>OVERDUE</strong> ' + u.recipient + ' ' + fmtUSD(u.amount) + ' due ' + u.dueBy + '. Fund AW deadline was ' + u.fundBy + '.' });
+  });
   if (DATA.payments.shortfall < 0)
-    html.push('<div class="alert-banner alert-warn"><span class="icon">&#9888;</span><div><strong>AIRWALLEX UNDERFUNDED</strong> — Balance ' + fmtUSD(DATA.payments.balance) + ' vs ' + fmtUSD(DATA.payments.fundsNeeded) + ' needed. Shortfall ' + fmtUSD(Math.abs(DATA.payments.shortfall)) + '. ' + fmtUSD(DATA.payments.pendingApproval) + ' awaiting Nicola approval.</div></div>');
+    alerts.push({ p: 1, cat: 'payment', text: '<strong>UNDERFUNDED</strong> AW balance ' + fmtUSD(DATA.payments.balance) + ' vs ' + fmtUSD(DATA.payments.fundsNeeded) + ' needed. Shortfall ' + fmtUSD(Math.abs(DATA.payments.shortfall)) + '.' });
+  if (DATA.payments.inApproval && DATA.payments.inApproval.length > 0) {
+    const criticals = DATA.payments.inApproval.filter(a => a.urgency && a.urgency.includes('CRITICAL'));
+    criticals.forEach(a => {
+      alerts.push({ p: 1, cat: 'payment', text: '<strong>NEEDS APPROVAL</strong> ' + a.recipient + ' ' + fmtUSD(a.amount) + ' ' + a.urgency });
+    });
+    if (DATA.payments.pendingApproval > 0)
+      alerts.push({ p: 3, cat: 'payment', text: fmtUSD(DATA.payments.pendingApproval) + ' total awaiting Nicola approval (' + DATA.payments.inApproval.length + ' payments).' });
+  }
 
-  el.innerHTML = html.join('') || '<div style="color:var(--accent);padding:12px;">All clear — no active alerts.</div>';
+  // SHIPPING / PIPELINE alerts
+  DATA.pipeline.forEach(po => {
+    const s = po.status.toLowerCase();
+    if (s.includes('transit'))
+      alerts.push({ p: 3, cat: 'shipping', text: '<strong>' + po.po + '</strong> ' + fmt(po.qty) + ' units to ' + po.dest + ' via ' + po.method + '. ETA ' + po.eta + '.' });
+    else if (s.includes('ready'))
+      alerts.push({ p: 3, cat: 'pipeline', text: '<strong>' + po.po + '</strong> ' + fmt(po.qty) + ' units ready to ship to ' + po.dest + '.' });
+  });
+
+  // Sort by priority
+  alerts.sort((a, b) => a.p - b.p);
+
+  // Group and render
+  const groups = { 1: { label: 'Critical', cls: 'critical', items: [] }, 2: { label: 'Warning', cls: 'warning', items: [] }, 3: { label: 'Info', cls: 'info', items: [] } };
+  alerts.forEach(a => groups[a.p].items.push(a));
+
+  let html = '';
+  [1, 2, 3].forEach(p => {
+    const g = groups[p];
+    if (g.items.length === 0) return;
+    html += '<div class="alert-group">';
+    html += '<div class="alert-group-header ' + g.cls + '"><span class="dot"></span>' + g.label + ' (' + g.items.length + ')</div>';
+    g.items.forEach(a => {
+      html += '<div class="alert-item ' + g.cls + '"><span class="alert-tag ' + a.cat + '">' + a.cat + '</span><div class="alert-text">' + a.text + '</div></div>';
+    });
+    html += '</div>';
+  });
+
+  el.innerHTML = html || '<div style="color:var(--accent);padding:12px;">All clear.</div>';
 }
 
 // --- STOCK ---
