@@ -263,7 +263,6 @@
   <h1>NWP <span>Logistics Command Center</span></h1>
   <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
     <div class="refresh-info" id="today-date"></div>
-    <div class="refresh-info" id="tz-clocks"></div>
     <div class="refresh-info" id="refresh-ts">Last refreshed: loading...</div>
   </div>
 </div>
@@ -375,7 +374,7 @@
 // DATA — From WORKING tab screenshots (Apr 8, 2026)
 // ============================================================
 const DATA = {
-  "lastRefreshed": "2026-04-09T09:55:58",
+  "lastRefreshed": "2026-04-09T09:58:25",
   "updatedOn": "09/04/2026",
   "stock": {
     "warehouses": [
@@ -800,15 +799,16 @@ function fmt(n) { return n.toLocaleString(); }
 function fmtUSD(n) { return '$' + n.toLocaleString(); }
 
 function renderTimestamp() {
-  document.getElementById('refresh-ts').textContent = 'Data updated: ' + DATA.updatedOn;
   const now = new Date();
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.getElementById('today-date').textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-  const paris = now.toLocaleString('en-GB', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false });
-  const lisbon = now.toLocaleString('en-GB', { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', hour12: false });
-  const est = now.toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false });
-  document.getElementById('tz-clocks').textContent = 'Paris ' + paris + ' | Portugal ' + lisbon + ' | EST ' + est;
+
+  // Data updated with timezone breakdown
+  const updated = DATA.updatedOn;
+  const refDate = new Date(DATA.lastRefreshed);
+  const fmtTZ = (tz, label) => label + ' ' + refDate.toLocaleString('en-GB', { timeZone: tz, day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+  document.getElementById('refresh-ts').textContent = 'Updated: ' + fmtTZ('Europe/Paris','Paris') + ' | ' + fmtTZ('Europe/Lisbon','Portugal') + ' | ' + fmtTZ('America/New_York','EST');
 }
 
 // --- ALERTS ---
