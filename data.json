@@ -1,36 +1,36 @@
 {
-  "lastRefreshed": "2026-04-10T07:33:30",
+  "lastRefreshed": "2026-04-10T07:40:21",
   "updatedOn": "10/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-10",
-      "fileAge": 0.2
+      "fileAge": 0.3
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-09",
-      "fileAge": 0.1
+      "fileAge": 0.2
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-07",
-      "fileAge": 0.1
+      "fileAge": 0.2
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-10",
-      "fileAge": 0.1
+      "fileAge": 0.2
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 21.7
+      "fileAge": 21.8
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-09",
-      "fileAge": 21.4
+      "fileAge": 21.6
     }
   },
   "stock": {
@@ -369,11 +369,77 @@
   "payments": {
     "balance": 98736,
     "pendingApproval": 0,
-    "fundsNeeded": 0,
+    "fundsNeeded": 692560,
     "maxFundsDate": "10 April 2026",
-    "shortfall": 98736,
+    "shortfall": -593823,
     "inApproval": [],
     "upcoming": [],
+    "pipelineUpcoming": [
+      {
+        "po": "PO-SL-300K-SEA",
+        "supplier": "Sendy Li",
+        "qty": 150000,
+        "amount": 116400,
+        "milestone": "On delivery",
+        "due": "~May 08",
+        "poStatus": "Ready To Ship"
+      },
+      {
+        "po": "PO-SL-335K-85K",
+        "supplier": "Sendy Li",
+        "qty": 85000,
+        "amount": 162860,
+        "milestone": "Production complete",
+        "due": "~Apr 13",
+        "poStatus": "In Production"
+      },
+      {
+        "po": "PO-SL-335K-50K",
+        "supplier": "Sendy Li",
+        "qty": 50000,
+        "amount": 19800,
+        "milestone": "Production complete",
+        "due": "When production done",
+        "poStatus": "In Production"
+      },
+      {
+        "po": "PO-SL-335K-200K",
+        "supplier": "Sendy Li",
+        "qty": 200000,
+        "amount": 79200,
+        "milestone": "Production complete",
+        "due": "~May 05",
+        "poStatus": "In Production"
+      },
+      {
+        "po": "PO-SL-300K-REC",
+        "supplier": "Sendy Li",
+        "qty": 300000,
+        "amount": 118800,
+        "milestone": "Deposit (on Airwallex)",
+        "due": "Now",
+        "poStatus": "Ordered"
+      },
+      {
+        "po": "PO-LW-100K",
+        "supplier": "Laura Wong",
+        "qty": 100000,
+        "amount": 87500,
+        "milestone": "On delivery",
+        "due": "~May 05",
+        "poStatus": "Relabeling"
+      },
+      {
+        "po": "PO-EL-72K",
+        "supplier": "Eagle Labs",
+        "qty": 72000,
+        "amount": 108000,
+        "milestone": "TBD",
+        "due": "TBD",
+        "poStatus": "Pending"
+      }
+    ],
+    "pipelineUpcomingTotal": 692560,
     "recentLogistics": [
       {
         "recipient": "Sendy Li",
