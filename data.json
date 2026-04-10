@@ -1,61 +1,61 @@
 {
-  "lastRefreshed": "2026-04-09T18:25:33",
-  "updatedOn": "09/04/2026",
+  "lastRefreshed": "2026-04-10T07:27:53",
+  "updatedOn": "10/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
-      "latestDate": "2026-04-09",
-      "fileAge": 0.2
+      "latestDate": "2026-04-10",
+      "fileAge": 0.1
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
-      "latestDate": "2026-04-08",
-      "fileAge": 4.1
+      "latestDate": "2026-04-09",
+      "fileAge": 0.0
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-07",
-      "fileAge": 0.1
+      "fileAge": 0.0
     },
     "airwallex": {
       "name": "Airwallex",
-      "latestDate": "2026-04-09",
-      "fileAge": 0.1
+      "latestDate": "2026-04-10",
+      "fileAge": 0.0
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 8.6
+      "fileAge": 21.6
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-09",
-      "fileAge": 8.3
+      "fileAge": 21.4
     }
   },
   "stock": {
     "warehouses": [
       {
         "name": "TFM",
-        "stock": 8064,
-        "stockDate": "2026-04-08",
-        "demand": 8092,
-        "dos": 1,
+        "stock": 1361,
+        "stockDate": "2026-04-09",
+        "demand": 7468,
+        "dos": 0,
         "incoming": 885000,
         "effOOS": "2026-04-10",
-        "status": "RED - 1d",
-        "statusCls": "red-status",
+        "status": "OOS NOW",
+        "statusCls": "oos",
         "qtyNeeded": 0
       },
       {
         "name": "Bailiny",
         "stock": 34000,
         "stockDate": "2026-04-07",
-        "demand": 2887,
-        "dos": 12,
+        "demand": 2665,
+        "dos": 13,
         "incoming": 450000,
-        "effOOS": "2026-04-21",
-        "status": "RED - 12d",
+        "effOOS": "2026-04-23",
+        "status": "RED - 13d",
         "statusCls": "red-status",
         "qtyNeeded": 0
       },
@@ -66,101 +66,94 @@
         "demand": 280,
         "dos": 1,
         "incoming": 0,
-        "effOOS": "2026-04-10",
+        "effOOS": "2026-04-11",
         "status": "RED - 1d",
         "statusCls": "red-status",
         "qtyNeeded": 0
       }
     ],
-    "totalStock": 42361,
-    "totalDemand": 11259,
+    "totalStock": 35658,
+    "totalDemand": 10413,
     "totalIncoming": 1335000
   },
   "stockProjection": [
     {
-      "date": "Apr 09",
+      "date": "Apr 10",
       "tfm": 0,
-      "bailiny": 31113
+      "bailiny": 31335
     },
     {
-      "date": "Apr 14",
-      "tfm": 9512,
-      "bailiny": 16678
+      "date": "Apr 15",
+      "tfm": 6553,
+      "bailiny": 18010
     },
     {
-      "date": "Apr 19",
-      "tfm": 69052,
-      "bailiny": 2243
+      "date": "Apr 20",
+      "tfm": 69213,
+      "bailiny": 4685
     },
     {
-      "date": "Apr 24",
-      "tfm": 28592,
+      "date": "Apr 25",
+      "tfm": 31873,
       "bailiny": 0
     },
     {
-      "date": "Apr 29",
-      "tfm": 73132,
+      "date": "Apr 30",
+      "tfm": 79533,
       "bailiny": 0
     },
     {
-      "date": "May 04",
-      "tfm": 32672,
+      "date": "May 05",
+      "tfm": 42193,
+      "bailiny": 64710
+    },
+    {
+      "date": "May 10",
+      "tfm": 154853,
+      "bailiny": 51385
+    },
+    {
+      "date": "May 15",
+      "tfm": 117513,
+      "bailiny": 38060
+    },
+    {
+      "date": "May 20",
+      "tfm": 280173,
+      "bailiny": 24735
+    },
+    {
+      "date": "May 25",
+      "tfm": 242833,
+      "bailiny": 11410
+    },
+    {
+      "date": "May 30",
+      "tfm": 205493,
       "bailiny": 0
     },
     {
-      "date": "May 09",
-      "tfm": 142212,
-      "bailiny": 44503
-    },
-    {
-      "date": "May 14",
-      "tfm": 101752,
-      "bailiny": 30068
-    },
-    {
-      "date": "May 19",
-      "tfm": 261292,
-      "bailiny": 15633
-    },
-    {
-      "date": "May 24",
-      "tfm": 220832,
-      "bailiny": 1198
-    },
-    {
-      "date": "May 29",
-      "tfm": 180372,
-      "bailiny": 0
-    },
-    {
-      "date": "Jun 03",
-      "tfm": 439912,
-      "bailiny": 272328
+      "date": "Jun 04",
+      "tfm": 468153,
+      "bailiny": 284760
     }
   ],
   "demand": {
     "avg7d": {
-      "tfm": 8092,
-      "bailiny": 2887,
-      "total": 10979
+      "tfm": 7468,
+      "bailiny": 2665,
+      "total": 10133
     },
     "avg30d": {
-      "tfm": 6125,
-      "bailiny": 2255,
-      "total": 8380
+      "tfm": 5946,
+      "bailiny": 2189,
+      "total": 8136
     },
-    "tfmNew": 5834,
-    "tfmRebill": 2258,
-    "bailinyNew": 2371,
-    "bailinyRebill": 516,
+    "tfmNew": 5462,
+    "tfmRebill": 2007,
+    "bailinyNew": 2182,
+    "bailinyRebill": 483,
     "daily": [
-      {
-        "date": "03/26",
-        "tfmNew": 2811,
-        "tfmRebill": 1008,
-        "bailNew": 1203,
-        "bailRebill": 159
-      },
       {
         "date": "03/27",
         "tfmNew": 2265,
@@ -251,6 +244,13 @@
         "tfmRebill": 1995,
         "bailNew": 2541,
         "bailRebill": 498
+      },
+      {
+        "date": "04/09",
+        "tfmNew": 2588,
+        "tfmRebill": 854,
+        "bailNew": 1035,
+        "bailRebill": 235
       }
     ]
   },
@@ -367,230 +367,12 @@
     }
   ],
   "payments": {
-    "balance": 160185,
-    "pendingApproval": 94341,
-    "fundsNeeded": 94341,
-    "maxFundsDate": "09 April 2026",
-    "shortfall": 65843,
-    "inApproval": [
-      {
-        "recipient": "Barbara Charles",
-        "amount": 2709,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-766COWS"
-      },
-      {
-        "recipient": "Geronimo Arrieta",
-        "amount": 351,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-9X8BJ0X"
-      },
-      {
-        "recipient": "Andrea Garcia Reyes",
-        "amount": 2015,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-O8N3XZQ"
-      },
-      {
-        "recipient": "John Alder Abao",
-        "amount": 1655,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-E519KLE"
-      },
-      {
-        "recipient": "Andrew Trachtman",
-        "amount": 4010,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-13LV3RH"
-      },
-      {
-        "recipient": "Jake Delos Santos",
-        "amount": 2250,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-7M28Y3L"
-      },
-      {
-        "recipient": "Adam Israil",
-        "amount": 1700,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-WI7YTAO"
-      },
-      {
-        "recipient": "Aron Gabriel Regodon Guibelondo",
-        "amount": 2900,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-W04VD4N"
-      },
-      {
-        "recipient": "Hannah Esponilla",
-        "amount": 3250,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-YP2T5CS"
-      },
-      {
-        "recipient": "Kevin Maningo",
-        "amount": 2250,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260409-U85ILU0"
-      },
-      {
-        "recipient": "Daniel Paz",
-        "amount": 702,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-OOQNIZF"
-      },
-      {
-        "recipient": "Krishna Vienn Sistoza",
-        "amount": 175,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-08IYPZZ"
-      },
-      {
-        "recipient": "Dexter Mag-aso",
-        "amount": 175,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-NPUQ7UW"
-      },
-      {
-        "recipient": "Crisly Diama",
-        "amount": 1925,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-WYH8AWR"
-      },
-      {
-        "recipient": "Karl Renzo Benito Erquiza",
-        "amount": 1575,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-ESGP4XQ"
-      },
-      {
-        "recipient": "Bryan Kylo Santos",
-        "amount": 1225,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-UXWLRN5"
-      },
-      {
-        "recipient": "Edmer Jan G. Gresos",
-        "amount": 1400,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-G5M96EB"
-      },
-      {
-        "recipient": "Alban Maloki",
-        "amount": 2175,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-67DCG8Y"
-      },
-      {
-        "recipient": "Sean John S. Luzon",
-        "amount": 875,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-0FOSD39"
-      },
-      {
-        "recipient": "Lorde Adonis Clarete",
-        "amount": 525,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-NBNUHZI"
-      },
-      {
-        "recipient": "Lyndon Joshua Serrano",
-        "amount": 1300,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-40HPDA3"
-      },
-      {
-        "recipient": "Carlos Andres Sola Reyes Reyes",
-        "amount": 1300,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-ZGIPLIE"
-      },
-      {
-        "recipient": "Karen Claire Vergara",
-        "amount": 3975,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-2PD5QIH"
-      },
-      {
-        "recipient": "John Rey Sola",
-        "amount": 2350,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-4AISWVK"
-      },
-      {
-        "recipient": "Ana Claudia Lopes Silveira",
-        "amount": 1675,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-PDG56KR"
-      },
-      {
-        "recipient": "Erika Ann D. Vinluan",
-        "amount": 1400,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260408-GSHLUK0"
-      },
-      {
-        "recipient": "Laura Wong",
-        "amount": 313,
-        "ref": "INVOICE 20260403NWP-LC",
-        "urgency": "ROUTINE",
-        "awRef": "P260406-Q5A0PHU"
-      },
-      {
-        "recipient": "Laura Wong",
-        "amount": 519,
-        "ref": "INVOICE 20260402NWP-LC",
-        "urgency": "ROUTINE",
-        "awRef": "P260403-CNTBNYM"
-      },
-      {
-        "recipient": "Nobru j.d.o.o.",
-        "amount": 41039,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260403-GIP0QAD"
-      },
-      {
-        "recipient": "DECIDE DIGITAL LLC",
-        "amount": 5924,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260403-9JMSXOZ"
-      },
-      {
-        "recipient": "Miko Clark Cruz",
-        "amount": 701,
-        "ref": "New World Project LLC - Compensation",
-        "urgency": "ROUTINE",
-        "awRef": "P260403-KUCHYY6"
-      }
-    ],
+    "balance": 98736,
+    "pendingApproval": 0,
+    "fundsNeeded": 0,
+    "maxFundsDate": "10 April 2026",
+    "shortfall": 98736,
+    "inApproval": [],
     "upcoming": []
   }
 }
