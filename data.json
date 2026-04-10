@@ -1,31 +1,31 @@
 {
-  "lastRefreshed": "2026-04-10T07:27:53",
+  "lastRefreshed": "2026-04-10T07:33:30",
   "updatedOn": "10/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-10",
-      "fileAge": 0.1
+      "fileAge": 0.2
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-09",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-07",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-10",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 21.6
+      "fileAge": 21.7
     },
     "amazon": {
       "name": "Amazon FBA",
@@ -373,6 +373,57 @@
     "maxFundsDate": "10 April 2026",
     "shortfall": 98736,
     "inApproval": [],
-    "upcoming": []
+    "upcoming": [],
+    "recentLogistics": [
+      {
+        "recipient": "Sendy Li",
+        "amount": 34650,
+        "ref": "Invoice  20260408Q",
+        "awRef": "P260408-4D8B6WR",
+        "notes": "Paid 2026-04-08. USD."
+      },
+      {
+        "recipient": "Sendy Li",
+        "amount": 59400,
+        "ref": "Invoice 20260408Q",
+        "awRef": "P260408-FSJ6QW5",
+        "notes": "Paid 2026-04-08. USD."
+      },
+      {
+        "recipient": "Bailiny",
+        "amount": 30943,
+        "ref": "#587592",
+        "awRef": "P260407-2S34D2F",
+        "notes": "Paid 2026-04-07. USD."
+      },
+      {
+        "recipient": "Laura Wong",
+        "amount": 313,
+        "ref": "INVOICE 20260403NWP-LC",
+        "awRef": "P260406-Q5A0PHU",
+        "notes": "Paid 2026-04-06. USD."
+      },
+      {
+        "recipient": "Laura Wong",
+        "amount": 519,
+        "ref": "INVOICE 20260402NWP-LC",
+        "awRef": "P260403-CNTBNYM",
+        "notes": "Paid 2026-04-03. USD."
+      },
+      {
+        "recipient": "TFM",
+        "amount": 89755,
+        "ref": "Invoice 0326 - NWP",
+        "awRef": "P260403-SOK6KC3",
+        "notes": "Paid 2026-04-03. USD."
+      },
+      {
+        "recipient": "TFM",
+        "amount": 46837,
+        "ref": "Postage Invoice 033026 - NWP",
+        "awRef": "P260403-MKQVO37",
+        "notes": "Paid 2026-04-03. USD."
+      }
+    ]
   }
 }
