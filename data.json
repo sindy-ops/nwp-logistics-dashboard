@@ -1,11 +1,11 @@
 {
-  "lastRefreshed": "2026-04-10T07:42:58",
+  "lastRefreshed": "2026-04-10T07:46:45",
   "updatedOn": "10/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-10",
-      "fileAge": 0.3
+      "fileAge": 0.4
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
@@ -30,7 +30,7 @@
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-09",
-      "fileAge": 21.6
+      "fileAge": 21.7
     }
   },
   "stock": {
@@ -380,54 +380,60 @@
         "supplier": "Sendy Li",
         "qty": 150000,
         "amount": 116400,
-        "milestone": "On delivery",
+        "milestone": "Pay on delivery",
         "due": "~May 08",
-        "poStatus": "Ready To Ship"
+        "poStatus": "Ready To Ship",
+        "actionBy": "Sendy Li \u2192 Bianca"
       },
       {
         "po": "PO-SL-335K-85K",
         "supplier": "Sendy Li",
         "qty": 85000,
         "amount": 162860,
-        "milestone": "Production complete",
+        "milestone": "Invoice on production done",
         "due": "~Apr 13",
-        "poStatus": "In Production"
+        "poStatus": "In Production",
+        "actionBy": "Sendy Li"
       },
       {
         "po": "PO-SL-335K-50K",
         "supplier": "Sendy Li",
         "qty": 50000,
         "amount": 19800,
-        "milestone": "Production complete",
+        "milestone": "Invoice on production done",
         "due": "When production done",
-        "poStatus": "In Production"
+        "poStatus": "In Production",
+        "actionBy": "Sendy Li"
       },
       {
         "po": "PO-SL-335K-200K",
         "supplier": "Sendy Li",
         "qty": 200000,
         "amount": 79200,
-        "milestone": "Production complete",
+        "milestone": "Invoice on production done",
         "due": "~May 05",
-        "poStatus": "In Production"
+        "poStatus": "In Production",
+        "actionBy": "Sendy Li"
       },
       {
         "po": "PO-SL-300K-REC",
         "supplier": "Sendy Li",
         "qty": 300000,
         "amount": 118800,
-        "milestone": "Deposit (on Airwallex)",
+        "milestone": "Approve on Airwallex",
         "due": "Now",
-        "poStatus": "Ordered"
+        "poStatus": "Ordered",
+        "actionBy": "Nicola"
       },
       {
         "po": "PO-LW-100K",
         "supplier": "Laura Wong",
         "qty": 100000,
         "amount": 87500,
-        "milestone": "On delivery",
+        "milestone": "Pay on delivery",
         "due": "~May 05",
-        "poStatus": "Relabeling"
+        "poStatus": "Relabeling",
+        "actionBy": "Laura Wong \u2192 Bianca"
       },
       {
         "po": "PO-EL-72K",
@@ -436,7 +442,8 @@
         "amount": 108000,
         "milestone": "TBD",
         "due": "TBD",
-        "poStatus": "Pending"
+        "poStatus": "Pending",
+        "actionBy": "TBD"
       }
     ],
     "pipelineUpcomingTotal": 692560,
