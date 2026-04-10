@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-10T07:40:21",
+  "lastRefreshed": "2026-04-10T07:42:58",
   "updatedOn": "10/04/2026",
   "sourceFreshness": {
     "cc_sales": {
@@ -10,22 +10,22 @@
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-09",
-      "fileAge": 0.2
+      "fileAge": 0.3
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-07",
-      "fileAge": 0.2
+      "fileAge": 0.3
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-10",
-      "fileAge": 0.2
+      "fileAge": 0.3
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 21.8
+      "fileAge": 21.9
     },
     "amazon": {
       "name": "Amazon FBA",
@@ -37,7 +37,7 @@
     "warehouses": [
       {
         "name": "TFM",
-        "stock": 1361,
+        "stock": 37,
         "stockDate": "2026-04-09",
         "demand": 7468,
         "dos": 0,
@@ -72,7 +72,7 @@
         "qtyNeeded": 0
       }
     ],
-    "totalStock": 35658,
+    "totalStock": 34334,
     "totalDemand": 10413,
     "totalIncoming": 1335000
   },
@@ -84,57 +84,57 @@
     },
     {
       "date": "Apr 15",
-      "tfm": 6553,
+      "tfm": 5229,
       "bailiny": 18010
     },
     {
       "date": "Apr 20",
-      "tfm": 69213,
+      "tfm": 67889,
       "bailiny": 4685
     },
     {
       "date": "Apr 25",
-      "tfm": 31873,
+      "tfm": 30549,
       "bailiny": 0
     },
     {
       "date": "Apr 30",
-      "tfm": 79533,
+      "tfm": 78209,
       "bailiny": 0
     },
     {
       "date": "May 05",
-      "tfm": 42193,
+      "tfm": 40869,
       "bailiny": 64710
     },
     {
       "date": "May 10",
-      "tfm": 154853,
+      "tfm": 153529,
       "bailiny": 51385
     },
     {
       "date": "May 15",
-      "tfm": 117513,
+      "tfm": 116189,
       "bailiny": 38060
     },
     {
       "date": "May 20",
-      "tfm": 280173,
+      "tfm": 278849,
       "bailiny": 24735
     },
     {
       "date": "May 25",
-      "tfm": 242833,
+      "tfm": 241509,
       "bailiny": 11410
     },
     {
       "date": "May 30",
-      "tfm": 205493,
+      "tfm": 204169,
       "bailiny": 0
     },
     {
       "date": "Jun 04",
-      "tfm": 468153,
+      "tfm": 466829,
       "bailiny": 284760
     }
   ],
