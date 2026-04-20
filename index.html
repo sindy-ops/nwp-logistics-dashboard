@@ -712,11 +712,11 @@ const DATA = {
       "supplier": "Sendy Li",
       "qty": 300000,
       "dest": "TFM+Bailiny",
-      "status": "Ordered",
+      "status": "In Production",
       "method": "Sea",
       "eta": "2026-06-01",
-      "payment": "IN_APPROVAL ($118,800)",
-      "paymentCls": "in-approval"
+      "payment": "30% PAID ($118,800 / $396,000)",
+      "paymentCls": "pending"
     },
     {
       "po": "PO-LW-100K",
@@ -799,9 +799,9 @@ const DATA = {
   "payments": {
     "balance": 124693,
     "pendingApproval": 0,
-    "fundsNeeded": 542784,
+    "fundsNeeded": 522364,
     "maxFundsDate": "20 April 2026",
-    "shortfall": -418091,
+    "shortfall": -397671,
     "inApproval": [],
     "upcoming": [],
     "pipelineUpcoming": [
@@ -829,18 +829,18 @@ const DATA = {
         "po": "PO-SL-300K-REC",
         "supplier": "Sendy Li",
         "qty": 300000,
-        "amount": 118800,
-        "milestone": "Approve on Airwallex",
-        "due": "Now",
-        "poStatus": "Ordered",
-        "actionBy": "Nicola"
+        "amount": 118880,
+        "milestone": "Mid-production (30%)",
+        "due": "~May 01",
+        "poStatus": "In Production",
+        "actionBy": "Sendy Li \u2192 Bianca"
       },
       {
         "po": "PO-LW-100K",
         "supplier": "Laura Wong",
         "qty": 100000,
-        "amount": 87500,
-        "milestone": "Pay on delivery",
+        "amount": 67000,
+        "milestone": "50% balance before shipping",
         "due": "~May 05",
         "poStatus": "Relabeling",
         "actionBy": "Laura Wong \u2192 Bianca"
@@ -886,7 +886,7 @@ const DATA = {
         "actionBy": "Sendy Li \u2192 Bianca"
       }
     ],
-    "pipelineUpcomingTotal": 542784,
+    "pipelineUpcomingTotal": 522364,
     "recentLogistics": [
       {
         "recipient": "Bailiny",
