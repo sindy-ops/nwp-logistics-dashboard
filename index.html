@@ -451,7 +451,7 @@ const DATA = {
         "stockDate": "2026-04-09",
         "demand": 280,
         "dos": 1,
-        "incoming": 46660,
+        "incoming": 126660,
         "effOOS": "2026-04-17",
         "status": "RED - 1d",
         "statusCls": "red-status",
@@ -460,7 +460,7 @@ const DATA = {
     ],
     "totalStock": 143790,
     "totalDemand": 12776,
-    "totalIncoming": 1006720
+    "totalIncoming": 1086720
   },
   "stockProjection": [
     {
@@ -783,14 +783,25 @@ const DATA = {
       "eta": "2026-04-16",
       "payment": "PAID",
       "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-80K-AMZ",
+      "supplier": "Sendy Li",
+      "qty": 80000,
+      "dest": "Amazon FBA",
+      "status": "In Production",
+      "method": "TBD",
+      "eta": "2026-05-07 (prod) / TBD ship",
+      "payment": "DEPOSIT PAID ($31,680 / $105,600)",
+      "paymentCls": "due"
     }
   ],
   "payments": {
     "balance": 124693,
     "pendingApproval": 0,
-    "fundsNeeded": 468864,
-    "maxFundsDate": "16 April 2026",
-    "shortfall": -344170,
+    "fundsNeeded": 542784,
+    "maxFundsDate": "20 April 2026",
+    "shortfall": -418091,
     "inApproval": [],
     "upcoming": [],
     "pipelineUpcoming": [
@@ -853,9 +864,29 @@ const DATA = {
         "due": "When production done",
         "poStatus": "In Production",
         "actionBy": "Eagle Labs"
+      },
+      {
+        "po": "PO-SL-80K-AMZ",
+        "supplier": "Sendy Li",
+        "qty": 80000,
+        "amount": 31680,
+        "milestone": "Mid-production (30%)",
+        "due": "~Apr 29",
+        "poStatus": "In Production",
+        "actionBy": "Sendy Li \u2192 Bianca"
+      },
+      {
+        "po": "PO-SL-80K-AMZ",
+        "supplier": "Sendy Li",
+        "qty": 80000,
+        "amount": 42240,
+        "milestone": "Final 40% (40 days after ship)",
+        "due": "~Jun 15",
+        "poStatus": "In Production",
+        "actionBy": "Sendy Li \u2192 Bianca"
       }
     ],
-    "pipelineUpcomingTotal": 468864,
+    "pipelineUpcomingTotal": 542784,
     "recentLogistics": [
       {
         "recipient": "Bailiny",
@@ -877,6 +908,13 @@ const DATA = {
         "ref": "20260414Q",
         "awRef": "P260414-UC44WKP",
         "notes": "Paid 2026-04-14. USD."
+      },
+      {
+        "recipient": "Sendy Li",
+        "amount": 31680,
+        "ref": "20260416 Invoice 80K Amazon - 30% Deposit",
+        "awRef": "P260416-237D2TR",
+        "notes": "Paid 2026-04-16. USD. 80K Amazon cream, batch 202605."
       }
     ]
   }
