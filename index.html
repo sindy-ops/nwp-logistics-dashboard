@@ -792,8 +792,8 @@ const DATA = {
       "status": "In Production",
       "method": "TBD",
       "eta": "2026-05-07 (prod) / TBD ship",
-      "payment": "DEPOSIT PAID ($31,680 / $105,600)",
-      "paymentCls": "due"
+      "payment": "30% PAID ($31,680 / $105,600)",
+      "paymentCls": "pending"
     }
   ],
   "payments": {
@@ -1216,11 +1216,14 @@ function renderWarehouseSplit() {
 function renderPipeline() {
   const tfm = DATA.pipeline.filter(p => p.dest === 'TFM').reduce((a, p) => a + p.qty, 0);
   const bail = DATA.pipeline.filter(p => p.dest === 'Bailiny').reduce((a, p) => a + p.qty, 0);
-  const total = tfm + bail;
+  const amz = DATA.pipeline.filter(p => p.dest === 'Amazon FBA').reduce((a, p) => a + p.qty, 0);
+  const other = DATA.pipeline.filter(p => !['TFM', 'Bailiny', 'Amazon FBA'].includes(p.dest)).reduce((a, p) => a + p.qty, 0);
+  const total = tfm + bail + amz + other;
 
   document.getElementById('kpi-pipeline').innerHTML = [
     kpi('TFM Incoming', fmt(tfm), DATA.pipeline.filter(p => p.dest === 'TFM').length + ' purchase orders', 'green', ''),
     kpi('Bailiny Incoming', fmt(bail), DATA.pipeline.filter(p => p.dest === 'Bailiny').length + ' purchase orders', 'orange', ''),
+    kpi('Amazon FBA Incoming', fmt(amz), DATA.pipeline.filter(p => p.dest === 'Amazon FBA').length + ' purchase orders', 'cyan', ''),
     kpi('Total Pipeline', fmt(total), 'units across all POs', 'blue', ''),
   ].join('');
 
@@ -1230,21 +1233,24 @@ function renderPipeline() {
     '</span></td><td>' + p.method + '</td><td>' + p.eta + '</td><td><span class="badge ' + p.paymentCls + '">' + p.payment + '</span></td></tr>'
   ).join('');
 
-  renderPipelineChart(tfm, bail);
+  renderPipelineChart(tfm, bail, amz, other);
 }
 
-function renderPipelineChart(tfm, bail) {
+function renderPipelineChart(tfm, bail, amz, other) {
   const c = echarts.init(document.getElementById('chart-pipeline-dest'));
+  const data = [
+    { value: tfm, name: 'TFM (US)', itemStyle: { color: '#4ade80' } },
+    { value: bail, name: 'Bailiny (CN)', itemStyle: { color: '#f59e0b' } },
+    { value: amz, name: 'Amazon FBA', itemStyle: { color: '#06b6d4' } },
+  ];
+  if (other > 0) data.push({ value: other, name: 'Other', itemStyle: { color: '#a78bfa' } });
   c.setOption({
     backgroundColor: 'transparent',
     tooltip: { trigger: 'item', backgroundColor: '#1a1d27', borderColor: '#2a2d3a', textStyle: { color: '#e4e6eb', fontSize: 11 } },
     series: [{
       type: 'pie', radius: ['40%', '70%'], center: ['50%', '55%'],
       label: { color: '#8b8fa3', fontSize: 11, formatter: '{b}\n{c|{c}}', rich: { c: { fontSize: 14, fontWeight: 700, color: '#e4e6eb', lineHeight: 22 } } },
-      data: [
-        { value: tfm, name: 'TFM (US)', itemStyle: { color: '#4ade80' } },
-        { value: bail, name: 'Bailiny (CN)', itemStyle: { color: '#f59e0b' } },
-      ]
+      data: data.filter(d => d.value > 0)
     }]
   });
   window.addEventListener('resize', () => c.resize());
