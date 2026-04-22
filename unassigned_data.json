@@ -1,8 +1,8 @@
 {
-  "generated": "2026-04-22T14:25:26.144458+00:00",
+  "generated": "2026-04-22T14:54:30.751777+00:00",
   "age_metric": "last_received_message_datetime",
-  "total": 3275,
-  "over_1d": 1725,
+  "total": 3274,
+  "over_1d": 1747,
   "over_3d": 4,
   "over_7d": 0,
   "over_30d": 0,
@@ -12,11 +12,11 @@
   "buckets": [
     {
       "label": "0-1d",
-      "count": 1550
+      "count": 1527
     },
     {
       "label": "1-3d",
-      "count": 1721
+      "count": 1743
     },
     {
       "label": "3-7d",
