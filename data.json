@@ -1,0 +1,786 @@
+{
+  "lastRefreshed": "2026-04-22T10:23:01",
+  "updatedOn": "22/04/2026",
+  "sourceFreshness": {
+    "cc_sales": {
+      "name": "CC Sales API",
+      "latestDate": "2026-04-16",
+      "fileAge": 145.5
+    },
+    "tfm_stock": {
+      "name": "TFM Stock (InfoPlus)",
+      "latestDate": "2026-04-15",
+      "fileAge": 148.3
+    },
+    "bailiny_stock": {
+      "name": "Bailiny Stock",
+      "latestDate": "2026-04-16",
+      "fileAge": 146.3
+    },
+    "airwallex": {
+      "name": "Airwallex",
+      "latestDate": "2026-04-22",
+      "fileAge": 146.3
+    },
+    "pipeline": {
+      "name": "Pipeline (Slack)",
+      "latestDate": null,
+      "fileAge": 7.5
+    },
+    "amazon": {
+      "name": "Amazon FBA",
+      "latestDate": "2026-04-22",
+      "fileAge": 0.3
+    }
+  },
+  "stock": {
+    "warehouses": [
+      {
+        "name": "TFM",
+        "stock": 69841,
+        "stockDate": "2026-04-15",
+        "demand": 9371,
+        "dos": 7,
+        "incoming": 570000,
+        "effOOS": "2026-04-29",
+        "status": "RED - 7d",
+        "statusCls": "red-status",
+        "qtyNeeded": 203549
+      },
+      {
+        "name": "Bailiny",
+        "stock": 73652,
+        "stockDate": "2026-04-16",
+        "demand": 3125,
+        "dos": 24,
+        "incoming": 190000,
+        "effOOS": "2026-05-16",
+        "status": "YELLOW - 24d",
+        "statusCls": "yellow-status",
+        "qtyNeeded": 17598
+      },
+      {
+        "name": "Amazon FBA",
+        "stock": 12335,
+        "stockDate": "2026-04-22",
+        "demand": 280,
+        "dos": 44,
+        "incoming": 220815,
+        "effOOS": "2026-06-05",
+        "status": "GREEN - 44d",
+        "statusCls": "green-status",
+        "qtyNeeded": 0
+      }
+    ],
+    "totalStock": 155828,
+    "totalDemand": 12776,
+    "totalIncoming": 980815
+  },
+  "stockProjection": [
+    {
+      "date": "Apr 22",
+      "tfm": 60470,
+      "bailiny": 70527
+    },
+    {
+      "date": "Apr 27",
+      "tfm": 13615,
+      "bailiny": 54902
+    },
+    {
+      "date": "May 02",
+      "tfm": 0,
+      "bailiny": 39277
+    },
+    {
+      "date": "May 07",
+      "tfm": 4905,
+      "bailiny": 123652
+    },
+    {
+      "date": "May 12",
+      "tfm": 23050,
+      "bailiny": 108027
+    },
+    {
+      "date": "May 17",
+      "tfm": 0,
+      "bailiny": 92402
+    },
+    {
+      "date": "May 22",
+      "tfm": 0,
+      "bailiny": 76777
+    },
+    {
+      "date": "May 27",
+      "tfm": 0,
+      "bailiny": 61152
+    },
+    {
+      "date": "Jun 01",
+      "tfm": 45630,
+      "bailiny": 135527
+    },
+    {
+      "date": "Jun 06",
+      "tfm": 58775,
+      "bailiny": 119902
+    },
+    {
+      "date": "Jun 11",
+      "tfm": 11920,
+      "bailiny": 104277
+    },
+    {
+      "date": "Jun 16",
+      "tfm": 0,
+      "bailiny": 88652
+    }
+  ],
+  "demand": {
+    "avg7d": {
+      "tfm": 9371,
+      "bailiny": 3125,
+      "total": 12496
+    },
+    "avg30d": {
+      "tfm": 7207,
+      "bailiny": 2545,
+      "total": 9752
+    },
+    "tfmNew": 7462,
+    "tfmRebill": 1908,
+    "bailinyNew": 2672,
+    "bailinyRebill": 453,
+    "daily": [
+      {
+        "date": "04/03",
+        "tfmNew": 5771,
+        "tfmRebill": 2747,
+        "bailNew": 2415,
+        "bailRebill": 458
+      },
+      {
+        "date": "04/04",
+        "tfmNew": 5123,
+        "tfmRebill": 2439,
+        "bailNew": 2302,
+        "bailRebill": 560
+      },
+      {
+        "date": "04/05",
+        "tfmNew": 4469,
+        "tfmRebill": 2111,
+        "bailNew": 2174,
+        "bailRebill": 472
+      },
+      {
+        "date": "04/06",
+        "tfmNew": 5808,
+        "tfmRebill": 2055,
+        "bailNew": 2198,
+        "bailRebill": 594
+      },
+      {
+        "date": "04/07",
+        "tfmNew": 7284,
+        "tfmRebill": 1846,
+        "bailNew": 2610,
+        "bailRebill": 562
+      },
+      {
+        "date": "04/08",
+        "tfmNew": 7189,
+        "tfmRebill": 1995,
+        "bailNew": 2541,
+        "bailRebill": 498
+      },
+      {
+        "date": "04/09",
+        "tfmNew": 6468,
+        "tfmRebill": 1892,
+        "bailNew": 2076,
+        "bailRebill": 528
+      },
+      {
+        "date": "04/10",
+        "tfmNew": 6886,
+        "tfmRebill": 1853,
+        "bailNew": 2530,
+        "bailRebill": 378
+      },
+      {
+        "date": "04/11",
+        "tfmNew": 7990,
+        "tfmRebill": 1748,
+        "bailNew": 2489,
+        "bailRebill": 524
+      },
+      {
+        "date": "04/12",
+        "tfmNew": 6689,
+        "tfmRebill": 1831,
+        "bailNew": 2473,
+        "bailRebill": 468
+      },
+      {
+        "date": "04/13",
+        "tfmNew": 7672,
+        "tfmRebill": 2157,
+        "bailNew": 2983,
+        "bailRebill": 364
+      },
+      {
+        "date": "04/14",
+        "tfmNew": 8611,
+        "tfmRebill": 1958,
+        "bailNew": 3144,
+        "bailRebill": 437
+      },
+      {
+        "date": "04/15",
+        "tfmNew": 7921,
+        "tfmRebill": 1919,
+        "bailNew": 3011,
+        "bailRebill": 472
+      },
+      {
+        "date": "04/16",
+        "tfmNew": 734,
+        "tfmRebill": 154,
+        "bailNew": 484,
+        "bailRebill": 57
+      }
+    ]
+  },
+  "pipeline": [
+    {
+      "po": "PO-SL-300K-AIR",
+      "supplier": "Sendy Li",
+      "qty": 150000,
+      "dest": "TFM",
+      "status": "In Transit",
+      "method": "Air",
+      "eta": "2026-04-20",
+      "payment": "PAID ($287,400)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-300K-SEA1",
+      "supplier": "Sendy Li",
+      "qty": 85000,
+      "dest": "TFM",
+      "status": "In Transit",
+      "method": "Sea",
+      "eta": "2026-05-07",
+      "payment": "PENDING ($25,199)",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-SL-300K-SEA2",
+      "supplier": "Sendy Li",
+      "qty": 65000,
+      "dest": "TFM",
+      "status": "In Transit",
+      "method": "Sea",
+      "eta": "2026-05-11",
+      "payment": "PENDING ($19,930)",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-SL-335K-75K",
+      "supplier": "Sendy Li",
+      "qty": 75000,
+      "dest": "Bailiny",
+      "status": "Delivered",
+      "method": "Land",
+      "eta": "2026-04-15",
+      "payment": "PAID",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-335K-200K",
+      "supplier": "Sendy Li",
+      "qty": 200000,
+      "dest": "TFM",
+      "status": "Booked",
+      "method": "Sea",
+      "eta": "",
+      "payment": "PAID ($138,138)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-335K-60K",
+      "supplier": "Sendy Li",
+      "qty": 60000,
+      "dest": "TFM",
+      "status": "Ready To Ship",
+      "method": "Sea",
+      "eta": "2026-06-02",
+      "payment": "PAID ($18,018)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-300K-REC",
+      "supplier": "Sendy Li",
+      "qty": 300000,
+      "dest": "TFM+Bailiny",
+      "status": "Ordered",
+      "method": "Sea",
+      "eta": "2026-06-01",
+      "payment": "PAID ($118,800)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-LW-100K",
+      "supplier": "Laura Wong",
+      "qty": 100000,
+      "dest": "Bailiny",
+      "status": "Relabeling",
+      "method": "Sea",
+      "eta": "2026-05-05",
+      "payment": "PARTIAL",
+      "paymentCls": "due"
+    },
+    {
+      "po": "PO-EL-28K-AMZ",
+      "supplier": "Eagle Labs",
+      "qty": 28000,
+      "dest": "Amazon FBA",
+      "status": "Delivered",
+      "method": "Ground",
+      "eta": "2026-04-03",
+      "payment": "PAID",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-EL-72K-1PK",
+      "supplier": "Eagle Labs",
+      "qty": 25340,
+      "dest": "Amazon FBA",
+      "status": "Delivered",
+      "method": "UPS SPD",
+      "eta": "2026-04-15",
+      "payment": "PENDING ($7,471)",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-EL-72K-FINAL",
+      "supplier": "Eagle Labs",
+      "qty": 29715,
+      "dest": "Amazon FBA",
+      "status": "Ready To Ship",
+      "method": "UPS SPD",
+      "eta": "2026-04-29",
+      "payment": "PENDING",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-EL-REC-M01",
+      "supplier": "Eagle Labs",
+      "qty": 191100,
+      "dest": "Amazon FBA",
+      "status": "In Production",
+      "method": "TBD",
+      "eta": "2026-05-16",
+      "payment": "UNKNOWN",
+      "paymentCls": "due"
+    },
+    {
+      "po": "PO-EL-REC-M02",
+      "supplier": "Eagle Labs",
+      "qty": 142740,
+      "dest": "Amazon FBA",
+      "status": "Scheduled",
+      "method": "TBD",
+      "eta": "2026-06-08",
+      "payment": "UNKNOWN",
+      "paymentCls": "due"
+    },
+    {
+      "po": "PO-SL-80K-NEW",
+      "supplier": "Sendy Li",
+      "qty": 80000,
+      "dest": "TBD",
+      "status": "Ordered",
+      "method": "TBD",
+      "eta": "TBD",
+      "payment": "PENDING ($31,680)",
+      "paymentCls": "pending"
+    },
+    {
+      "po": "PO-TC-8K-TFM",
+      "supplier": "Sendy Li",
+      "qty": 8000,
+      "dest": "TFM",
+      "status": "In Transit",
+      "method": "Ground",
+      "eta": "2026-04-16",
+      "payment": "PAID",
+      "paymentCls": "paid"
+    }
+  ],
+  "batches": [
+    {
+      "group": "300K (Sendy \u2014 In Transit)",
+      "totalQty": 300000,
+      "poCount": 3,
+      "cards": [
+        {
+          "po": "PO-SL-300K-AIR",
+          "supplier": "Sendy Li",
+          "qty": 150000,
+          "dest": "TFM",
+          "shipMethod": "Air",
+          "etd": "2026-03-31",
+          "eta": "2026-04-20",
+          "productionStatus": "Shipped",
+          "productionCls": "info",
+          "paymentStatus": "Paid ($287,400)",
+          "paymentCls": "ok",
+          "nextPayment": "TBD",
+          "nextPaymentDue": "TBD",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 198000,
+          "notes": "1071 ctns. Delivered: 693 (142+15+228+310). 2 cases lost \u2014 added to next 300K. 378 ctns (~53K) pending last mile."
+        },
+        {
+          "po": "PO-SL-300K-SEA1",
+          "supplier": "Sendy Li",
+          "qty": 85000,
+          "dest": "TFM",
+          "shipMethod": "Sea",
+          "etd": "2026-04-10",
+          "eta": "2026-05-07",
+          "productionStatus": "Shipped",
+          "productionCls": "info",
+          "paymentStatus": "Pending \u2014 to submit",
+          "paymentCls": "pending",
+          "nextPayment": "On delivery ~$44,880",
+          "nextPaymentDue": "~2026-05-07",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 112200,
+          "notes": "Via A2Z Matson DDP (HR-001: 84,980u). Picked up Apr 10, ETD Apr 14, ETA May 7. $0.30/u."
+        },
+        {
+          "po": "PO-SL-300K-SEA2",
+          "supplier": "Sendy Li",
+          "qty": 65000,
+          "dest": "TFM",
+          "shipMethod": "Sea",
+          "etd": "2026-04-10",
+          "eta": "2026-05-11",
+          "productionStatus": "Shipped",
+          "productionCls": "info",
+          "paymentStatus": "Pending \u2014 to submit",
+          "paymentCls": "pending",
+          "nextPayment": "On delivery ~$34,320",
+          "nextPaymentDue": "~2026-05-11",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 85800,
+          "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice."
+        }
+      ]
+    },
+    {
+      "group": "Recurring 1 \u2014 335K Sendy",
+      "totalQty": 335000,
+      "poCount": 3,
+      "cards": [
+        {
+          "po": "PO-SL-335K-75K",
+          "supplier": "Sendy Li",
+          "qty": 75000,
+          "dest": "Bailiny",
+          "shipMethod": "Land",
+          "etd": "TBD",
+          "eta": "2026-04-15",
+          "productionStatus": "Delivered",
+          "productionCls": "ok",
+          "paymentStatus": "Paid",
+          "paymentCls": "ok",
+          "nextPayment": "\u2014 complete \u2014",
+          "nextPaymentDue": "",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 99000,
+          "notes": "From 335K. 536 ctns total. 455 confirmed received, 81 pending confirmation from 3PL."
+        },
+        {
+          "po": "PO-SL-335K-200K",
+          "supplier": "Sendy Li",
+          "qty": 200000,
+          "dest": "TFM",
+          "shipMethod": "Sea",
+          "etd": "2026-04-17",
+          "eta": "TBD",
+          "productionStatus": "Ordered \u2014 not started",
+          "productionCls": "pending",
+          "paymentStatus": "Paid ($138,138)",
+          "paymentCls": "ok",
+          "nextPayment": "Final 40% ~$105,600",
+          "nextPaymentDue": "On arrival",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 264000,
+          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, ship Apr 17, ETD May 24 (per Husna). Product: $138,138 (2nd 35% + 60K shipping)."
+        },
+        {
+          "po": "PO-SL-335K-60K",
+          "supplier": "Sendy Li",
+          "qty": 60000,
+          "dest": "TFM",
+          "shipMethod": "Sea",
+          "etd": "2026-04-17",
+          "eta": "2026-06-02",
+          "productionStatus": "Production done",
+          "productionCls": "ok",
+          "paymentStatus": "Paid ($18,018)",
+          "paymentCls": "ok",
+          "nextPayment": "Final 40% ~$31,680",
+          "nextPaymentDue": "~2026-06-02",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 79200,
+          "notes": "Via Normal Sea. Ship Apr 17, ETD May 22 (per Husna). Shipping $18,018."
+        }
+      ]
+    },
+    {
+      "group": "Recurring 2 \u2014 300K/mo Sendy",
+      "totalQty": 380000,
+      "poCount": 2,
+      "cards": [
+        {
+          "po": "PO-SL-300K-REC",
+          "supplier": "Sendy Li",
+          "qty": 300000,
+          "dest": "TFM+Bailiny",
+          "shipMethod": "Sea",
+          "etd": "TBD",
+          "eta": "2026-06-01",
+          "productionStatus": "Ordered \u2014 not started",
+          "productionCls": "pending",
+          "paymentStatus": "Paid ($118,800)",
+          "paymentCls": "ok",
+          "nextPayment": "Production 30% ~$118,800",
+          "nextPaymentDue": "~TBD",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 396000,
+          "notes": "Recurring 300K/month. Deposit $118,800 paid (P260402-4398FL1). 2nd payment $118,880 due May 1."
+        },
+        {
+          "po": "PO-SL-80K-NEW",
+          "supplier": "Sendy Li",
+          "qty": 80000,
+          "dest": "TBD",
+          "shipMethod": "TBD",
+          "etd": "TBD",
+          "eta": "TBD",
+          "productionStatus": "Ordered \u2014 not started",
+          "productionCls": "pending",
+          "paymentStatus": "Pending \u2014 to submit",
+          "paymentCls": "pending",
+          "nextPayment": "Deposit ~$31,680",
+          "nextPaymentDue": "Now",
+          "owner": "Sajjad",
+          "unitCost": 1.32,
+          "totalValue": 105600,
+          "notes": "New order Apr 16. $105,600 total. 30% deposit $31,680 invoice #00515 \u2014 not yet paid."
+        }
+      ]
+    },
+    {
+      "group": "Amazon FBA (Eagle)",
+      "totalQty": 416895,
+      "poCount": 5,
+      "cards": [
+        {
+          "po": "PO-EL-28K-AMZ",
+          "supplier": "Eagle Labs",
+          "qty": 28000,
+          "dest": "Amazon FBA",
+          "shipMethod": "Ground",
+          "etd": "2026-03-28",
+          "eta": "2026-04-03",
+          "productionStatus": "Delivered",
+          "productionCls": "ok",
+          "paymentStatus": "Paid",
+          "paymentCls": "ok",
+          "nextPayment": "\u2014 complete \u2014",
+          "nextPaymentDue": "",
+          "owner": "Husna / Sam (Eagle)",
+          "unitCost": 4.66,
+          "totalValue": 130480,
+          "notes": "Bridge stock delivered to Amazon."
+        },
+        {
+          "po": "PO-EL-72K-1PK",
+          "supplier": "Eagle Labs",
+          "qty": 25340,
+          "dest": "Amazon FBA",
+          "shipMethod": "UPS SPD",
+          "etd": "2026-04-10",
+          "eta": "2026-04-15",
+          "productionStatus": "Delivered",
+          "productionCls": "ok",
+          "paymentStatus": "Pending \u2014 to submit",
+          "paymentCls": "pending",
+          "nextPayment": "On delivery ~$118,084",
+          "nextPaymentDue": "Now",
+          "owner": "Husna / Sam (Eagle)",
+          "unitCost": 4.66,
+          "totalValue": 118084,
+          "notes": "From 72K order. 181 boxes via 5 shipments. Received at Amazon Apr 14-15."
+        },
+        {
+          "po": "PO-EL-72K-FINAL",
+          "supplier": "Eagle Labs",
+          "qty": 29715,
+          "dest": "Amazon FBA",
+          "shipMethod": "UPS SPD",
+          "etd": "TBD",
+          "eta": "2026-04-29",
+          "productionStatus": "Production done",
+          "productionCls": "ok",
+          "paymentStatus": "Pending \u2014 to submit",
+          "paymentCls": "pending",
+          "nextPayment": "On delivery ~$138,471",
+          "nextPaymentDue": "~2026-04-29",
+          "owner": "Husna / Sam (Eagle)",
+          "unitCost": 4.66,
+          "totalValue": 138471,
+          "notes": "72K close-out per Eagle schedule Apr 20. SKU: 18,060 singles + 3,717 sets 3-pk (11,151 jars) + 84 sets 6-pk (504 jars). Sam Apr 21: singles ship Fri 4/24, 3pk/6pk Mon/Tue 4/27-4/28. Replaces PO-EL-72K-3PK6PK + PO-EL-72K-REMAIN. 16,945-jar gap vs original 72K \u2014 TBD if cut or rolled to recurring."
+        },
+        {
+          "po": "PO-EL-REC-M01",
+          "supplier": "Eagle Labs",
+          "qty": 191100,
+          "dest": "Amazon FBA",
+          "shipMethod": "TBD",
+          "etd": "TBD",
+          "eta": "2026-05-16",
+          "productionStatus": "In production",
+          "productionCls": "warn",
+          "paymentStatus": "Unknown / TBD",
+          "paymentCls": "pending",
+          "nextPayment": "TBD",
+          "nextPaymentDue": "TBD",
+          "owner": "Husna / Sam (Eagle)",
+          "unitCost": 4.66,
+          "totalValue": 890526,
+          "notes": "Recurring M01 per Eagle schedule Apr 20. Apr 27-May 16 firm pack-outs: 139,800 singles + 40,500 3-pk + 10,800 6-pk. Sam Apr 8 confirmed 72K/month recurring stocking position. No PO# or unit price issued yet \u2014 chase Xeomara."
+        },
+        {
+          "po": "PO-EL-REC-M02",
+          "supplier": "Eagle Labs",
+          "qty": 142740,
+          "dest": "Amazon FBA",
+          "shipMethod": "TBD",
+          "etd": "TBD",
+          "eta": "2026-06-08",
+          "productionStatus": "Scheduled \u2014 future",
+          "productionCls": "pending",
+          "paymentStatus": "Unknown / TBD",
+          "paymentCls": "pending",
+          "nextPayment": "TBD",
+          "nextPaymentDue": "TBD",
+          "owner": "Husna / Sam (Eagle)",
+          "unitCost": 4.66,
+          "totalValue": 665168,
+          "notes": "Recurring M02 per Eagle schedule Apr 20. May 29-Jun 8 batch pool (13 batches \u00d7 ~10,980 singles). Not yet split into pack-out SKUs \u2014 Eagle splits ~1 month before ship. No PO# or price yet."
+        }
+      ]
+    }
+  ],
+  "payments": {
+    "balance": 124693,
+    "pendingApproval": 0,
+    "fundsNeeded": 302780,
+    "maxFundsDate": "22 April 2026",
+    "shortfall": -178086,
+    "inApproval": [],
+    "upcoming": [],
+    "pipelineUpcoming": [
+      {
+        "po": "PO-SL-300K-SEA1",
+        "supplier": "Sendy Li",
+        "qty": 85000,
+        "amount": 25199,
+        "milestone": "Pay on delivery",
+        "due": "~May 07",
+        "poStatus": "In Transit",
+        "actionBy": "Sendy Li \u2192 Bianca"
+      },
+      {
+        "po": "PO-SL-300K-SEA2",
+        "supplier": "Sendy Li",
+        "qty": 65000,
+        "amount": 19930,
+        "milestone": "Pay on delivery",
+        "due": "~May 11",
+        "poStatus": "In Transit",
+        "actionBy": "Sendy Li \u2192 Bianca"
+      },
+      {
+        "po": "PO-LW-100K",
+        "supplier": "Laura Wong",
+        "qty": 100000,
+        "amount": 87500,
+        "milestone": "Pay on delivery",
+        "due": "~May 05",
+        "poStatus": "Relabeling",
+        "actionBy": "Laura Wong \u2192 Bianca"
+      },
+      {
+        "po": "PO-EL-72K-FINAL",
+        "supplier": "Eagle Labs",
+        "qty": 29715,
+        "amount": 138471,
+        "milestone": "Pay on delivery",
+        "due": "~Apr 29",
+        "poStatus": "Ready To Ship",
+        "actionBy": "Eagle Labs \u2192 Bianca"
+      },
+      {
+        "po": "PO-SL-80K-NEW",
+        "supplier": "Sendy Li",
+        "qty": 80000,
+        "amount": 31680,
+        "milestone": "Submit deposit to AW",
+        "due": "Now",
+        "poStatus": "Ordered",
+        "actionBy": "Bianca"
+      }
+    ],
+    "pipelineUpcomingTotal": 302780,
+    "recentLogistics": [
+      {
+        "recipient": "Bailiny",
+        "amount": 33785,
+        "ref": "Invoice 587594",
+        "awRef": "P260414-TKYZ318",
+        "notes": "Paid 2026-04-14. USD."
+      },
+      {
+        "recipient": "Bailiny",
+        "amount": 22113,
+        "ref": "Invoice 587593",
+        "awRef": "P260414-U8C3650",
+        "notes": "Paid 2026-04-14. USD."
+      },
+      {
+        "recipient": "Sendy Li",
+        "amount": 138145,
+        "ref": "20260414Q",
+        "awRef": "P260414-UC44WKP",
+        "notes": "Paid 2026-04-14. USD."
+      }
+    ]
+  }
+}
