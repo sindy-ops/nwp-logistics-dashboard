@@ -62,6 +62,13 @@
   .legend-val { font-variant-numeric:tabular-nums; color:var(--text-dim); }
   .product-explainer { font-size:11px; color:var(--text-dim); margin-bottom:10px; line-height:1.55; }
   .product-explainer strong { color:var(--text); }
+  .table-caveat { font-size:11px; color:var(--text-dim); margin-top:10px; line-height:1.5; }
+  .empty-state {
+    background:var(--card); border:1px solid var(--card-border); border-radius:12px;
+    padding:28px 24px; margin-bottom:20px; color:var(--text-dim); font-size:13px;
+    line-height:1.6; text-align:center;
+  }
+  .empty-state strong { color:var(--text); }
 </style>
 </head>
 <body>
@@ -102,26 +109,33 @@
 
   <div class="stats-row" id="stats"></div>
 
-  <div class="split-row">
-    <div class="donut-card">
-      <div class="donut-title">Upsell vs No upsell — share of CBs</div>
-      <div class="donut-chart"><canvas id="upsell-donut"></canvas></div>
-      <div class="donut-legend" id="upsell-donut-legend"></div>
-    </div>
-    <div class="product-card">
-      <div class="product-title">Which upsell product drives CBs?</div>
-      <div class="product-explainer">
-        <strong>How to read:</strong> % is share of <strong>upsell CBs only</strong>. Sales volume does NOT factor in — a product's slice shows the proportion of CBs it contributes within the upsell group. For rate-adjusted view (CBs ÷ units sold), see the v2 pipeline.
-      </div>
-      <div class="chart-wrap" style="height:260px;"><canvas id="product-bar"></canvas></div>
-    </div>
+  <div id="empty-state" class="empty-state" style="display:none;">
+    <strong>No matched CBs in this window.</strong><br>
+    v1 coverage is mostly pre-2026 legacy era. Current CBs are pending Reiner's <code>number</code> column clarification (see Response Time tab caveat).
   </div>
 
-  <div class="chart-card">
-    <div class="chart-header">
-      <div class="chart-title">Daily CBs — Upsell vs No upsell (stacked)</div>
+  <div id="charts-wrap">
+    <div class="split-row">
+      <div class="donut-card">
+        <div class="donut-title">Upsell vs No upsell — share of CBs</div>
+        <div class="donut-chart"><canvas id="upsell-donut"></canvas></div>
+        <div class="donut-legend" id="upsell-donut-legend"></div>
+      </div>
+      <div class="product-card">
+        <div class="product-title">Which upsell product drives CBs?</div>
+        <div class="product-explainer">
+          <strong>How to read:</strong> % is share of <strong>upsell CBs only</strong>. Sales volume does NOT factor in — a product's slice shows the proportion of CBs it contributes within the upsell group. For rate-adjusted view (CBs ÷ units sold), see the v2 pipeline.
+        </div>
+        <div class="chart-wrap" style="height:260px;"><canvas id="product-bar"></canvas></div>
+      </div>
     </div>
-    <div class="chart-wrap"><canvas id="trend"></canvas></div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">Daily CBs — Upsell vs No upsell (stacked)</div>
+      </div>
+      <div class="chart-wrap"><canvas id="trend"></canvas></div>
+    </div>
   </div>
 
   <div class="table-card">
@@ -130,11 +144,14 @@
       <thead><tr><th>Platform</th><th>With upsell</th><th>No upsell</th><th>Total</th><th>% upsell</th></tr></thead>
       <tbody></tbody>
     </table>
+    <div class="table-caveat">
+      Per-platform numbers are 90d totals — the window filter above does not split by platform in v1.
+    </div>
   </div>
 </div>
 
 <script id="us-data" type="application/json">{
-  "generated_at": "2026-04-22T15:34:41",
+  "generated_at": "2026-04-22T16:01:19",
   "window_start": "2026-01-23",
   "window_end": "2026-04-22",
   "window_days": 90,
@@ -484,9 +501,18 @@
   document.getElementById('subtitle').textContent =
     `${data.window_start} → ${data.window_end}  ·  coverage: ${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_cc_match)} of ${fmtNum(data.coverage.total_cbs)} CBs matched)  ·  ${data.notice}`;
 
-  const baseline = (data.totals.with_upsell + data.totals.no_upsell) || 1;
-
   let trendChart = null, donutChart = null, productChart = null;
+
+  // Per-platform table is rendered once from raw 90d totals — no scaling
+  function renderPlatformTable() {
+    document.querySelector('#platform-table tbody').innerHTML = data.by_platform.map(r => {
+      const wu = r.with_upsell || 0;
+      const nu = r.no_upsell || 0;
+      const tot = wu + nu;
+      const pct = tot ? Math.round(100*wu/tot) : 0;
+      return `<tr><td>${r.platform}</td><td>${fmtNum(wu)}</td><td>${fmtNum(nu)}</td><td>${fmtNum(tot)}</td><td>${pct}%</td></tr>`;
+    }).join('');
+  }
 
   function renderAll(start, end) {
     const labels = data.dates.slice(start, end+1);
@@ -498,23 +524,31 @@
     const withPct = totSum ? withSum/totSum : 0;
     const noPct = totSum ? noSum/totSum : 0;
     const winLabel = `${data.dates[start]} → ${data.dates[end]} · ${labels.length}d`;
-    const scale = baseline ? totSum / baseline : 1;
 
-    // Stats row — sort upsell products by share (pct within upsell CBs), highlight top
-    const scaledProducts = data.upsell_products.map(p => {
-      const cbs = Math.round(p.cbs * scale);
-      return { ...p, cbs };
-    });
-    const upsellCbSum = scaledProducts.reduce((a,p) => a + p.cbs, 0);
-    scaledProducts.forEach(p => { p.pct = upsellCbSum ? p.cbs / upsellCbSum : 0; });
-    scaledProducts.sort((a,b) => b.pct - a.pct);
-    const topProduct = scaledProducts[0] || {product:'—', cbs:0, pct:0};
+    // Product breakdown — show raw 90d totals (no scaling by window, since v1 has no per-product daily series)
+    const rawProducts = (data.upsell_products || []).map(p => ({...p}));
+    rawProducts.sort((a,b) => (b.pct || 0) - (a.pct || 0));
+    const topProduct = rawProducts[0] || {product:'—', cbs:0, pct:0};
 
     document.getElementById('stats').innerHTML = `
       <div class="stat-card"><div class="stat-label">With upsell</div><div class="stat-value" style="color:${COLORS.upsell};">${fmtNum(withSum)}</div><div class="stat-sub">${Math.round(withPct*100)}% of matched · ${winLabel}</div></div>
       <div class="stat-card"><div class="stat-label">No upsell</div><div class="stat-value" style="color:${COLORS.no_upsell};">${fmtNum(noSum)}</div><div class="stat-sub">${Math.round(noPct*100)}% of matched · ${winLabel}</div></div>
-      <div class="stat-card"><div class="stat-label">Top upsell product in CBs</div><div class="stat-value" style="font-size:22px;">${topProduct.product}</div><div class="stat-sub">${fmtNum(topProduct.cbs)} CBs · ${Math.round(topProduct.pct*100)}% of upsell CBs</div></div>
+      <div class="stat-card"><div class="stat-label">Top upsell product in CBs</div><div class="stat-value" style="font-size:22px;">${topProduct.product || '—'}</div><div class="stat-sub">${fmtNum(topProduct.cbs)} CBs · ${Math.round((topProduct.pct||0)*100)}% of upsell CBs · 90d</div></div>
     `;
+
+    // Empty-state swap: hide charts when zero matched in window
+    const emptyEl = document.getElementById('empty-state');
+    const chartsEl = document.getElementById('charts-wrap');
+    if (totSum === 0) {
+      emptyEl.style.display = 'block';
+      chartsEl.style.display = 'none';
+      if (donutChart) { donutChart.destroy(); donutChart = null; }
+      if (trendChart) { trendChart.destroy(); trendChart = null; }
+      if (productChart) { productChart.destroy(); productChart = null; }
+      return;
+    }
+    emptyEl.style.display = 'none';
+    chartsEl.style.display = '';
 
     // Upsell vs No donut
     if (donutChart) donutChart.destroy();
@@ -533,16 +567,16 @@
       <div class="legend-row"><div class="legend-swatch" style="background:${COLORS.no_upsell}"></div><div class="legend-name">No upsell</div><div class="legend-val">${fmtNum(noSum)} · ${Math.round(noPct*100)}%</div></div>
     `;
 
-    // Product % bar chart (horizontal), ranked by share within upsell CBs
+    // Product % bar chart (horizontal), ranked by share within upsell CBs — raw 90d totals
     if (productChart) productChart.destroy();
     productChart = new Chart(document.getElementById('product-bar').getContext('2d'), {
       type:'bar',
       data:{
-        labels: scaledProducts.map(p => p.product),
+        labels: rawProducts.map(p => p.product),
         datasets:[{
           label:'% of upsell CBs',
-          data: scaledProducts.map(p => +(p.pct*100).toFixed(1)),
-          backgroundColor: scaledProducts.map((_,i) => PRODUCT_COLORS[i % PRODUCT_COLORS.length]),
+          data: rawProducts.map(p => +((p.pct||0)*100).toFixed(1)),
+          backgroundColor: rawProducts.map((_,i) => PRODUCT_COLORS[i % PRODUCT_COLORS.length]),
           borderWidth: 0,
         }],
       },
@@ -554,7 +588,7 @@
         },
         plugins:{
           legend:{display:false},
-          tooltip:{ callbacks:{ label:(c)=>{ const p=scaledProducts[c.dataIndex]; return [`${fmtNum(p.cbs)} CBs · ${Math.round(p.pct*100)}% of upsell CBs`]; } } },
+          tooltip:{ callbacks:{ label:(c)=>{ const p=rawProducts[c.dataIndex]; return [`${fmtNum(p.cbs)} CBs · ${Math.round((p.pct||0)*100)}% of upsell CBs (90d)`]; } } },
         },
       },
     });
@@ -572,16 +606,10 @@
         plugins:{ legend:{labels:{color:'#e4e6eb'}} },
       },
     });
-
-    // Per-platform table (proportional mock scaling)
-    document.querySelector('#platform-table tbody').innerHTML = data.by_platform.map(r => {
-      const wu = Math.round(r.with_upsell * scale);
-      const nu = Math.round(r.no_upsell * scale);
-      const tot = wu + nu;
-      const pct = tot ? Math.round(100*wu/tot) : 0;
-      return `<tr><td>${r.platform}</td><td>${fmtNum(wu)}</td><td>${fmtNum(nu)}</td><td>${fmtNum(tot)}</td><td>${pct}%</td></tr>`;
-    }).join('');
   }
+
+  // Render platform table once from 90d totals
+  renderPlatformTable();
 
   // Controls
   let currentWindow = 90;

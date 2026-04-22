@@ -59,6 +59,13 @@
   tr:last-child td { border-bottom:none; }
   .table-card { background:var(--card); border:1px solid var(--card-border); border-radius:12px; padding:20px 24px; margin-bottom:20px; }
   .table-card h3 { font-size:16px; font-weight:700; margin-bottom:14px; }
+  .table-caveat { font-size:11px; color:var(--text-dim); margin-top:10px; line-height:1.5; }
+  .empty-state {
+    background:var(--card); border:1px solid var(--card-border); border-radius:12px;
+    padding:28px 24px; margin-bottom:20px; color:var(--text-dim); font-size:13px;
+    line-height:1.6; text-align:center;
+  }
+  .empty-state strong { color:var(--text); }
 </style>
 </head>
 <body>
@@ -99,19 +106,26 @@
 
   <div class="stats-row" id="stats"></div>
 
-  <div class="donut-card">
-    <div class="donut-title">Rebill vs New — share of CBs</div>
-    <div class="donut-wrap">
-      <div class="donut-chart"><canvas id="donut"></canvas></div>
-      <div class="donut-legend" id="donut-legend"></div>
-    </div>
+  <div id="empty-state" class="empty-state" style="display:none;">
+    <strong>No matched CBs in this window.</strong><br>
+    v1 coverage is mostly pre-2026 legacy era. Current CBs are pending Reiner's <code>number</code> column clarification (see Response Time tab caveat).
   </div>
 
-  <div class="chart-card">
-    <div class="chart-header">
-      <div class="chart-title">Daily CBs — Rebill vs New (stacked)</div>
+  <div id="charts-wrap">
+    <div class="donut-card">
+      <div class="donut-title">Rebill vs New — share of CBs</div>
+      <div class="donut-wrap">
+        <div class="donut-chart"><canvas id="donut"></canvas></div>
+        <div class="donut-legend" id="donut-legend"></div>
+      </div>
     </div>
-    <div class="chart-wrap"><canvas id="trend"></canvas></div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">Daily CBs — Rebill vs New (stacked)</div>
+      </div>
+      <div class="chart-wrap"><canvas id="trend"></canvas></div>
+    </div>
   </div>
 
   <div class="table-card">
@@ -120,11 +134,14 @@
       <thead><tr><th>Platform</th><th>Rebill</th><th>New</th><th>Total</th><th>% Rebill</th></tr></thead>
       <tbody></tbody>
     </table>
+    <div class="table-caveat">
+      Per-platform numbers are 90d totals — the window filter above does not split by platform in v1.
+    </div>
   </div>
 </div>
 
 <script id="rb-data" type="application/json">{
-  "generated_at": "2026-04-22T15:34:41",
+  "generated_at": "2026-04-22T16:01:19",
   "window_start": "2026-01-23",
   "window_end": "2026-04-22",
   "window_days": 90,
@@ -456,12 +473,20 @@
   document.getElementById('subtitle').textContent =
     `${data.window_start} → ${data.window_end}  ·  coverage: ${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_cc_match)} of ${fmtNum(data.coverage.total_cbs)} CBs matched to CC)  ·  ${data.notice}`;
 
-  // Full 90d baseline (for per-platform proportional scaling on mock data)
-  const baseline = data.totals.total || 1;
-
   // Chart instances (rebuilt on each window change)
   let trendChart = null;
   let donutChart = null;
+
+  // Per-platform table is rendered once from raw 90d totals — no scaling
+  function renderPlatformTable() {
+    document.querySelector('#platform-table tbody').innerHTML = data.by_platform.map(r => {
+      const rb = r.rebill || 0;
+      const ns = r.new_sale || 0;
+      const tot = rb + ns;
+      const pct = tot ? Math.round(100*rb/tot) : 0;
+      return `<tr><td>${r.platform}</td><td>${fmtNum(rb)}</td><td>${fmtNum(ns)}</td><td>${fmtNum(tot)}</td><td>${pct}%</td></tr>`;
+    }).join('');
+  }
 
   function renderAll(start, end) {
     const labels = data.dates.slice(start, end+1);
@@ -480,6 +505,19 @@
       <div class="stat-card"><div class="stat-label">New-sale CBs</div><div class="stat-value" style="color:${COLORS.new_sale};">${fmtNum(newSum)}</div><div class="stat-sub">${Math.round(newPct*100)}% of matched · ${winLabel}</div></div>
       <div class="stat-card"><div class="stat-label">Total matched</div><div class="stat-value">${fmtNum(totSum)}</div><div class="stat-sub">${winLabel}</div></div>
     `;
+
+    // Empty-state swap: hide charts when zero matched
+    const emptyEl = document.getElementById('empty-state');
+    const chartsEl = document.getElementById('charts-wrap');
+    if (totSum === 0) {
+      emptyEl.style.display = 'block';
+      chartsEl.style.display = 'none';
+      if (donutChart) { donutChart.destroy(); donutChart = null; }
+      if (trendChart) { trendChart.destroy(); trendChart = null; }
+      return;
+    }
+    emptyEl.style.display = 'none';
+    chartsEl.style.display = '';
 
     // Donut — rebuild on each refresh
     if (donutChart) donutChart.destroy();
@@ -510,17 +548,10 @@
         plugins:{ legend:{labels:{color:'#e4e6eb'}} },
       },
     });
-
-    // Per-platform table — scale proportionally to window fraction (mock data only; real pipeline will have daily per-platform)
-    const scale = baseline ? totSum / baseline : 1;
-    document.querySelector('#platform-table tbody').innerHTML = data.by_platform.map(r => {
-      const rb = Math.round(r.rebill * scale);
-      const ns = Math.round(r.new_sale * scale);
-      const tot = rb + ns;
-      const pct = tot ? Math.round(100*rb/tot) : 0;
-      return `<tr><td>${r.platform}</td><td>${fmtNum(rb)}</td><td>${fmtNum(ns)}</td><td>${fmtNum(tot)}</td><td>${pct}%</td></tr>`;
-    }).join('');
   }
+
+  // Render platform table once from 90d totals
+  renderPlatformTable();
 
   // Window/date controls
   let currentWindow = 90;
