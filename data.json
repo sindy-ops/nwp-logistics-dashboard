@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-22T11:28:55",
+  "lastRefreshed": "2026-04-22T11:32:11",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
@@ -15,7 +15,7 @@
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-16",
-      "fileAge": 147.4
+      "fileAge": 147.5
     },
     "airwallex": {
       "name": "Airwallex",
@@ -25,12 +25,12 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.2
+      "fileAge": 0.3
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 1.4
+      "fileAge": 1.5
     }
   },
   "stock": {
@@ -459,7 +459,8 @@
           "deliveryDue": "10 May 2026",
           "batchTotal": 217800,
           "deliveredQty": 125000,
-          "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K."
+          "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K.",
+          "hasAlert": true
         },
         {
           "po": "PO-SL-300K-SEA1",
@@ -492,7 +493,8 @@
           "deliveryDue": "20 May 2026",
           "batchTotal": 123420,
           "deliveredQty": 0,
-          "notes": "Via A2Z Matson DDP (HR-001: 84,980u). Picked up Apr 10, ETD Apr 14, ETA May 7. $0.30/u."
+          "notes": "Via A2Z Matson DDP (HR-001: 84,980u). Picked up Apr 10, ETD Apr 14, ETA May 7. $0.30/u.",
+          "hasAlert": false
         },
         {
           "po": "PO-SL-300K-SEA2",
@@ -525,7 +527,8 @@
           "deliveryDue": "20 May 2026",
           "batchTotal": 94378,
           "deliveredQty": 0,
-          "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice."
+          "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice.",
+          "hasAlert": false
         }
       ],
       "alerts": [
@@ -572,7 +575,8 @@
           "deliveryDue": "20 May 2026 (est.)",
           "batchTotal": 108900,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         },
         {
           "po": "PO-SL-335K-200K",
@@ -605,7 +609,8 @@
           "deliveryDue": "27 May 2026",
           "batchTotal": 290400,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         },
         {
           "po": "PO-SL-335K-60K",
@@ -638,7 +643,8 @@
           "deliveryDue": "27 May 2026",
           "batchTotal": 87120,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         }
       ],
       "alerts": []
@@ -680,7 +686,8 @@
           "deliveryDue": "1 June 2026 (est.)",
           "batchTotal": 435600,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         }
       ],
       "alerts": []
@@ -722,7 +729,8 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         },
         {
           "po": "PO-EL-72K-1PK",
@@ -755,7 +763,8 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         },
         {
           "po": "PO-EL-72K-FINAL",
@@ -788,7 +797,8 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         },
         {
           "po": "PO-EL-REC-M01",
@@ -821,7 +831,8 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         },
         {
           "po": "PO-EL-REC-M02",
@@ -854,7 +865,8 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         },
         {
           "po": "PO-SL-80K-NEW",
@@ -887,7 +899,8 @@
           "deliveryDue": "TBD",
           "batchTotal": 116160,
           "deliveredQty": 0,
-          "notes": null
+          "notes": null,
+          "hasAlert": false
         }
       ],
       "alerts": []
