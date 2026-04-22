@@ -15,6 +15,8 @@
     --accent: #4ade80;
     --blue: #3b82f6;
     --orange: #f59e0b;
+    --red: #ef4444;
+    --purple: #a78bfa;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -35,6 +37,23 @@
     transition: border-color 0.15s;
   }
   .back-link:hover { border-color: var(--accent); color: var(--text); }
+
+  .tabs {
+    display: flex; gap: 4px; margin-bottom: 20px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .tab {
+    font-size: 13px; font-weight: 600; text-decoration: none; color: var(--text-dim);
+    padding: 10px 18px; border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s; margin-bottom: -1px;
+    cursor: pointer; user-select: none; background: none; border-top: none;
+    border-left: none; border-right: none; font-family: inherit;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .pane { display: none; }
+  .pane.active { display: block; }
 
   .filter-bar {
     display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
@@ -78,20 +97,16 @@
     font-variant-numeric: tabular-nums; }
   .kpi-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
 
-  .chart-card {
+  .chart-card, .table-card {
     background: var(--card); border: 1px solid var(--card-border);
     border-radius: 12px; padding: 20px 24px 24px; margin-bottom: 20px;
   }
+  .table-card { overflow-x: auto; padding-bottom: 20px; }
   .chart-header { display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
-  .chart-title { font-size: 16px; font-weight: 700; }
+  .chart-title, .table-title { font-size: 16px; font-weight: 700; }
   .chart-wrap { position: relative; height: 380px; }
 
-  .table-card {
-    background: var(--card); border: 1px solid var(--card-border);
-    border-radius: 12px; padding: 20px 24px; overflow-x: auto;
-  }
-  .table-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
   table { width: 100%; border-collapse: collapse; font-size: 12px;
     font-variant-numeric: tabular-nums; }
   th, td { padding: 8px 8px; text-align: right; white-space: nowrap;
@@ -112,6 +127,27 @@
   .heat-1 { color: rgba(228,230,235,0.55); }
   .heat-2 { color: var(--text); }
   .heat-3 { color: var(--accent); font-weight: 600; }
+  .pct-bar {
+    display: inline-block; width: 50px; height: 6px;
+    background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;
+    vertical-align: middle; margin-right: 6px;
+  }
+  .pct-bar-fill { display: block; height: 100%; border-radius: 3px; }
+  .score-good { color: var(--accent); font-weight: 700; }
+  .score-ok { color: var(--orange); font-weight: 600; }
+  .score-bad { color: var(--red); font-weight: 600; }
+  .weakest-list { font-size: 11px; color: var(--text-dim); }
+  .methodology-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 16px 20px; font-size: 12px; color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .methodology-card summary { cursor: pointer; font-weight: 600;
+    color: var(--text); font-size: 13px; }
+  .methodology-card[open] summary { margin-bottom: 10px; }
+  .methodology-card ul { margin: 8px 0 8px 20px; }
+  .methodology-card li { margin-bottom: 4px; }
+  .methodology-card b { color: var(--text); }
 
   .footer-meta { margin-top: 16px; font-size: 11px;
     color: var(--text-dim); text-align: center; }
@@ -127,51 +163,94 @@
     <a href="hub.html" class="back-link">← Hub</a>
   </div>
 
-  <div class="filter-bar">
-    <span class="btn-label">Window</span>
-    <div class="btn-group">
-      <button class="btn" data-preset="7">7d</button>
-      <button class="btn active" data-preset="30">30d</button>
-      <button class="btn" data-preset="90">90d</button>
-    </div>
-    <span class="btn-label" style="margin-left: 8px;">Or pick range</span>
-    <input type="date" class="date-input" id="date-start">
-    <span class="date-sep">→</span>
-    <input type="date" class="date-input" id="date-end">
-    <button class="btn" id="apply-range">Apply</button>
+  <div class="tabs">
+    <button class="tab active" data-tab="volume">Volume</button>
+    <button class="tab" data-tab="score">Score Card</button>
   </div>
 
-  <div class="kpi-row" id="kpi-row"></div>
-
-  <div class="chart-card">
-    <div class="chart-header">
-      <div class="chart-title">Daily customer messages &amp; new tickets</div>
+  <!-- ============ VOLUME TAB ============ -->
+  <div class="pane active" id="pane-volume">
+    <div class="filter-bar">
+      <span class="btn-label">Window</span>
+      <div class="btn-group" id="volume-presets">
+        <button class="btn" data-preset="7">7d</button>
+        <button class="btn active" data-preset="30">30d</button>
+        <button class="btn" data-preset="90">90d</button>
+      </div>
+      <span class="btn-label" style="margin-left: 8px;">Or pick range</span>
+      <input type="date" class="date-input" id="date-start">
+      <span class="date-sep">→</span>
+      <input type="date" class="date-input" id="date-end">
+      <button class="btn" id="apply-range">Apply</button>
     </div>
-    <div class="chart-wrap"><canvas id="volume-chart"></canvas></div>
+
+    <div class="kpi-row" id="kpi-row"></div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">Daily customer messages &amp; new tickets</div>
+      </div>
+      <div class="chart-wrap"><canvas id="volume-chart"></canvas></div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-title">Replies per agent per day (click a column to sort)</div>
+      <div id="agent-table"></div>
+    </div>
   </div>
 
-  <div class="table-card">
-    <div class="table-title">Replies per agent per day (click a column to sort)</div>
-    <div id="agent-table"></div>
+  <!-- ============ SCORE CARD TAB ============ -->
+  <div class="pane" id="pane-score">
+    <div class="filter-bar">
+      <span class="btn-label">Window</span>
+      <div class="btn-group" id="score-presets">
+        <button class="btn" data-score-preset="7">7d</button>
+        <button class="btn active" data-score-preset="30">30d</button>
+      </div>
+      <span class="btn-label" style="margin-left: 8px;">Sample: up to 50 closed tickets per agent</span>
+    </div>
+
+    <div class="kpi-row" id="score-kpi-row"></div>
+
+    <details class="methodology-card">
+      <summary>How scoring works (12 questions, 100 points)</summary>
+      <p>Each closed ticket is scored against a 12-question rubric covering four sections.</p>
+      <ul>
+        <li><b>A. Technical Accuracy &amp; Retention (35 pts):</b> Solution accuracy, retention SOP adherence, tool usage.</li>
+        <li><b>B. Documentation &amp; Tagging (30 pts):</b> Inquiry tag, resolution tag, internal notes, macro customization.</li>
+        <li><b>C. Communication &amp; Voice (25 pts):</b> Tone/empathy, clarity, opening/closing.</li>
+        <li><b>D. Efficiency (10 pts):</b> First contact resolution, conciseness.</li>
+      </ul>
+      <p>Scoring is pattern-matching on ticket text and tags, so results are best used to spot trends across tickets rather than judge any single reply. Reliable categories: tags, notes, FCR, conciseness. Proxy categories: solution accuracy, tone, retention tier.</p>
+    </details>
+
+    <div class="table-card">
+      <div class="table-title">Agent scores (click a column to sort)</div>
+      <div id="score-table"></div>
+    </div>
   </div>
 
   <div class="footer-meta" id="footer">–</div>
 </div>
 
 <script>
-let CS_DATA = null;
-let chart = null;
-let sortCol = 'total';
-let sortDir = 'desc';
-// Active date window (indices into CS_DATA.days)
-let winStart = 0;
-let winEnd = 0;
+let VOL = null, SCORE = null;
+let volChart = null;
+let sortCol = 'total', sortDir = 'desc';
+let scoreSortCol = 'avg_total', scoreSortDir = 'desc';
+let winStart = 0, winEnd = 0;   // indices into VOL.days
+let scoreWindow = '30d';        // "7d" | "30d"
 
 async function load() {
-  const res = await fetch('cs_data.json?t=' + Date.now());
-  CS_DATA = await res.json();
-  // Default: last 30 days of whatever we fetched
-  const totalDays = CS_DATA.days.length;
+  const [vRes, sRes] = await Promise.all([
+    fetch('cs_data.json?t=' + Date.now()),
+    fetch('scorecard_data.json?t=' + Date.now()).catch(() => null),
+  ]);
+  VOL = await vRes.json();
+  if (sRes && sRes.ok) {
+    SCORE = await sRes.json();
+  }
+  const totalDays = VOL.days.length;
   winEnd = totalDays - 1;
   winStart = Math.max(0, totalDays - 30);
   syncDateInputs();
@@ -180,63 +259,85 @@ async function load() {
 }
 
 function fmt(n) { return (n || 0).toLocaleString('en-US'); }
+function fmt1(n) { return (n || 0).toFixed(1); }
 
 function syncDateInputs() {
-  document.getElementById('date-start').value = CS_DATA.days[winStart];
-  document.getElementById('date-end').value = CS_DATA.days[winEnd];
+  document.getElementById('date-start').value = VOL.days[winStart];
+  document.getElementById('date-end').value = VOL.days[winEnd];
 }
 
 function wireEvents() {
+  // Tab switch
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById('pane-' + t.getAttribute('data-tab')).classList.add('active');
+      // Chart.js needs a resize when its canvas was display:none
+      if (t.getAttribute('data-tab') === 'volume' && volChart) volChart.resize();
+      renderFooter();
+    });
+  });
+  // Volume presets
   document.querySelectorAll('[data-preset]').forEach(btn => {
     btn.addEventListener('click', () => {
       const days = parseInt(btn.getAttribute('data-preset'), 10);
-      const total = CS_DATA.days.length;
+      const total = VOL.days.length;
       winEnd = total - 1;
       winStart = Math.max(0, total - days);
       document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       syncDateInputs();
-      render();
+      renderVolume();
     });
   });
   document.getElementById('apply-range').addEventListener('click', () => {
     const s = document.getElementById('date-start').value;
     const e = document.getElementById('date-end').value;
-    const si = CS_DATA.days.indexOf(s);
-    const ei = CS_DATA.days.indexOf(e);
+    const si = VOL.days.indexOf(s);
+    const ei = VOL.days.indexOf(e);
     if (si < 0 || ei < 0 || si > ei) {
-      alert('Pick two dates within ' + CS_DATA.days[0] + ' → ' + CS_DATA.days[CS_DATA.days.length - 1]);
+      alert('Pick two dates within ' + VOL.days[0] + ' → ' + VOL.days[VOL.days.length - 1]);
       return;
     }
-    winStart = si;
-    winEnd = ei;
+    winStart = si; winEnd = ei;
     document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
-    render();
+    renderVolume();
+  });
+  // Score presets
+  document.querySelectorAll('[data-score-preset]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      scoreWindow = btn.getAttribute('data-score-preset') + 'd';
+      document.querySelectorAll('[data-score-preset]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderScoreCard();
+    });
   });
 }
 
+// ================ VOLUME ================
+
 function windowSlice() {
-  const days = CS_DATA.days.slice(winStart, winEnd + 1);
-  const cust = CS_DATA.customer_msgs_per_day.slice(winStart, winEnd + 1);
-  const tix = CS_DATA.new_tickets_per_day.slice(winStart, winEnd + 1);
+  const days = VOL.days.slice(winStart, winEnd + 1);
+  const cust = VOL.customer_msgs_per_day.slice(winStart, winEnd + 1);
+  const tix = VOL.new_tickets_per_day.slice(winStart, winEnd + 1);
   return { days, cust, tix };
 }
 
-function renderKpis() {
+function renderVolumeKpis() {
   const { days, cust, tix } = windowSlice();
   const sumCust = cust.reduce((a, b) => a + b, 0);
   const sumTix = tix.reduce((a, b) => a + b, 0);
-  let sumReplies = 0;
-  let activeAgents = 0;
-  for (const a of CS_DATA.agents) {
+  let sumReplies = 0, activeAgents = 0;
+  for (const a of VOL.agents) {
     let t = 0;
     for (const d of days) t += a.per_day[d] || 0;
     if (t > 0) activeAgents++;
     sumReplies += t;
   }
   const n = days.length;
-  const row = document.getElementById('kpi-row');
-  row.innerHTML = `
+  document.getElementById('kpi-row').innerHTML = `
     <div class="kpi-card">
       <div class="kpi-label">Customer Messages</div>
       <div class="kpi-value">${fmt(sumCust)}</div>
@@ -256,36 +357,23 @@ function renderKpis() {
       <div class="kpi-label">Reply : Inbound</div>
       <div class="kpi-value">${(sumReplies / Math.max(1, sumCust)).toFixed(2)}×</div>
       <div class="kpi-sub">replies per inbound msg</div>
-    </div>
-  `;
+    </div>`;
 }
 
-function renderChart() {
+function renderVolumeChart() {
   const { days, cust, tix } = windowSlice();
   const ctx = document.getElementById('volume-chart').getContext('2d');
-  if (chart) chart.destroy();
-  chart = new Chart(ctx, {
+  if (volChart) volChart.destroy();
+  volChart = new Chart(ctx, {
     data: {
       labels: days.map(d => d.slice(5)),
       datasets: [
-        {
-          type: 'bar',
-          label: 'Customer messages',
-          data: cust,
-          backgroundColor: 'rgba(59,130,246,0.55)',
-          borderColor: 'rgba(59,130,246,1)',
-          borderWidth: 1,
-          yAxisID: 'y',
-        },
-        {
-          type: 'line',
-          label: 'New tickets',
-          data: tix,
-          borderColor: 'rgba(245,158,11,1)',
-          backgroundColor: 'rgba(245,158,11,0.15)',
-          tension: 0.25, pointRadius: 3, borderWidth: 2,
-          yAxisID: 'y',
-        },
+        { type: 'bar', label: 'Customer messages', data: cust,
+          backgroundColor: 'rgba(59,130,246,0.55)', borderColor: 'rgba(59,130,246,1)',
+          borderWidth: 1, yAxisID: 'y' },
+        { type: 'line', label: 'New tickets', data: tix,
+          borderColor: 'rgba(245,158,11,1)', backgroundColor: 'rgba(245,158,11,0.15)',
+          tension: 0.25, pointRadius: 3, borderWidth: 2, yAxisID: 'y' },
       ],
     },
     options: {
@@ -305,21 +393,18 @@ function renderChart() {
   });
 }
 
-function renderTable() {
+function renderVolumeTable() {
   const { days } = windowSlice();
   const winDays = days.length;
-  // Build agents with windowed totals + avg/cal + avg/active
-  const agents = CS_DATA.agents.map(a => {
-    let total = 0;
-    let activeDays = 0;
+  const agents = VOL.agents.map(a => {
+    let total = 0, activeDays = 0;
     for (const d of days) {
       const v = a.per_day[d] || 0;
       total += v;
       if (v > 0) activeDays++;
     }
     return {
-      name: a.name,
-      total,
+      name: a.name, total,
       avg_cal: total / winDays,
       avg_active: activeDays ? total / activeDays : 0,
       active_days: activeDays,
@@ -327,7 +412,6 @@ function renderTable() {
     };
   }).filter(a => a.total > 0);
 
-  // Sort
   agents.sort((a, b) => {
     let av, bv;
     if (sortCol === 'name') { av = a.name; bv = b.name; }
@@ -355,7 +439,6 @@ function renderTable() {
     return `<th class="${sorted}" data-col="${col}">${label}${arrow}</th>`;
   };
 
-  const fmt1 = n => n.toFixed(1);
   let html = '<table><thead><tr>';
   html += th('Agent', 'name');
   html += th('Total', 'total');
@@ -378,31 +461,166 @@ function renderTable() {
   html += '</tbody></table>';
   document.getElementById('agent-table').innerHTML = html;
 
-  document.querySelectorAll('th').forEach(th => {
+  document.querySelectorAll('#agent-table th').forEach(th => {
     th.addEventListener('click', () => {
       const col = th.getAttribute('data-col');
       if (sortCol === col) sortDir = sortDir === 'desc' ? 'asc' : 'desc';
       else { sortCol = col; sortDir = col === 'name' ? 'asc' : 'desc'; }
-      renderTable();
+      renderVolumeTable();
+    });
+  });
+}
+
+function renderVolume() {
+  renderVolumeKpis();
+  renderVolumeChart();
+  renderVolumeTable();
+  renderFooter();
+}
+
+// ================ SCORE CARD ================
+
+function scoreClass(pct) {
+  if (pct >= 80) return 'score-good';
+  if (pct >= 65) return 'score-ok';
+  return 'score-bad';
+}
+
+function totalClass(total) {
+  if (total >= 80) return 'score-good';
+  if (total >= 65) return 'score-ok';
+  return 'score-bad';
+}
+
+function renderScoreCard() {
+  if (!SCORE) {
+    document.getElementById('score-kpi-row').innerHTML =
+      '<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">Not available</div><div class="kpi-sub">scorecard_data.json missing — run build_scorecard_data.py</div></div>';
+    document.getElementById('score-table').innerHTML = '';
+    return;
+  }
+  const agents = scoreWindow === '7d' ? SCORE.agents_7d : SCORE.agents_30d;
+  const totalTickets = scoreWindow === '7d' ? SCORE.total_tickets_7d : SCORE.total_tickets_30d;
+
+  if (!agents.length) {
+    document.getElementById('score-kpi-row').innerHTML =
+      `<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">No data</div><div class="kpi-sub">No tickets in ${scoreWindow} window</div></div>`;
+    document.getElementById('score-table').innerHTML = '';
+    return;
+  }
+
+  // Team KPIs
+  const teamAvg = agents.reduce((s, a) => s + a.avg_total, 0) / agents.length;
+  const retTix = agents.reduce((s, a) => s + a.retention_tickets, 0);
+  const retAtt = agents.reduce((s, a) => s + a.retention_attempted, 0);
+  const top = [...agents].sort((a, b) => b.avg_total - a.avg_total)[0];
+  const bottom = [...agents].sort((a, b) => a.avg_total - b.avg_total)[0];
+
+  document.getElementById('score-kpi-row').innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-label">Team Avg Score</div>
+      <div class="kpi-value ${totalClass(teamAvg)}">${fmt1(teamAvg)}/100</div>
+      <div class="kpi-sub">${totalTickets} tickets · ${agents.length} agents</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Top Scorer</div>
+      <div class="kpi-value">${top.agent}</div>
+      <div class="kpi-sub">${fmt1(top.avg_total)}/100 · ${top.tickets_scored} tickets</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Needs Focus</div>
+      <div class="kpi-value">${bottom.agent}</div>
+      <div class="kpi-sub">${fmt1(bottom.avg_total)}/100 · ${bottom.tickets_scored} tickets</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Retention Attempts</div>
+      <div class="kpi-value">${retTix ? Math.round(retAtt / retTix * 100) : 0}%</div>
+      <div class="kpi-sub">${retAtt}/${retTix} cancel/return tickets</div>
+    </div>
+  `;
+
+  // Sort agents
+  const sorted = [...agents].sort((a, b) => {
+    let av, bv;
+    if (scoreSortCol === 'agent') { av = a.agent; bv = b.agent; }
+    else if (scoreSortCol === 'avg_total') { av = a.avg_total; bv = b.avg_total; }
+    else if (scoreSortCol === 'tickets_scored') { av = a.tickets_scored; bv = b.tickets_scored; }
+    else if (scoreSortCol.startsWith('sec:')) {
+      const sec = scoreSortCol.slice(4);
+      av = a.section_scores[sec].pct;
+      bv = b.section_scores[sec].pct;
+    }
+    if (av < bv) return scoreSortDir === 'asc' ? -1 : 1;
+    if (av > bv) return scoreSortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const th = (label, col) => {
+    const s = scoreSortCol === col ? 'sorted' : '';
+    const arrow = scoreSortCol === col ? (scoreSortDir === 'desc' ? ' ↓' : ' ↑') : '';
+    return `<th class="${s}" data-col="${col}">${label}${arrow}</th>`;
+  };
+
+  const pctBar = (pct, color) => `<span class="pct-bar"><span class="pct-bar-fill" style="width:${pct}%;background:${color}"></span></span>${pct.toFixed(0)}%`;
+
+  let html = '<table><thead><tr>';
+  html += th('Agent', 'agent');
+  html += th('Total /100', 'avg_total');
+  html += th('A. Technical (/35)', 'sec:A. Technical Accuracy & Retention');
+  html += th('B. Docs & Tags (/30)', 'sec:B. Documentation & Tagging');
+  html += th('C. Voice (/25)', 'sec:C. Communication & Voice');
+  html += th('D. Efficiency (/10)', 'sec:D. Efficiency');
+  html += th('Tickets', 'tickets_scored');
+  html += '<th>Weakest 3</th>';
+  html += '</tr></thead><tbody>';
+  for (const a of sorted) {
+    const secA = a.section_scores['A. Technical Accuracy & Retention'];
+    const secB = a.section_scores['B. Documentation & Tagging'];
+    const secC = a.section_scores['C. Communication & Voice'];
+    const secD = a.section_scores['D. Efficiency'];
+    const weakest = a.weakest_areas
+      .map(w => `${w.label.replace(/^[A-D]\d\.\s*/, '')} (${fmt1(w.avg)}/${w.max})`)
+      .join(', ');
+    html += '<tr>';
+    html += `<td class="agent-name">${a.agent}</td>`;
+    html += `<td class="total-col ${totalClass(a.avg_total)}">${fmt1(a.avg_total)}</td>`;
+    html += `<td class="${scoreClass(secA.pct)}">${pctBar(secA.pct, 'var(--blue)')}</td>`;
+    html += `<td class="${scoreClass(secB.pct)}">${pctBar(secB.pct, 'var(--purple)')}</td>`;
+    html += `<td class="${scoreClass(secC.pct)}">${pctBar(secC.pct, 'var(--accent)')}</td>`;
+    html += `<td class="${scoreClass(secD.pct)}">${pctBar(secD.pct, 'var(--orange)')}</td>`;
+    html += `<td>${a.tickets_scored}</td>`;
+    html += `<td class="weakest-list" style="text-align:left">${weakest}</td>`;
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  document.getElementById('score-table').innerHTML = html;
+
+  document.querySelectorAll('#score-table th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.getAttribute('data-col');
+      if (scoreSortCol === col) scoreSortDir = scoreSortDir === 'desc' ? 'asc' : 'desc';
+      else { scoreSortCol = col; scoreSortDir = col === 'agent' ? 'asc' : 'desc'; }
+      renderScoreCard();
     });
   });
 }
 
 function renderFooter() {
   const { days } = windowSlice();
-  const m = CS_DATA.meta;
+  const m = VOL.meta;
   document.getElementById('subtitle').textContent =
     `${days[0]} → ${days[days.length - 1]} (${days.length} days)`;
   const gen = new Date(m.generated_at);
+  const scoreBit = SCORE
+    ? ` · Score card: ${new Date(SCORE.generated).toLocaleString()}`
+    : '';
   document.getElementById('footer').textContent =
-    `Data: ${m.window_start} → ${m.window_end} (${m.window_days}d available) · Source: Gorgias /api/stats · Generated ${gen.toLocaleString()} · Excludes bots, admin-only, shared inboxes`;
+    `Volume: ${m.window_start} → ${m.window_end} (${m.window_days}d) · ${gen.toLocaleString()}${scoreBit} · Source: Gorgias · Excludes bots, admin-only, shared inboxes`;
 }
 
 function render() {
-  renderKpis();
-  renderChart();
-  renderTable();
-  renderFooter();
+  renderVolume();
+  renderScoreCard();
 }
 
 load();
