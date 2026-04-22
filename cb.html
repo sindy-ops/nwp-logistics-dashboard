@@ -60,6 +60,12 @@
   }
   .stat-value { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
   .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .stat-plats {
+    font-size: 10px; color: var(--text-dim); margin-top: 8px;
+    padding-top: 6px; border-top: 1px solid var(--card-border);
+    display: flex; flex-wrap: wrap; gap: 4px 10px; line-height: 1.5;
+  }
+  .stat-plats .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
 
   .chart-card {
     background: var(--card); border: 1px solid var(--card-border);
@@ -1232,12 +1238,33 @@
     const fightPerDay = lenInWindow > 0 ? fightCount / lenInWindow : 0;
     const autoPerDay  = lenInWindow > 0 ? autoCount / lenInWindow : 0;
 
+    // Per-platform /day breakdown (only visible + active platforms)
+    const shortName = { 'Stripe Dispute': 'Stripe', 'Stripe by RDR': 'Stripe RDR' };
+    const fightPlatsHTML = [];
+    const autoPlatsHTML = [];
+    visiblePlatforms.forEach(p => {
+      if (!isPlatformActive(p)) return;
+      const cnt = totalsInWindow[p] || 0;
+      if (cnt === 0) return;
+      const perDay = lenInWindow > 0 ? cnt / lenInWindow : 0;
+      const perDayStr = perDay >= 10 ? String(Math.round(perDay)) : perDay.toFixed(1);
+      const name = shortName[p] || p;
+      const html = `<span><span class="dot" style="background:${colorFor(p)}"></span>${name} ${perDayStr}</span>`;
+      if (kindOf(p) === 'fight') fightPlatsHTML.push(html);
+      if (kindOf(p) === 'auto')  autoPlatsHTML.push(html);
+    });
+
+    const fightPlatsLine = fightPlatsHTML.length
+      ? `<div class="stat-plats">${fightPlatsHTML.join('')}</div>` : '';
+    const autoPlatsLine = autoPlatsHTML.length
+      ? `<div class="stat-plats">${autoPlatsHTML.join('')}</div>` : '';
+
     document.getElementById('stats').innerHTML = `
       <div class="stat-card"><div class="stat-label">Total CBs</div><div class="stat-value">${fmtNum(visibleTotal)}</div><div class="stat-sub">${fmtUSD(visibleAmt)} · ${windowLabel}</div></div>
       <div class="stat-card"><div class="stat-label">Fightable</div><div class="stat-value">${fmtNum(fightCount)}</div><div class="stat-sub">${fmtUSD(fightAmt)}</div></div>
       <div class="stat-card"><div class="stat-label">Auto-refund (RDR)</div><div class="stat-value">${fmtNum(autoCount)}</div><div class="stat-sub">${fmtUSD(autoAmt)}</div></div>
-      <div class="stat-card"><div class="stat-label">Fightable / day</div><div class="stat-value">${fmtNum(Math.round(fightPerDay))}</div><div class="stat-sub">avg over ${lenInWindow}d</div></div>
-      <div class="stat-card"><div class="stat-label">Auto-refund / day</div><div class="stat-value">${fmtNum(Math.round(autoPerDay))}</div><div class="stat-sub">avg over ${lenInWindow}d</div></div>
+      <div class="stat-card"><div class="stat-label">Fightable / day</div><div class="stat-value">${fmtNum(Math.round(fightPerDay))}</div><div class="stat-sub">avg over ${lenInWindow}d</div>${fightPlatsLine}</div>
+      <div class="stat-card"><div class="stat-label">Auto-refund / day</div><div class="stat-value">${fmtNum(Math.round(autoPerDay))}</div><div class="stat-sub">avg over ${lenInWindow}d</div>${autoPlatsLine}</div>
     `;
 
     document.getElementById('footer-meta').textContent =
