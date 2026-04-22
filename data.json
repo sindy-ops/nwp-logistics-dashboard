@@ -1,16 +1,16 @@
 {
-  "lastRefreshed": "2026-04-22T11:32:11",
+  "lastRefreshed": "2026-04-22T11:36:54",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-16",
-      "fileAge": 146.6
+      "fileAge": 146.7
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-15",
-      "fileAge": 149.4
+      "fileAge": 149.5
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
@@ -20,17 +20,17 @@
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 147.4
+      "fileAge": 147.5
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.3
+      "fileAge": 0.4
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 1.5
+      "fileAge": 1.6
     }
   },
   "stock": {
@@ -542,7 +542,7 @@
       "group": "Recurring 1 \u2014 335K Sendy",
       "totalQty": 335000,
       "poCount": 3,
-      "layout": "cards",
+      "layout": "table",
       "cards": [
         {
           "po": "PO-SL-335K-75K",
@@ -653,7 +653,7 @@
       "group": "Recurring 2 \u2014 300K/mo Sendy",
       "totalQty": 300000,
       "poCount": 1,
-      "layout": "cards",
+      "layout": "table",
       "cards": [
         {
           "po": "PO-SL-300K-REC",
@@ -696,7 +696,7 @@
       "group": "Amazon FBA",
       "totalQty": 496895,
       "poCount": 6,
-      "layout": "cards",
+      "layout": "table",
       "cards": [
         {
           "po": "PO-EL-28K-AMZ",
