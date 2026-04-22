@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NWP — Chargebacks</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-border: #2a2d3a;
+    --text: #e4e6eb;
+    --text-dim: #8b8fa3;
+    --accent: #4ade80;
+    --blue: #3b82f6;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --purple: #a78bfa;
+    --cyan: #06b6d4;
+    --pink: #ec4899;
+    --gray: #6b7280;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    padding: 40px 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+  }
+  .title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .subtitle { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+  .back-link {
+    font-size: 13px; color: var(--text-dim); text-decoration: none;
+    padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 8px;
+    transition: border-color 0.15s;
+  }
+  .back-link:hover { border-color: var(--accent); color: var(--text); }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .stat-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px;
+  }
+  .stat-value { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  .chart-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px 24px 24px; margin-bottom: 20px;
+  }
+  .chart-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
+  }
+  .chart-title { font-size: 16px; font-weight: 700; }
+  .chart-controls { display: flex; gap: 6px; }
+  .btn {
+    background: transparent; border: 1px solid var(--card-border); color: var(--text-dim);
+    padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:hover { border-color: var(--text-dim); color: var(--text); }
+  .btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+
+  .chart-wrap { position: relative; height: 420px; }
+
+  .platform-legend {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px; margin-top: 20px;
+  }
+  .plat-row {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px;
+    font-size: 13px;
+  }
+  .plat-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+  .plat-name { flex: 1; font-weight: 600; }
+  .plat-count { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+
+  .footer-meta {
+    margin-top: 16px; font-size: 11px; color: var(--text-dim); text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div>
+      <div class="title">Chargebacks</div>
+      <div class="subtitle" id="subtitle">Loading…</div>
+    </div>
+    <a href="hub.html" class="back-link">← Hub</a>
+  </div>
+
+  <div class="stats-row" id="stats"></div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">CBs per day, stacked by Platform</div>
+      <div class="chart-controls">
+        <button class="btn" data-window="7">7d</button>
+        <button class="btn" data-window="30">30d</button>
+        <button class="btn active" data-window="90">90d</button>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="cb-chart"></canvas></div>
+    <div class="platform-legend" id="platform-legend"></div>
+    <div class="footer-meta" id="footer-meta"></div>
+  </div>
+</div>
+
+<script id="cb-data" type="application/json">{
+  "generated_at": "2026-04-22T11:03:00",
+  "window_days": 90,
+  "window_start": "2026-01-23",
+  "window_end": "2026-04-22",
+  "dates": [
+    "2026-01-23",
+    "2026-01-24",
+    "2026-01-25",
+    "2026-01-26",
+    "2026-01-27",
+    "2026-01-28",
+    "2026-01-29",
+    "2026-01-30",
+    "2026-01-31",
+    "2026-02-01",
+    "2026-02-02",
+    "2026-02-03",
+    "2026-02-04",
+    "2026-02-05",
+    "2026-02-06",
+    "2026-02-07",
+    "2026-02-08",
+    "2026-02-09",
+    "2026-02-10",
+    "2026-02-11",
+    "2026-02-12",
+    "2026-02-13",
+    "2026-02-14",
+    "2026-02-15",
+    "2026-02-16",
+    "2026-02-17",
+    "2026-02-18",
+    "2026-02-19",
+    "2026-02-20",
+    "2026-02-21",
+    "2026-02-22",
+    "2026-02-23",
+    "2026-02-24",
+    "2026-02-25",
+    "2026-02-26",
+    "2026-02-27",
+    "2026-02-28",
+    "2026-03-01",
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06",
+    "2026-03-07",
+    "2026-03-08",
+    "2026-03-09",
+    "2026-03-10",
+    "2026-03-11",
+    "2026-03-12",
+    "2026-03-13",
+    "2026-03-14",
+    "2026-03-15",
+    "2026-03-16",
+    "2026-03-17",
+    "2026-03-18",
+    "2026-03-19",
+    "2026-03-20",
+    "2026-03-21",
+    "2026-03-22",
+    "2026-03-23",
+    "2026-03-24",
+    "2026-03-25",
+    "2026-03-26",
+    "2026-03-27",
+    "2026-03-28",
+    "2026-03-29",
+    "2026-03-30",
+    "2026-03-31",
+    "2026-04-01",
+    "2026-04-02",
+    "2026-04-03",
+    "2026-04-04",
+    "2026-04-05",
+    "2026-04-06",
+    "2026-04-07",
+    "2026-04-08",
+    "2026-04-09",
+    "2026-04-10",
+    "2026-04-11",
+    "2026-04-12",
+    "2026-04-13",
+    "2026-04-14",
+    "2026-04-15",
+    "2026-04-16",
+    "2026-04-17",
+    "2026-04-18",
+    "2026-04-19",
+    "2026-04-20",
+    "2026-04-21",
+    "2026-04-22"
+  ],
+  "platforms": [
+    "Paypal",
+    "Stripe Dispute",
+    "Stripe by RDR",
+    "Payarc",
+    "Aurora",
+    "EMS",
+    "Kount",
+    "(blank)"
+  ],
+  "series": {
+    "Paypal": [
+      11,
+      5,
+      10,
+      7,
+      10,
+      4,
+      20,
+      12,
+      7,
+      4,
+      22,
+      15,
+      10,
+      15,
+      13,
+      8,
+      13,
+      16,
+      18,
+      15,
+      18,
+      15,
+      17,
+      16,
+      25,
+      17,
+      11,
+      26,
+      14,
+      20,
+      20,
+      36,
+      26,
+      33,
+      36,
+      29,
+      19,
+      19,
+      34,
+      35,
+      41,
+      44,
+      51,
+      24,
+      22,
+      49,
+      46,
+      37,
+      52,
+      34,
+      46,
+      22,
+      61,
+      62,
+      52,
+      50,
+      53,
+      38,
+      54,
+      57,
+      69,
+      57,
+      68,
+      49,
+      35,
+      40,
+      76,
+      52,
+      55,
+      33,
+      51,
+      42,
+      22,
+      56,
+      48,
+      53,
+      60,
+      60,
+      30,
+      33,
+      60,
+      54,
+      59,
+      83,
+      64,
+      40,
+      50,
+      72,
+      4,
+      0
+    ],
+    "Stripe Dispute": [
+      3,
+      2,
+      2,
+      0,
+      1,
+      2,
+      6,
+      6,
+      2,
+      1,
+      0,
+      3,
+      6,
+      3,
+      1,
+      4,
+      3,
+      1,
+      3,
+      6,
+      2,
+      3,
+      0,
+      5,
+      0,
+      2,
+      3,
+      2,
+      10,
+      6,
+      1,
+      2,
+      4,
+      6,
+      2,
+      5,
+      6,
+      6,
+      1,
+      4,
+      6,
+      5,
+      8,
+      7,
+      4,
+      6,
+      5,
+      3,
+      9,
+      5,
+      5,
+      3,
+      0,
+      2,
+      11,
+      14,
+      6,
+      5,
+      0,
+      3,
+      10,
+      7,
+      16,
+      8,
+      7,
+      8,
+      0,
+      12,
+      6,
+      10,
+      6,
+      5,
+      3,
+      6,
+      11,
+      10,
+      4,
+      9,
+      7,
+      8,
+      2,
+      8,
+      8,
+      8,
+      5,
+      14,
+      5,
+      2,
+      8,
+      0
+    ],
+    "Stripe by RDR": [
+      2,
+      1,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      4,
+      4,
+      2,
+      0,
+      3,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      0,
+      0,
+      1,
+      0,
+      1,
+      1,
+      3,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      4,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      1,
+      0,
+      1,
+      0,
+      2,
+      2,
+      1,
+      2,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    "Payarc": [
+      1,
+      0,
+      0,
+      2,
+      4,
+      1,
+      0,
+      3,
+      0,
+      0,
+      5,
+      3,
+      2,
+      0,
+      1,
+      0,
+      0,
+      6,
+      3,
+      2,
+      2,
+      3,
+      0,
+      0,
+      2,
+      0,
+      4,
+      2,
+      11,
+      0,
+      0,
+      6,
+      1,
+      7,
+      5,
+      9,
+      0,
+      0,
+      11,
+      5,
+      8,
+      11,
+      9,
+      0,
+      0,
+      12,
+      10,
+      8,
+      4,
+      9,
+      0,
+      0,
+      18,
+      15,
+      4,
+      10,
+      6,
+      0,
+      0,
+      17,
+      8,
+      4,
+      7,
+      10,
+      0,
+      0,
+      18,
+      13,
+      14,
+      7,
+      4,
+      0,
+      0,
+      18,
+      8,
+      13,
+      11,
+      9,
+      0,
+      0,
+      12,
+      16,
+      9,
+      8,
+      10,
+      0,
+      0,
+      26,
+      0,
+      0
+    ],
+    "Aurora": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      4,
+      0,
+      2,
+      0,
+      2,
+      0,
+      0,
+      0,
+      1,
+      3,
+      1,
+      1,
+      0,
+      0,
+      0,
+      2,
+      7,
+      2,
+      3,
+      0,
+      0,
+      4,
+      4,
+      4,
+      1,
+      3,
+      0,
+      0,
+      4,
+      0,
+      0,
+      1,
+      3,
+      0,
+      0,
+      1,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      1,
+      2,
+      2,
+      1,
+      2,
+      0,
+      0,
+      0,
+      2,
+      2,
+      3,
+      0,
+      0,
+      0,
+      1,
+      1,
+      2,
+      0,
+      1,
+      0,
+      0,
+      3,
+      0,
+      0
+    ],
+    "EMS": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      1,
+      2,
+      1,
+      0,
+      0,
+      1,
+      0,
+      4,
+      1,
+      2,
+      1,
+      1,
+      0,
+      0,
+      3,
+      0,
+      1,
+      1,
+      1,
+      2,
+      0,
+      0,
+      3,
+      3,
+      1,
+      1,
+      1,
+      0,
+      1,
+      2,
+      4,
+      2,
+      2,
+      2,
+      0,
+      3,
+      1,
+      0,
+      4,
+      3,
+      5,
+      0,
+      2,
+      2,
+      2,
+      2,
+      4,
+      2,
+      0,
+      2,
+      1,
+      1,
+      5,
+      1,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0
+    ],
+    "Kount": [
+      23,
+      10,
+      9,
+      31,
+      27,
+      27,
+      29,
+      30,
+      19,
+      4,
+      20,
+      35,
+      25,
+      25,
+      26,
+      8,
+      13,
+      11,
+      23,
+      28,
+      26,
+      31,
+      38,
+      22,
+      31,
+      46,
+      57,
+      62,
+      45,
+      14,
+      24,
+      40,
+      65,
+      52,
+      44,
+      30,
+      25,
+      19,
+      42,
+      54,
+      105,
+      78,
+      97,
+      68,
+      39,
+      95,
+      119,
+      132,
+      126,
+      93,
+      38,
+      48,
+      94,
+      131,
+      112,
+      129,
+      136,
+      61,
+      39,
+      98,
+      137,
+      161,
+      155,
+      109,
+      72,
+      41,
+      125,
+      131,
+      162,
+      154,
+      114,
+      73,
+      57,
+      108,
+      147,
+      165,
+      181,
+      147,
+      94,
+      37,
+      157,
+      187,
+      120,
+      146,
+      154,
+      81,
+      54,
+      128,
+      24,
+      0
+    ],
+    "(blank)": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "totals_by_platform": {
+    "Paypal": 3071,
+    "Stripe Dispute": 445,
+    "Stripe by RDR": 60,
+    "Payarc": 467,
+    "Aurora": 89,
+    "EMS": 92,
+    "Kount": 6449,
+    "(blank)": 1
+  },
+  "amounts_by_platform": {
+    "Paypal": 381366.92,
+    "Stripe Dispute": 53108.92,
+    "Stripe by RDR": 5834.42,
+    "Payarc": 60975.71,
+    "Aurora": 11633.2,
+    "EMS": 12788.24,
+    "Kount": 788102.18,
+    "(blank)": 0.0
+  },
+  "grand_total_count": 10674,
+  "grand_total_amount": 1313809.59
+}</script>
+<script>
+(function() {
+  const raw = document.getElementById('cb-data').textContent;
+  const data = JSON.parse(raw);
+
+  // Platform colors — stable assignment
+  const PLATFORM_COLORS = {
+    'Paypal':         '#3b82f6',  // blue
+    'Stripe Dispute': '#a78bfa',  // purple
+    'Stripe by RDR':  '#ec4899',  // pink
+    'Payarc':         '#f59e0b',  // orange
+    'Aurora':         '#ef4444',  // red
+    'EMS':            '#06b6d4',  // cyan
+    'Kount':          '#6b7280',  // gray (least fightable)
+  };
+  function colorFor(p) { return PLATFORM_COLORS[p] || '#94a3b8'; }
+
+  // Subtitle + stats
+  document.getElementById('subtitle').textContent =
+    `${data.window_start} → ${data.window_end}  ·  source: Daily CB Analysis 3 › Analysis of dispute  ·  updated ${data.generated_at}`;
+
+  const fmtUSD = n => '$' + (n || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const fmtNum = n => (n || 0).toLocaleString('en-US');
+
+  const statsEl = document.getElementById('stats');
+  const paypal = data.totals_by_platform['Paypal'] || 0;
+  const stripe = (data.totals_by_platform['Stripe Dispute'] || 0) + (data.totals_by_platform['Stripe by RDR'] || 0);
+  const fightable = ['Paypal','Stripe Dispute','Payarc','Aurora'].reduce((s,p) => s + (data.totals_by_platform[p]||0), 0);
+  const rdrAuto = ['Kount','EMS','Stripe by RDR'].reduce((s,p) => s + (data.totals_by_platform[p]||0), 0);
+
+  statsEl.innerHTML = `
+    <div class="stat-card"><div class="stat-label">Total CBs (90d)</div><div class="stat-value">${fmtNum(data.grand_total_count)}</div><div class="stat-sub">${fmtUSD(data.grand_total_amount)}</div></div>
+    <div class="stat-card"><div class="stat-label">Fightable</div><div class="stat-value">${fmtNum(fightable)}</div><div class="stat-sub">PayPal + Stripe + Payarc + Aurora</div></div>
+    <div class="stat-card"><div class="stat-label">Auto-refund (RDR)</div><div class="stat-value">${fmtNum(rdrAuto)}</div><div class="stat-sub">Kount + EMS + Stripe RDR</div></div>
+    <div class="stat-card"><div class="stat-label">Daily avg (90d)</div><div class="stat-value">${fmtNum(Math.round(data.grand_total_count / data.window_days))}</div><div class="stat-sub">all platforms</div></div>
+  `;
+
+  // Legend
+  const legendEl = document.getElementById('platform-legend');
+  legendEl.innerHTML = data.platforms.map(p => `
+    <div class="plat-row">
+      <div class="plat-swatch" style="background:${colorFor(p)}"></div>
+      <div class="plat-name">${p}</div>
+      <div class="plat-count">${fmtNum(data.totals_by_platform[p])}</div>
+    </div>
+  `).join('');
+
+  // Footer
+  document.getElementById('footer-meta').textContent =
+    `${data.window_days} days · ${data.dates.length} daily buckets · generated ${data.generated_at}`;
+
+  // Chart
+  const ctx = document.getElementById('cb-chart').getContext('2d');
+  const datasets = data.platforms.map(p => ({
+    label: p,
+    data: data.series[p],
+    backgroundColor: colorFor(p),
+    borderColor: colorFor(p),
+    borderWidth: 0,
+    stack: 'cb',
+  }));
+
+  let currentWindow = 90;
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.dates,
+      datasets: datasets,
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: {
+          stacked: true,
+          ticks: { color: '#8b8fa3', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 },
+          grid: { display: false },
+        },
+        y: {
+          stacked: true, beginAtZero: true,
+          ticks: { color: '#8b8fa3' },
+          grid: { color: 'rgba(255,255,255,0.05)' },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1d27', borderColor: '#2a2d3a', borderWidth: 1,
+          titleColor: '#e4e6eb', bodyColor: '#e4e6eb', padding: 10,
+          callbacks: {
+            footer: (items) => {
+              const total = items.reduce((s, it) => s + (it.parsed.y || 0), 0);
+              return 'Total: ' + total;
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // Window buttons
+  document.querySelectorAll('.btn[data-window]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const w = parseInt(btn.dataset.window, 10);
+      currentWindow = w;
+      document.querySelectorAll('.btn[data-window]').forEach(b => b.classList.toggle('active', b === btn));
+      const n = data.dates.length;
+      const sliceStart = Math.max(0, n - w);
+      chart.data.labels = data.dates.slice(sliceStart);
+      chart.data.datasets.forEach((ds, i) => {
+        ds.data = data.series[data.platforms[i]].slice(sliceStart);
+      });
+      chart.update();
+    });
+  });
+})();
+</script>
+</body>
+</html>
