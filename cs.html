@@ -170,7 +170,8 @@
 
   <!-- ============ VOLUME TAB ============ -->
   <div class="pane active" id="pane-volume">
-    <div class="kpi-row" id="queue-row" style="margin-bottom: 24px;"></div>
+    <div class="kpi-row" id="queue-row" style="margin-bottom: 14px;"></div>
+    <div id="queue-buckets" style="margin-bottom: 24px;"></div>
 
     <div class="filter-bar">
       <span class="btn-label">Window</span>
@@ -475,13 +476,16 @@ function renderVolumeTable() {
 
 function renderQueueHealth() {
   const row = document.getElementById('queue-row');
+  const buckets = document.getElementById('queue-buckets');
   if (!QUEUE) {
     row.innerHTML = '';
+    buckets.innerHTML = '';
     return;
   }
   const pct = (n) => Math.round(n / Math.max(1, QUEUE.total) * 100);
   const gen = new Date(QUEUE.generated);
-  const oldCls = QUEUE.over_1d / Math.max(1, QUEUE.total) > 0.2 ? 'score-bad' : 'score-ok';
+  const under_24h = QUEUE.total - QUEUE.over_1d;
+  const over24Cls = QUEUE.over_1d / Math.max(1, QUEUE.total) > 0.2 ? 'score-bad' : 'score-ok';
   const oldestCls = QUEUE.oldest_days > 1 ? 'score-bad' : 'score-good';
   row.innerHTML = `
     <div class="kpi-card">
@@ -490,14 +494,14 @@ function renderQueueHealth() {
       <div class="kpi-sub">as of ${gen.toLocaleString()}</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Over 1 Day (target: 0)</div>
-      <div class="kpi-value ${oldCls}">${fmt(QUEUE.over_1d)}</div>
-      <div class="kpi-sub">${pct(QUEUE.over_1d)}% of queue</div>
+      <div class="kpi-label">&lt; 24h (under target)</div>
+      <div class="kpi-value score-good">${fmt(under_24h)}</div>
+      <div class="kpi-sub">${pct(under_24h)}% of queue</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Over 7 Days</div>
-      <div class="kpi-value">${fmt(QUEUE.over_7d)}</div>
-      <div class="kpi-sub">${pct(QUEUE.over_7d)}% of queue</div>
+      <div class="kpi-label">&gt; 24h (over target)</div>
+      <div class="kpi-value ${over24Cls}">${fmt(QUEUE.over_1d)}</div>
+      <div class="kpi-sub">${pct(QUEUE.over_1d)}% of queue</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Oldest Ticket</div>
@@ -505,6 +509,33 @@ function renderQueueHealth() {
       <div class="kpi-sub">#${QUEUE.oldest_ticket_id || '?'} · ${QUEUE.oldest_date || ''}</div>
     </div>
   `;
+
+  // Age distribution card
+  const bk = QUEUE.buckets || [];
+  const max = Math.max(...bk.map(b => b.count));
+  const maxBucket = bk.reduce((a, b) => b.count > (a?.count || 0) ? b : a, null);
+  const colorFor = (label) => {
+    if (label === '0-1d') return 'var(--accent)';
+    if (label === '1-3d') return 'var(--orange)';
+    return 'var(--red)';
+  };
+  let html = '<div class="kpi-card"><div class="kpi-label">Queue by age';
+  if (maxBucket) html += ` &middot; biggest: <span style="color:var(--text)">${maxBucket.label}</span> (${pct(maxBucket.count)}%)`;
+  html += '</div><div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:10px;">';
+  for (const b of bk) {
+    const barH = max ? Math.round(b.count / max * 40) : 0;
+    html += `
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;">${fmt(b.count)}</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px;">${pct(b.count)}%</div>
+        <div style="width:100%;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
+          <div style="width:${pct(b.count)}%;height:100%;background:${colorFor(b.label)};"></div>
+        </div>
+        <div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px;">${b.label}</div>
+      </div>`;
+  }
+  html += '</div></div>';
+  buckets.innerHTML = html;
 }
 
 function renderVolume() {
