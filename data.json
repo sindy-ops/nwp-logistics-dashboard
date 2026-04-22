@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-22T13:24:17",
+  "lastRefreshed": "2026-04-22T13:25:37",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
@@ -25,7 +25,7 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.3
+      "fileAge": 0.4
     },
     "amazon": {
       "name": "Amazon FBA",
@@ -583,7 +583,7 @@
           "dest": "Bailiny",
           "shipMethod": "Land",
           "shipDate": "10 April 2026 (est.)",
-          "eta": "15 April 2026",
+          "eta": "Del \u00b7 15 April 2026",
           "orderDate": "1 March 2026 (est.)",
           "depositDate": "1 March 2026 (est.)",
           "productionDays": 40,
@@ -863,7 +863,7 @@
           "dest": "Amazon FBA",
           "shipMethod": "Ground",
           "shipDate": "28 March 2026",
-          "eta": "3 April 2026",
+          "eta": "Del \u00b7 3 April 2026",
           "orderDate": "14 March 2026 (est.)",
           "depositDate": "14 March 2026 (est.)",
           "productionDays": 14,
@@ -900,7 +900,7 @@
           "dest": "Amazon FBA",
           "shipMethod": "UPS SPD",
           "shipDate": "10 April 2026",
-          "eta": "15 April 2026",
+          "eta": "Del \u00b7 15 April 2026",
           "orderDate": "27 March 2026 (est.)",
           "depositDate": "27 March 2026 (est.)",
           "productionDays": 14,
