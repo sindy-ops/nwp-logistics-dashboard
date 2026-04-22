@@ -1,16 +1,16 @@
 {
-  "lastRefreshed": "2026-04-22T11:14:33",
+  "lastRefreshed": "2026-04-22T11:16:34",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-16",
-      "fileAge": 146.3
+      "fileAge": 146.4
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-15",
-      "fileAge": 149.1
+      "fileAge": 149.2
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
@@ -25,7 +25,7 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.1
+      "fileAge": 0.0
     },
     "amazon": {
       "name": "Amazon FBA",
@@ -440,7 +440,7 @@
           "depositDate": "19 February 2026",
           "productionDays": 40,
           "inTransitDays": 20,
-          "productionStatus": "Partial \u00b7 2d overdue",
+          "productionStatus": "Partial \u00b7 125K / 150K delivered \u00b7 2d overdue",
           "productionCls": "warn",
           "paymentStatus": "Paid ($287,400)",
           "paymentCls": "ok",
@@ -457,6 +457,8 @@
           "deliveryAmount": 79200,
           "deliveryPaid": false,
           "deliveryDue": "10 May 2026",
+          "batchTotal": 217800,
+          "deliveredQty": 125000,
           "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K."
         },
         {
@@ -488,6 +490,8 @@
           "deliveryAmount": 44880,
           "deliveryPaid": false,
           "deliveryDue": "20 May 2026",
+          "batchTotal": 123420,
+          "deliveredQty": 0,
           "notes": "Via A2Z Matson DDP (HR-001: 84,980u). Picked up Apr 10, ETD Apr 14, ETA May 7. $0.30/u."
         },
         {
@@ -519,6 +523,8 @@
           "deliveryAmount": 34320,
           "deliveryPaid": false,
           "deliveryDue": "20 May 2026",
+          "batchTotal": 94378,
+          "deliveredQty": 0,
           "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice."
         }
       ]
@@ -558,7 +564,9 @@
           "deliveryAmount": 39600,
           "deliveryPaid": true,
           "deliveryDue": "20 May 2026 (est.)",
-          "notes": "From 335K. 536 ctns total. 455 confirmed received, 81 pending confirmation from 3PL."
+          "batchTotal": 108900,
+          "deliveredQty": 0,
+          "notes": null
         },
         {
           "po": "PO-SL-335K-200K",
@@ -589,7 +597,9 @@
           "deliveryAmount": 105600,
           "deliveryPaid": false,
           "deliveryDue": "27 May 2026",
-          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, ship Apr 17, ETD May 24 (per Husna). Product: $138,138 (2nd 35% + 60K shipping)."
+          "batchTotal": 290400,
+          "deliveredQty": 0,
+          "notes": null
         },
         {
           "po": "PO-SL-335K-60K",
@@ -620,7 +630,9 @@
           "deliveryAmount": 31680,
           "deliveryPaid": false,
           "deliveryDue": "27 May 2026",
-          "notes": "Via Normal Sea. Ship Apr 17, ETD May 22 (per Husna). Shipping $18,018."
+          "batchTotal": 87120,
+          "deliveredQty": 0,
+          "notes": null
         }
       ]
     },
@@ -659,7 +671,9 @@
           "deliveryAmount": 158400,
           "deliveryPaid": false,
           "deliveryDue": "1 June 2026 (est.)",
-          "notes": "Recurring 300K/month. Deposit $118,800 paid (P260402-4398FL1). 2nd payment $118,880 due May 1."
+          "batchTotal": 435600,
+          "deliveredQty": 0,
+          "notes": null
         }
       ]
     },
@@ -698,7 +712,9 @@
           "deliveryAmount": 0,
           "deliveryPaid": false,
           "deliveryDue": "n/a",
-          "notes": "Bridge stock delivered to Amazon."
+          "batchTotal": 0,
+          "deliveredQty": 0,
+          "notes": null
         },
         {
           "po": "PO-EL-72K-1PK",
@@ -729,7 +745,9 @@
           "deliveryAmount": 0,
           "deliveryPaid": false,
           "deliveryDue": "n/a",
-          "notes": "From 72K order. 181 boxes via 5 shipments. Received at Amazon Apr 14-15."
+          "batchTotal": 0,
+          "deliveredQty": 0,
+          "notes": null
         },
         {
           "po": "PO-EL-72K-FINAL",
@@ -760,7 +778,9 @@
           "deliveryAmount": 0,
           "deliveryPaid": false,
           "deliveryDue": "n/a",
-          "notes": "72K close-out per Eagle schedule Apr 20. SKU: 18,060 singles + 3,717 sets 3-pk (11,151 jars) + 84 sets 6-pk (504 jars). Sam Apr 21: singles ship Fri 4/24, 3pk/6pk Mon/Tue 4/27-4/28. Replaces PO-EL-72K-3PK6PK + PO-EL-72K-REMAIN. 16,945-jar gap vs original 72K \u2014 TBD if cut or rolled to recurring."
+          "batchTotal": 0,
+          "deliveredQty": 0,
+          "notes": null
         },
         {
           "po": "PO-EL-REC-M01",
@@ -791,7 +811,9 @@
           "deliveryAmount": 0,
           "deliveryPaid": false,
           "deliveryDue": "n/a",
-          "notes": "Recurring M01 per Eagle schedule Apr 20. Apr 27-May 16 firm pack-outs: 139,800 singles + 40,500 3-pk + 10,800 6-pk. Sam Apr 8 confirmed 72K/month recurring stocking position. No PO# or unit price issued yet \u2014 chase Xeomara."
+          "batchTotal": 0,
+          "deliveredQty": 0,
+          "notes": null
         },
         {
           "po": "PO-EL-REC-M02",
@@ -822,7 +844,9 @@
           "deliveryAmount": 0,
           "deliveryPaid": false,
           "deliveryDue": "n/a",
-          "notes": "Recurring M02 per Eagle schedule Apr 20. May 29-Jun 8 batch pool (13 batches \u00d7 ~10,980 singles). Not yet split into pack-out SKUs \u2014 Eagle splits ~1 month before ship. No PO# or price yet."
+          "batchTotal": 0,
+          "deliveredQty": 0,
+          "notes": null
         },
         {
           "po": "PO-SL-80K-NEW",
@@ -853,7 +877,9 @@
           "deliveryAmount": 42240,
           "deliveryPaid": false,
           "deliveryDue": "TBD",
-          "notes": "New order Apr 16. $105,600 total. 30% deposit $31,680 invoice #00515 \u2014 not yet paid."
+          "batchTotal": 116160,
+          "deliveredQty": 0,
+          "notes": null
         }
       ]
     }
