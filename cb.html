@@ -1032,6 +1032,40 @@
   const fmtUSD = n => '$' + (n || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtNum = n => (n || 0).toLocaleString('en-US');
 
+  // Custom plugin: draws stacked-total number above each bar
+  const totalOnTopPlugin = {
+    id: 'totalOnTop',
+    afterDatasetsDraw(chart) {
+      const ctx = chart.ctx;
+      const metas = chart.data.datasets.map((_, i) => chart.getDatasetMeta(i));
+      const barCount = chart.data.labels.length;
+      ctx.save();
+      ctx.font = '600 10px -apple-system, BlinkMacSystemFont, Inter, sans-serif';
+      ctx.fillStyle = '#e4e6eb';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      for (let idx = 0; idx < barCount; idx++) {
+        let total = 0, topY = Infinity, x = null, barWidth = 0;
+        for (let di = 0; di < metas.length; di++) {
+          const meta = metas[di];
+          if (meta.hidden) continue;
+          const el = meta.data[idx];
+          if (!el) continue;
+          const v = chart.data.datasets[di].data[idx] || 0;
+          if (v === 0) continue;
+          total += v;
+          if (x === null) { x = el.x; barWidth = el.width || 0; }
+          if (el.y < topY) topY = el.y;
+        }
+        // Only render label if the bar is wide enough to fit it cleanly
+        if (total > 0 && x !== null && isFinite(topY) && barWidth >= 18) {
+          ctx.fillText(String(total), x, topY - 4);
+        }
+      }
+      ctx.restore();
+    },
+  };
+
   // Build chart
   const ctx = document.getElementById('cb-chart').getContext('2d');
   const datasets = visiblePlatforms.map(p => ({
@@ -1044,10 +1078,12 @@
   }));
   const chart = new Chart(ctx, {
     type: 'bar',
+    plugins: [totalOnTopPlugin],
     data: { labels: data.dates.slice(), datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
+      layout: { padding: { top: 18 } },  // room for total labels
       scales: {
         x: { stacked: true, ticks: { color: '#8b8fa3', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }, grid: { display: false } },
         y: { stacked: true, beginAtZero: true, ticks: { color: '#8b8fa3' }, grid: { color: 'rgba(255,255,255,0.05)' } },
