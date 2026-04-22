@@ -170,6 +170,8 @@
 
   <!-- ============ VOLUME TAB ============ -->
   <div class="pane active" id="pane-volume">
+    <div class="kpi-row" id="queue-row" style="margin-bottom: 24px;"></div>
+
     <div class="filter-bar">
       <span class="btn-label">Window</span>
       <div class="btn-group" id="volume-presets">
@@ -234,7 +236,7 @@
 </div>
 
 <script>
-let VOL = null, SCORE = null;
+let VOL = null, SCORE = null, QUEUE = null;
 let volChart = null;
 let sortCol = 'total', sortDir = 'desc';
 let scoreSortCol = 'avg_total', scoreSortDir = 'desc';
@@ -242,14 +244,14 @@ let winStart = 0, winEnd = 0;   // indices into VOL.days
 let scoreWindow = '30d';        // "7d" | "30d"
 
 async function load() {
-  const [vRes, sRes] = await Promise.all([
+  const [vRes, sRes, qRes] = await Promise.all([
     fetch('cs_data.json?t=' + Date.now()),
     fetch('scorecard_data.json?t=' + Date.now()).catch(() => null),
+    fetch('unassigned_data.json?t=' + Date.now()).catch(() => null),
   ]);
   VOL = await vRes.json();
-  if (sRes && sRes.ok) {
-    SCORE = await sRes.json();
-  }
+  if (sRes && sRes.ok) SCORE = await sRes.json();
+  if (qRes && qRes.ok) QUEUE = await qRes.json();
   const totalDays = VOL.days.length;
   winEnd = totalDays - 1;
   winStart = Math.max(0, totalDays - 30);
@@ -471,7 +473,42 @@ function renderVolumeTable() {
   });
 }
 
+function renderQueueHealth() {
+  const row = document.getElementById('queue-row');
+  if (!QUEUE) {
+    row.innerHTML = '';
+    return;
+  }
+  const pct = (n) => Math.round(n / Math.max(1, QUEUE.total) * 100);
+  const gen = new Date(QUEUE.generated);
+  const oldCls = QUEUE.over_1d / Math.max(1, QUEUE.total) > 0.2 ? 'score-bad' : 'score-ok';
+  const oldestCls = QUEUE.oldest_days > 1 ? 'score-bad' : 'score-good';
+  row.innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-label">Unassigned Now</div>
+      <div class="kpi-value">${fmt(QUEUE.total)}</div>
+      <div class="kpi-sub">as of ${gen.toLocaleString()}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Over 1 Day (target: 0)</div>
+      <div class="kpi-value ${oldCls}">${fmt(QUEUE.over_1d)}</div>
+      <div class="kpi-sub">${pct(QUEUE.over_1d)}% of queue</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Over 7 Days</div>
+      <div class="kpi-value">${fmt(QUEUE.over_7d)}</div>
+      <div class="kpi-sub">${pct(QUEUE.over_7d)}% of queue</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Oldest Ticket</div>
+      <div class="kpi-value ${oldestCls}">${QUEUE.oldest_days}d</div>
+      <div class="kpi-sub">#${QUEUE.oldest_ticket_id || '?'} · ${QUEUE.oldest_date || ''}</div>
+    </div>
+  `;
+}
+
 function renderVolume() {
+  renderQueueHealth();
   renderVolumeKpis();
   renderVolumeChart();
   renderVolumeTable();
