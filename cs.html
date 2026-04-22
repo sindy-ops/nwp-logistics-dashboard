@@ -25,7 +25,7 @@
   .container { max-width: 1400px; margin: 0 auto; }
   .header {
     display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 16px;
   }
   .title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
   .subtitle { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
@@ -35,6 +35,34 @@
     transition: border-color 0.15s;
   }
   .back-link:hover { border-color: var(--accent); color: var(--text); }
+
+  .filter-bar {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    margin-bottom: 20px; padding: 14px 18px;
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px;
+  }
+  .btn-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-dim);
+  }
+  .btn-group { display: flex; gap: 6px; }
+  .btn {
+    background: transparent; border: 1px solid var(--card-border); color: var(--text-dim);
+    padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer;
+    transition: all 0.15s; font-weight: 600; font-family: inherit;
+  }
+  .btn:hover { border-color: var(--text-dim); color: var(--text); }
+  .btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .date-input {
+    background: transparent; border: 1px solid var(--card-border); color: var(--text);
+    padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer;
+    font-family: inherit;
+  }
+  .date-input:hover { border-color: var(--text-dim); }
+  .date-input:focus { outline: none; border-color: var(--accent); }
+  .date-input::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
+  .date-sep { color: var(--text-dim); font-size: 12px; }
 
   .kpi-row {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -93,10 +121,24 @@
 <div class="container">
   <div class="header">
     <div>
-      <div class="title">Customer Support — Last 30 Days</div>
+      <div class="title">Customer Support</div>
       <div class="subtitle" id="subtitle">Loading…</div>
     </div>
     <a href="hub.html" class="back-link">← Hub</a>
+  </div>
+
+  <div class="filter-bar">
+    <span class="btn-label">Window</span>
+    <div class="btn-group">
+      <button class="btn" data-preset="7">7d</button>
+      <button class="btn active" data-preset="30">30d</button>
+      <button class="btn" data-preset="90">90d</button>
+    </div>
+    <span class="btn-label" style="margin-left: 8px;">Or pick range</span>
+    <input type="date" class="date-input" id="date-start">
+    <span class="date-sep">→</span>
+    <input type="date" class="date-input" id="date-end">
+    <button class="btn" id="apply-range">Apply</button>
   </div>
 
   <div class="kpi-row" id="kpi-row"></div>
@@ -118,55 +160,118 @@
 
 <script>
 let CS_DATA = null;
+let chart = null;
 let sortCol = 'total';
 let sortDir = 'desc';
+// Active date window (indices into CS_DATA.days)
+let winStart = 0;
+let winEnd = 0;
 
 async function load() {
   const res = await fetch('cs_data.json?t=' + Date.now());
   CS_DATA = await res.json();
+  // Default: last 30 days of whatever we fetched
+  const totalDays = CS_DATA.days.length;
+  winEnd = totalDays - 1;
+  winStart = Math.max(0, totalDays - 30);
+  syncDateInputs();
+  wireEvents();
   render();
 }
 
 function fmt(n) { return (n || 0).toLocaleString('en-US'); }
 
+function syncDateInputs() {
+  document.getElementById('date-start').value = CS_DATA.days[winStart];
+  document.getElementById('date-end').value = CS_DATA.days[winEnd];
+}
+
+function wireEvents() {
+  document.querySelectorAll('[data-preset]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const days = parseInt(btn.getAttribute('data-preset'), 10);
+      const total = CS_DATA.days.length;
+      winEnd = total - 1;
+      winStart = Math.max(0, total - days);
+      document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      syncDateInputs();
+      render();
+    });
+  });
+  document.getElementById('apply-range').addEventListener('click', () => {
+    const s = document.getElementById('date-start').value;
+    const e = document.getElementById('date-end').value;
+    const si = CS_DATA.days.indexOf(s);
+    const ei = CS_DATA.days.indexOf(e);
+    if (si < 0 || ei < 0 || si > ei) {
+      alert('Pick two dates within ' + CS_DATA.days[0] + ' → ' + CS_DATA.days[CS_DATA.days.length - 1]);
+      return;
+    }
+    winStart = si;
+    winEnd = ei;
+    document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
+    render();
+  });
+}
+
+function windowSlice() {
+  const days = CS_DATA.days.slice(winStart, winEnd + 1);
+  const cust = CS_DATA.customer_msgs_per_day.slice(winStart, winEnd + 1);
+  const tix = CS_DATA.new_tickets_per_day.slice(winStart, winEnd + 1);
+  return { days, cust, tix };
+}
+
 function renderKpis() {
-  const m = CS_DATA.meta;
+  const { days, cust, tix } = windowSlice();
+  const sumCust = cust.reduce((a, b) => a + b, 0);
+  const sumTix = tix.reduce((a, b) => a + b, 0);
+  let sumReplies = 0;
+  let activeAgents = 0;
+  for (const a of CS_DATA.agents) {
+    let t = 0;
+    for (const d of days) t += a.per_day[d] || 0;
+    if (t > 0) activeAgents++;
+    sumReplies += t;
+  }
+  const n = days.length;
   const row = document.getElementById('kpi-row');
   row.innerHTML = `
     <div class="kpi-card">
       <div class="kpi-label">Customer Messages</div>
-      <div class="kpi-value">${fmt(m.total_customer_msgs)}</div>
-      <div class="kpi-sub">${fmt(Math.round(m.total_customer_msgs / m.window_days))}/day avg</div>
+      <div class="kpi-value">${fmt(sumCust)}</div>
+      <div class="kpi-sub">${fmt(Math.round(sumCust / n))}/day avg</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">New Tickets</div>
-      <div class="kpi-value">${fmt(m.total_new_tickets)}</div>
-      <div class="kpi-sub">${fmt(Math.round(m.total_new_tickets / m.window_days))}/day avg</div>
+      <div class="kpi-value">${fmt(sumTix)}</div>
+      <div class="kpi-sub">${fmt(Math.round(sumTix / n))}/day avg</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Agent Replies</div>
-      <div class="kpi-value">${fmt(m.total_agent_replies)}</div>
-      <div class="kpi-sub">${fmt(Math.round(m.total_agent_replies / m.window_days))}/day avg • ${m.agent_count} agents</div>
+      <div class="kpi-value">${fmt(sumReplies)}</div>
+      <div class="kpi-sub">${fmt(Math.round(sumReplies / n))}/day avg · ${activeAgents} agents</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Reply : Inbound</div>
-      <div class="kpi-value">${(m.total_agent_replies / Math.max(1, m.total_customer_msgs)).toFixed(2)}×</div>
+      <div class="kpi-value">${(sumReplies / Math.max(1, sumCust)).toFixed(2)}×</div>
       <div class="kpi-sub">replies per inbound msg</div>
     </div>
   `;
 }
 
 function renderChart() {
+  const { days, cust, tix } = windowSlice();
   const ctx = document.getElementById('volume-chart').getContext('2d');
-  const labels = CS_DATA.days.map(d => d.slice(5));
-  new Chart(ctx, {
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, {
     data: {
-      labels,
+      labels: days.map(d => d.slice(5)),
       datasets: [
         {
           type: 'bar',
           label: 'Customer messages',
-          data: CS_DATA.customer_msgs_per_day,
+          data: cust,
           backgroundColor: 'rgba(59,130,246,0.55)',
           borderColor: 'rgba(59,130,246,1)',
           borderWidth: 1,
@@ -175,7 +280,7 @@ function renderChart() {
         {
           type: 'line',
           label: 'New tickets',
-          data: CS_DATA.new_tickets_per_day,
+          data: tix,
           borderColor: 'rgba(245,158,11,1)',
           backgroundColor: 'rgba(245,158,11,0.15)',
           tension: 0.25, pointRadius: 3, borderWidth: 2,
@@ -201,8 +306,13 @@ function renderChart() {
 }
 
 function renderTable() {
-  const days = CS_DATA.days;
-  const agents = [...CS_DATA.agents];
+  const { days } = windowSlice();
+  // Build agents with windowed totals
+  const agents = CS_DATA.agents.map(a => {
+    let total = 0;
+    for (const d of days) total += a.per_day[d] || 0;
+    return { name: a.name, total, per_day: a.per_day };
+  }).filter(a => a.total > 0);
 
   // Sort
   agents.sort((a, b) => {
@@ -215,7 +325,6 @@ function renderTable() {
     return 0;
   });
 
-  // Compute max for heat scale
   let maxDay = 0;
   for (const a of agents) for (const d of days) maxDay = Math.max(maxDay, a.per_day[d] || 0);
   const heat = v => {
@@ -249,7 +358,6 @@ function renderTable() {
   html += '</tbody></table>';
   document.getElementById('agent-table').innerHTML = html;
 
-  // Wire up column sort
   document.querySelectorAll('th').forEach(th => {
     th.addEventListener('click', () => {
       const col = th.getAttribute('data-col');
@@ -261,12 +369,13 @@ function renderTable() {
 }
 
 function renderFooter() {
+  const { days } = windowSlice();
   const m = CS_DATA.meta;
   document.getElementById('subtitle').textContent =
-    `${m.window_start} → ${m.window_end} (${m.window_days} days) · ${m.agent_count} agents`;
+    `${days[0]} → ${days[days.length - 1]} (${days.length} days)`;
   const gen = new Date(m.generated_at);
   document.getElementById('footer').textContent =
-    `Source: Gorgias /api/stats · Generated ${gen.toLocaleString()} · Excludes bots, admin-only, shared inboxes`;
+    `Data: ${m.window_start} → ${m.window_end} (${m.window_days}d available) · Source: Gorgias /api/stats · Generated ${gen.toLocaleString()} · Excludes bots, admin-only, shared inboxes`;
 }
 
 function render() {
