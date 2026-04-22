@@ -78,6 +78,16 @@
   }
   .btn:hover { border-color: var(--text-dim); color: var(--text); }
   .btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+  .btn-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); align-self: center; margin-right: 4px; }
+  .date-input {
+    background: transparent; border: 1px solid var(--card-border); color: var(--text);
+    padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer;
+    font-family: inherit;
+  }
+  .date-input:hover { border-color: var(--text-dim); }
+  .date-input:focus { outline: none; border-color: var(--accent); }
+  .date-input::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
+  .date-sep { color: var(--text-dim); font-size: 12px; align-self: center; }
 
   .chart-wrap { position: relative; height: 420px; }
 
@@ -136,9 +146,16 @@
           <button class="btn" data-filter="auto">Auto-refund</button>
         </div>
         <div class="btn-group" data-control="window">
+          <span class="btn-label">Window</span>
           <button class="btn" data-window="7">7d</button>
           <button class="btn" data-window="30">30d</button>
           <button class="btn active" data-window="90">90d</button>
+        </div>
+        <div class="btn-group">
+          <span class="btn-label">Range</span>
+          <input type="date" id="date-from" class="date-input" title="From">
+          <span class="date-sep">→</span>
+          <input type="date" id="date-to" class="date-input" title="To">
         </div>
       </div>
     </div>
@@ -1046,7 +1063,21 @@
   // State
   let currentWindow = 90;
   let currentFilter = 'all';   // 'all' | 'fight' | 'auto'
+  let customRange = null;      // {from, to} — overrides currentWindow
   const hiddenByLegend = new Set();
+
+  function getSliceIndices() {
+    const n = data.dates.length;
+    if (customRange) {
+      let start = 0;
+      for (let i = 0; i < n; i++) { if (data.dates[i] >= customRange.from) { start = i; break; } if (i === n-1) start = n; }
+      let end = n - 1;
+      for (let i = n - 1; i >= 0; i--) { if (data.dates[i] <= customRange.to) { end = i; break; } if (i === 0) end = -1; }
+      if (start > end) { start = 0; end = -1; }
+      return { start, end };
+    }
+    return { start: Math.max(0, n - currentWindow), end: n - 1 };
+  }
 
   // Subtitle — flag partial days explicitly
   const partialNote = partialDatesSet.size
@@ -1156,23 +1187,25 @@
   }
 
   function recompute() {
-    const n = data.dates.length;
-    const sliceStart = Math.max(0, n - currentWindow);
-    const slicedLabels = data.dates.slice(sliceStart);
+    const { start: sliceStart, end: sliceEnd } = getSliceIndices();
+    const lenInWindow = Math.max(0, sliceEnd - sliceStart + 1);
+    const slicedLabels = data.dates.slice(sliceStart, sliceEnd + 1);
     chart.data.labels = slicedLabels;
 
-    // Totals across window (for stats + legend counts)
+    const windowLabel = customRange
+      ? `${customRange.from} → ${customRange.to}`
+      : `${currentWindow}d`;
+
     const totalsInWindow = {};
     let fightCount = 0, autoCount = 0, fightAmt = 0, autoAmt = 0;
 
     visiblePlatforms.forEach((p, i) => {
       const ds = chart.data.datasets[i];
-      ds.data = data.series[p].slice(sliceStart);
+      ds.data = data.series[p].slice(sliceStart, sliceEnd + 1);
       const sumCount = ds.data.reduce((a, b) => a + b, 0);
       totalsInWindow[p] = sumCount;
       ds.hidden = !isPlatformActive(p);
 
-      // Amount contribution pro-rata from total-window amounts
       const totalForP = data.totals_by_platform[p] || 0;
       const amtForP = data.amounts_by_platform[p] || 0;
       const amtInWindow = totalForP > 0 ? amtForP * (sumCount / totalForP) : 0;
@@ -1185,7 +1218,6 @@
 
     chart.update();
 
-    // Update legend counts + disabled state
     visiblePlatforms.forEach(p => {
       const row = legendEl.querySelector(`[data-platform="${p}"]`);
       if (!row) return;
@@ -1195,33 +1227,59 @@
       row.classList.toggle('disabled', inactive);
     });
 
-    // Update stat cards
     const visibleTotal = fightCount + autoCount;
     const visibleAmt   = fightAmt + autoAmt;
-    const daysInWindow = Math.min(currentWindow, data.dates.length);
-    const fightPerDay = fightCount / daysInWindow;
-    const autoPerDay  = autoCount / daysInWindow;
+    const fightPerDay = lenInWindow > 0 ? fightCount / lenInWindow : 0;
+    const autoPerDay  = lenInWindow > 0 ? autoCount / lenInWindow : 0;
 
     document.getElementById('stats').innerHTML = `
-      <div class="stat-card"><div class="stat-label">Total CBs (${currentWindow}d)</div><div class="stat-value">${fmtNum(visibleTotal)}</div><div class="stat-sub">${fmtUSD(visibleAmt)}</div></div>
+      <div class="stat-card"><div class="stat-label">Total CBs</div><div class="stat-value">${fmtNum(visibleTotal)}</div><div class="stat-sub">${fmtUSD(visibleAmt)} · ${windowLabel}</div></div>
       <div class="stat-card"><div class="stat-label">Fightable</div><div class="stat-value">${fmtNum(fightCount)}</div><div class="stat-sub">${fmtUSD(fightAmt)}</div></div>
       <div class="stat-card"><div class="stat-label">Auto-refund (RDR)</div><div class="stat-value">${fmtNum(autoCount)}</div><div class="stat-sub">${fmtUSD(autoAmt)}</div></div>
-      <div class="stat-card"><div class="stat-label">Fightable / day</div><div class="stat-value">${fmtNum(Math.round(fightPerDay))}</div><div class="stat-sub">avg over ${currentWindow}d</div></div>
-      <div class="stat-card"><div class="stat-label">Auto-refund / day</div><div class="stat-value">${fmtNum(Math.round(autoPerDay))}</div><div class="stat-sub">avg over ${currentWindow}d</div></div>
+      <div class="stat-card"><div class="stat-label">Fightable / day</div><div class="stat-value">${fmtNum(Math.round(fightPerDay))}</div><div class="stat-sub">avg over ${lenInWindow}d</div></div>
+      <div class="stat-card"><div class="stat-label">Auto-refund / day</div><div class="stat-value">${fmtNum(Math.round(autoPerDay))}</div><div class="stat-sub">avg over ${lenInWindow}d</div></div>
     `;
 
     document.getElementById('footer-meta').textContent =
-      `window: ${currentWindow}d · filter: ${currentFilter} · ${slicedLabels.length} daily buckets · generated ${data.generated_at}`;
+      `window: ${windowLabel} · filter: ${currentFilter} · ${lenInWindow} daily buckets · generated ${data.generated_at}`;
   }
 
-  // Window buttons
+  // Date inputs
+  const dateFromEl = document.getElementById('date-from');
+  const dateToEl = document.getElementById('date-to');
+  const firstDate = data.dates[0];
+  const lastDate = data.dates[data.dates.length - 1];
+  dateFromEl.min = firstDate; dateFromEl.max = lastDate;
+  dateToEl.min = firstDate; dateToEl.max = lastDate;
+
+  function syncDateInputsToPreset() {
+    const { start, end } = getSliceIndices();
+    dateFromEl.value = data.dates[start] || '';
+    dateToEl.value = data.dates[end] || '';
+  }
+
+  // Window buttons — clear custom range
   document.querySelectorAll('.btn[data-window]').forEach(btn => {
     btn.addEventListener('click', () => {
       currentWindow = parseInt(btn.dataset.window, 10);
+      customRange = null;
       document.querySelectorAll('.btn[data-window]').forEach(b => b.classList.toggle('active', b === btn));
+      syncDateInputsToPreset();
       recompute();
     });
   });
+
+  function applyCustomRange() {
+    const from = dateFromEl.value;
+    const to = dateToEl.value;
+    if (!from || !to) return;
+    if (from > to) return;
+    customRange = { from, to };
+    document.querySelectorAll('.btn[data-window]').forEach(b => b.classList.remove('active'));
+    recompute();
+  }
+  dateFromEl.addEventListener('change', applyCustomRange);
+  dateToEl.addEventListener('change', applyCustomRange);
 
   // Filter buttons
   document.querySelectorAll('.btn[data-filter]').forEach(btn => {
@@ -1242,6 +1300,7 @@
     });
   });
 
+  syncDateInputsToPreset();
   recompute();
 })();
 </script>
