@@ -13,13 +13,6 @@
     --text: #e4e6eb;
     --text-dim: #8b8fa3;
     --accent: #4ade80;
-    --blue: #3b82f6;
-    --orange: #f59e0b;
-    --red: #ef4444;
-    --purple: #a78bfa;
-    --cyan: #06b6d4;
-    --pink: #ec4899;
-    --gray: #6b7280;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -42,7 +35,7 @@
   .back-link:hover { border-color: var(--accent); color: var(--text); }
 
   .stats-row {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 14px; margin-bottom: 24px;
   }
   .stat-card {
@@ -53,7 +46,7 @@
     font-size: 11px; font-weight: 700; text-transform: uppercase;
     letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px;
   }
-  .stat-value { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .stat-value { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
   .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
 
   .chart-card {
@@ -62,14 +55,14 @@
   }
   .chart-header {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 12px;
   }
   .chart-title { font-size: 16px; font-weight: 700; }
-  .chart-controls { display: flex; gap: 6px; }
+  .btn-group { display: flex; gap: 6px; }
   .btn {
     background: transparent; border: 1px solid var(--card-border); color: var(--text-dim);
     padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.15s; font-weight: 500;
   }
   .btn:hover { border-color: var(--text-dim); color: var(--text); }
   .btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
@@ -83,11 +76,21 @@
   .plat-row {
     display: flex; align-items: center; gap: 10px; padding: 10px 12px;
     background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px;
-    font-size: 13px;
+    font-size: 13px; cursor: pointer; transition: opacity 0.15s, border-color 0.15s;
+    user-select: none;
   }
+  .plat-row:hover { border-color: var(--text-dim); }
+  .plat-row.disabled { opacity: 0.35; }
+  .plat-row.disabled .plat-swatch { background: transparent !important; border: 1px solid var(--text-dim); }
   .plat-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
   .plat-name { flex: 1; font-weight: 600; }
   .plat-count { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+  .plat-kind {
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+    padding: 2px 6px; border-radius: 4px; margin-left: 4px;
+  }
+  .plat-kind.fight { background: rgba(74,222,128,0.15); color: var(--accent); }
+  .plat-kind.auto  { background: rgba(139,143,163,0.18); color: var(--text-dim); }
 
   .footer-meta {
     margin-top: 16px; font-size: 11px; color: var(--text-dim); text-align: center;
@@ -109,10 +112,17 @@
   <div class="chart-card">
     <div class="chart-header">
       <div class="chart-title">CBs per day, stacked by Platform</div>
-      <div class="chart-controls">
-        <button class="btn" data-window="7">7d</button>
-        <button class="btn" data-window="30">30d</button>
-        <button class="btn active" data-window="90">90d</button>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <div class="btn-group" data-control="filter">
+          <button class="btn active" data-filter="all">All</button>
+          <button class="btn" data-filter="fight">Fightable</button>
+          <button class="btn" data-filter="auto">Auto-refund</button>
+        </div>
+        <div class="btn-group" data-control="window">
+          <button class="btn" data-window="7">7d</button>
+          <button class="btn" data-window="30">30d</button>
+          <button class="btn active" data-window="90">90d</button>
+        </div>
       </div>
     </div>
     <div class="chart-wrap"><canvas id="cb-chart"></canvas></div>
@@ -994,85 +1004,53 @@
   const raw = document.getElementById('cb-data').textContent;
   const data = JSON.parse(raw);
 
-  // Platform colors — stable assignment
   const PLATFORM_COLORS = {
-    'Paypal':         '#3b82f6',  // blue
-    'Stripe Dispute': '#a78bfa',  // purple
-    'Stripe by RDR':  '#ec4899',  // pink
-    'Payarc':         '#f59e0b',  // orange
-    'Aurora':         '#ef4444',  // red
-    'EMS':            '#06b6d4',  // cyan
-    'Kount':          '#6b7280',  // gray (least fightable)
+    'Paypal':         '#3b82f6',
+    'Stripe Dispute': '#a78bfa',
+    'Stripe by RDR':  '#ec4899',
+    'Payarc':         '#f59e0b',
+    'Aurora':         '#ef4444',
+    'EMS':            '#06b6d4',
+    'Kount':          '#6b7280',
   };
-  function colorFor(p) { return PLATFORM_COLORS[p] || '#94a3b8'; }
+  const FIGHTABLE = new Set(['Paypal','Stripe Dispute','Payarc','Aurora']);
+  const AUTO      = new Set(['Kount','EMS','Stripe by RDR']);
+  const colorFor = p => PLATFORM_COLORS[p] || '#94a3b8';
+  const kindOf   = p => FIGHTABLE.has(p) ? 'fight' : (AUTO.has(p) ? 'auto' : 'other');
 
-  // Subtitle + stats
+  const visiblePlatforms = data.platforms.filter(p => p && p !== '(blank)');
+
+  // State
+  let currentWindow = 90;
+  let currentFilter = 'all';   // 'all' | 'fight' | 'auto'
+  const hiddenByLegend = new Set();
+
+  // Subtitle
   document.getElementById('subtitle').textContent =
     `${data.window_start} → ${data.window_end}  ·  source: Daily CB Analysis 3 › Analysis of dispute  ·  updated ${data.generated_at}`;
 
   const fmtUSD = n => '$' + (n || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtNum = n => (n || 0).toLocaleString('en-US');
 
-  const statsEl = document.getElementById('stats');
-  const paypal = data.totals_by_platform['Paypal'] || 0;
-  const stripe = (data.totals_by_platform['Stripe Dispute'] || 0) + (data.totals_by_platform['Stripe by RDR'] || 0);
-  const fightable = ['Paypal','Stripe Dispute','Payarc','Aurora'].reduce((s,p) => s + (data.totals_by_platform[p]||0), 0);
-  const rdrAuto = ['Kount','EMS','Stripe by RDR'].reduce((s,p) => s + (data.totals_by_platform[p]||0), 0);
-
-  statsEl.innerHTML = `
-    <div class="stat-card"><div class="stat-label">Total CBs (90d)</div><div class="stat-value">${fmtNum(data.grand_total_count)}</div><div class="stat-sub">${fmtUSD(data.grand_total_amount)}</div></div>
-    <div class="stat-card"><div class="stat-label">Fightable</div><div class="stat-value">${fmtNum(fightable)}</div><div class="stat-sub">PayPal + Stripe + Payarc + Aurora</div></div>
-    <div class="stat-card"><div class="stat-label">Auto-refund (RDR)</div><div class="stat-value">${fmtNum(rdrAuto)}</div><div class="stat-sub">Kount + EMS + Stripe RDR</div></div>
-    <div class="stat-card"><div class="stat-label">Daily avg (90d)</div><div class="stat-value">${fmtNum(Math.round(data.grand_total_count / data.window_days))}</div><div class="stat-sub">all platforms</div></div>
-  `;
-
-  // Legend
-  const legendEl = document.getElementById('platform-legend');
-  legendEl.innerHTML = data.platforms.map(p => `
-    <div class="plat-row">
-      <div class="plat-swatch" style="background:${colorFor(p)}"></div>
-      <div class="plat-name">${p}</div>
-      <div class="plat-count">${fmtNum(data.totals_by_platform[p])}</div>
-    </div>
-  `).join('');
-
-  // Footer
-  document.getElementById('footer-meta').textContent =
-    `${data.window_days} days · ${data.dates.length} daily buckets · generated ${data.generated_at}`;
-
-  // Chart
+  // Build chart
   const ctx = document.getElementById('cb-chart').getContext('2d');
-  const datasets = data.platforms.map(p => ({
+  const datasets = visiblePlatforms.map(p => ({
     label: p,
-    data: data.series[p],
+    data: data.series[p].slice(),
     backgroundColor: colorFor(p),
-    borderColor: colorFor(p),
     borderWidth: 0,
     stack: 'cb',
+    hidden: false,
   }));
-
-  let currentWindow = 90;
   const chart = new Chart(ctx, {
     type: 'bar',
-    data: {
-      labels: data.dates,
-      datasets: datasets,
-    },
+    data: { labels: data.dates.slice(), datasets },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       scales: {
-        x: {
-          stacked: true,
-          ticks: { color: '#8b8fa3', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 },
-          grid: { display: false },
-        },
-        y: {
-          stacked: true, beginAtZero: true,
-          ticks: { color: '#8b8fa3' },
-          grid: { color: 'rgba(255,255,255,0.05)' },
-        },
+        x: { stacked: true, ticks: { color: '#8b8fa3', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }, grid: { display: false } },
+        y: { stacked: true, beginAtZero: true, ticks: { color: '#8b8fa3' }, grid: { color: 'rgba(255,255,255,0.05)' } },
       },
       plugins: {
         legend: { display: false },
@@ -1080,31 +1058,124 @@
           backgroundColor: '#1a1d27', borderColor: '#2a2d3a', borderWidth: 1,
           titleColor: '#e4e6eb', bodyColor: '#e4e6eb', padding: 10,
           callbacks: {
-            footer: (items) => {
-              const total = items.reduce((s, it) => s + (it.parsed.y || 0), 0);
-              return 'Total: ' + total;
-            },
+            footer: items => 'Total: ' + items.reduce((s, it) => s + (it.parsed.y || 0), 0),
           },
         },
       },
     },
   });
 
+  // Build legend
+  const legendEl = document.getElementById('platform-legend');
+  legendEl.innerHTML = visiblePlatforms.map(p => {
+    const k = kindOf(p);
+    const kindLabel = k === 'fight' ? 'FIGHT' : (k === 'auto' ? 'AUTO' : '');
+    return `
+      <div class="plat-row" data-platform="${p}">
+        <div class="plat-swatch" style="background:${colorFor(p)}"></div>
+        <div class="plat-name">${p}</div>
+        ${kindLabel ? `<span class="plat-kind ${k}">${kindLabel}</span>` : ''}
+        <div class="plat-count" data-count-for="${p}">0</div>
+      </div>
+    `;
+  }).join('');
+
+  function isPlatformActive(p) {
+    if (hiddenByLegend.has(p)) return false;
+    const k = kindOf(p);
+    if (currentFilter === 'fight' && k !== 'fight') return false;
+    if (currentFilter === 'auto'  && k !== 'auto')  return false;
+    return true;
+  }
+
+  function recompute() {
+    const n = data.dates.length;
+    const sliceStart = Math.max(0, n - currentWindow);
+    const slicedLabels = data.dates.slice(sliceStart);
+    chart.data.labels = slicedLabels;
+
+    // Totals across window (for stats + legend counts)
+    const totalsInWindow = {};
+    let fightCount = 0, autoCount = 0, fightAmt = 0, autoAmt = 0;
+
+    visiblePlatforms.forEach((p, i) => {
+      const ds = chart.data.datasets[i];
+      ds.data = data.series[p].slice(sliceStart);
+      const sumCount = ds.data.reduce((a, b) => a + b, 0);
+      totalsInWindow[p] = sumCount;
+      ds.hidden = !isPlatformActive(p);
+
+      // Amount contribution pro-rata from total-window amounts
+      const totalForP = data.totals_by_platform[p] || 0;
+      const amtForP = data.amounts_by_platform[p] || 0;
+      const amtInWindow = totalForP > 0 ? amtForP * (sumCount / totalForP) : 0;
+      if (!ds.hidden) {
+        const k = kindOf(p);
+        if (k === 'fight') { fightCount += sumCount; fightAmt += amtInWindow; }
+        if (k === 'auto')  { autoCount  += sumCount; autoAmt  += amtInWindow; }
+      }
+    });
+
+    chart.update();
+
+    // Update legend counts + disabled state
+    visiblePlatforms.forEach(p => {
+      const row = legendEl.querySelector(`[data-platform="${p}"]`);
+      if (!row) return;
+      const countEl = row.querySelector('[data-count-for]');
+      countEl.textContent = fmtNum(totalsInWindow[p] || 0);
+      const inactive = !isPlatformActive(p);
+      row.classList.toggle('disabled', inactive);
+    });
+
+    // Update stat cards
+    const visibleTotal = fightCount + autoCount;
+    const visibleAmt   = fightAmt + autoAmt;
+    const daysInWindow = Math.min(currentWindow, data.dates.length);
+    const fightPerDay = fightCount / daysInWindow;
+    const autoPerDay  = autoCount / daysInWindow;
+
+    document.getElementById('stats').innerHTML = `
+      <div class="stat-card"><div class="stat-label">Total CBs (${currentWindow}d)</div><div class="stat-value">${fmtNum(visibleTotal)}</div><div class="stat-sub">${fmtUSD(visibleAmt)}</div></div>
+      <div class="stat-card"><div class="stat-label">Fightable</div><div class="stat-value">${fmtNum(fightCount)}</div><div class="stat-sub">${fmtUSD(fightAmt)}</div></div>
+      <div class="stat-card"><div class="stat-label">Auto-refund (RDR)</div><div class="stat-value">${fmtNum(autoCount)}</div><div class="stat-sub">${fmtUSD(autoAmt)}</div></div>
+      <div class="stat-card"><div class="stat-label">Fightable / day</div><div class="stat-value">${fmtNum(Math.round(fightPerDay))}</div><div class="stat-sub">avg over ${currentWindow}d</div></div>
+      <div class="stat-card"><div class="stat-label">Auto-refund / day</div><div class="stat-value">${fmtNum(Math.round(autoPerDay))}</div><div class="stat-sub">avg over ${currentWindow}d</div></div>
+    `;
+
+    document.getElementById('footer-meta').textContent =
+      `window: ${currentWindow}d · filter: ${currentFilter} · ${slicedLabels.length} daily buckets · generated ${data.generated_at}`;
+  }
+
   // Window buttons
   document.querySelectorAll('.btn[data-window]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const w = parseInt(btn.dataset.window, 10);
-      currentWindow = w;
+      currentWindow = parseInt(btn.dataset.window, 10);
       document.querySelectorAll('.btn[data-window]').forEach(b => b.classList.toggle('active', b === btn));
-      const n = data.dates.length;
-      const sliceStart = Math.max(0, n - w);
-      chart.data.labels = data.dates.slice(sliceStart);
-      chart.data.datasets.forEach((ds, i) => {
-        ds.data = data.series[data.platforms[i]].slice(sliceStart);
-      });
-      chart.update();
+      recompute();
     });
   });
+
+  // Filter buttons
+  document.querySelectorAll('.btn[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentFilter = btn.dataset.filter;
+      document.querySelectorAll('.btn[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
+      recompute();
+    });
+  });
+
+  // Legend click → toggle platform
+  legendEl.querySelectorAll('.plat-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const p = row.dataset.platform;
+      if (hiddenByLegend.has(p)) hiddenByLegend.delete(p);
+      else hiddenByLegend.add(p);
+      recompute();
+    });
+  });
+
+  recompute();
 })();
 </script>
 </body>
