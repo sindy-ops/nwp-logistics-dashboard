@@ -1,21 +1,21 @@
 {
-  "lastRefreshed": "2026-04-22T12:05:53",
+  "lastRefreshed": "2026-04-22T12:08:34",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-22",
-      "fileAge": 0.1
+      "fileAge": 0.0
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-21",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-22",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "airwallex": {
       "name": "Airwallex",
@@ -25,7 +25,7 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.1
+      "fileAge": 0.0
     },
     "amazon": {
       "name": "Amazon FBA",
@@ -403,11 +403,11 @@
       "supplier": "Sendy Li",
       "qty": 80000,
       "dest": "TBD",
-      "status": "Ordered",
+      "status": "In Production",
       "method": "TBD",
       "eta": "TBD",
-      "payment": "PENDING ($31,680)",
-      "paymentCls": "pending"
+      "payment": "PAID ($31,687)",
+      "paymentCls": "paid"
     },
     {
       "po": "PO-TC-8K-TFM",
@@ -755,19 +755,19 @@
           "depositDate": "TBD",
           "productionDays": 40,
           "inTransitDays": 30,
-          "productionStatus": "In production \u00b7 started 20 April 2026",
+          "productionStatus": "In production",
           "productionCls": "warn",
-          "paymentStatus": "Pending \u2014 to submit",
-          "paymentCls": "pending",
-          "nextPayment": "Deposit 35% ~$36,960",
-          "nextPaymentDue": "Now",
+          "paymentStatus": "Paid ($31,687)",
+          "paymentCls": "ok",
+          "nextPayment": "Production 35% ~$36,960",
+          "nextPaymentDue": "+40d from order",
           "unitCost": 1.32,
           "totalValue": 105600,
           "depositAmount": 36960,
-          "depositPaid": false,
-          "depositDue": "At order",
+          "depositPaid": true,
+          "depositDue": "Now",
           "productionAmount": 36960,
-          "productionPaid": false,
+          "productionPaid": true,
           "productionDue": "End of prod (40d)",
           "deliveryAmount": 42240,
           "deliveryPaid": false,
@@ -777,7 +777,7 @@
           "supplierTint": "sendy",
           "paymentModel": "sendy_353540",
           "packSplit": "",
-          "notes": "New order Apr 16. $105,600 total. 30% deposit $31,680 invoice #00515 \u2014 not yet paid. Production started Apr 20 per memory.",
+          "notes": "New order Apr 16. $105,600 total. Deposit 30% $31,687 PAID Apr 17 (Airwallex ref 20260416). Production started Apr 20 per memory. Old 30/30/40 terms (pre 35/35/40 switch).",
           "hasAlert": false
         }
       ],
@@ -1034,7 +1034,7 @@
       "alerts": [
         {
           "po": "PO-LW-100K",
-          "text": "Relabeling compensation under negotiation \u2014 20+ day delay at Laura's cost (old label version, misspellings, blurry print). * Sindy asks: compensation for delay + quality issues. * Sajjad new offer: pending. * Cream quality concerns (texture/scent/absorption) also flagged."
+          "text": "Relabeling compensation \u2014 open. Timeline: (1) Mar 27 \u2014 20+ day relabeling delay confirmed at Laura's cost: old label version (2025-6 vs 2025-7), misspellings, blurry print, 100K units all relabeled. (2) Apr \u2014 Sindy asked for compensation (amount TBD \u2014 paste from channel). (3) Apr \u2014 Sajjad handling negotiation with Laura (new offer pending). (4) Open: cream quality concerns (texture/scent/absorption) vs SendyLi \u2014 may impact negotiation leverage. Balance 50% ($62,500) BLOCKED until nego settled."
         }
       ]
     }
@@ -1042,9 +1042,9 @@
   "payments": {
     "balance": 140018,
     "pendingApproval": 191744,
-    "fundsNeeded": 469524,
+    "fundsNeeded": 437844,
     "maxFundsDate": "22 April 2026",
-    "shortfall": -329505,
+    "shortfall": -297825,
     "inApproval": [
       {
         "recipient": "Sendy Li",
@@ -1104,19 +1104,9 @@
         "due": "~Apr 29",
         "poStatus": "Ready To Ship",
         "actionBy": "Eagle Labs \u2192 Bianca"
-      },
-      {
-        "po": "PO-SL-80K-NEW",
-        "supplier": "Sendy Li",
-        "qty": 80000,
-        "amount": 31680,
-        "milestone": "Submit deposit to AW",
-        "due": "Now",
-        "poStatus": "Ordered",
-        "actionBy": "Bianca"
       }
     ],
-    "pipelineUpcomingTotal": 277780,
+    "pipelineUpcomingTotal": 246100,
     "recentLogistics": [
       {
         "recipient": "Sendy Li",
