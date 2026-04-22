@@ -75,15 +75,20 @@
   <div class="mock-banner">
     <strong>MOCK DATA</strong> — layout review only. Real data pending CC API enrichment.
     An order is "upsell" if it has a parent_order_id (child of a main order) OR its SKU is a known upsell product.
+    <br><br>
+    <strong>CB rate</strong> calculation requires joining CC API sales data (units sold per product) with CC-enriched CB data — both pending v2 pull.
   </div>
 
   <div class="stats-row" id="stats"></div>
 
   <div class="chart-card">
     <div class="chart-header">
-      <div class="chart-title">Which upsell product drives CBs?</div>
+      <div class="chart-title">Which upsell product has an abnormal CB risk?</div>
     </div>
-    <div class="chart-wrap small"><canvas id="product-bar"></canvas></div>
+    <div class="chart-explainer" style="font-size:12px; color:var(--text-dim); margin-bottom:14px; line-height:1.5;">
+      Ranked by CB rate (CBs &divide; units sold). A product with high absolute CBs but proportional sales isn't necessarily a problem — <strong style="color:var(--text);">the rate is the signal.</strong>
+    </div>
+    <div class="chart-wrap" style="height:320px;"><canvas id="product-bar"></canvas></div>
   </div>
 
   <div class="chart-card">
@@ -414,29 +419,39 @@
   },
   "upsell_products": [
     {
-      "product": "Fortify",
-      "cbs": 142,
-      "pct": 0.49
+      "product": "Cream Booster",
+      "cbs": 42,
+      "units_sold": 840,
+      "cb_rate": 0.0500,
+      "rank_by_rate": 1
     },
     {
       "product": "Nerve Gummies",
       "cbs": 78,
-      "pct": 0.27
-    },
-    {
-      "product": "Cream Booster",
-      "cbs": 42,
-      "pct": 0.14
+      "units_sold": 3900,
+      "cb_rate": 0.0200,
+      "rank_by_rate": 2
     },
     {
       "product": "Hydration Spray",
       "cbs": 18,
-      "pct": 0.06
+      "units_sold": 1500,
+      "cb_rate": 0.0120,
+      "rank_by_rate": 3
+    },
+    {
+      "product": "Fortify",
+      "cbs": 142,
+      "units_sold": 14200,
+      "cb_rate": 0.0100,
+      "rank_by_rate": 4
     },
     {
       "product": "Other",
       "cbs": 10,
-      "pct": 0.03
+      "units_sold": 2000,
+      "cb_rate": 0.0050,
+      "rank_by_rate": 5
     }
   ],
   "by_platform": [
@@ -477,34 +492,60 @@
     `${data.window_start} → ${data.window_end}  ·  coverage: ${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_cc_match)} of ${fmtNum(data.coverage.total_cbs)} CBs matched)  ·  ${data.notice}`;
 
   const t = data.totals;
+  const fmtPct = v => `${(v*100).toFixed(2)}%`;
+  // Sort products by CB rate (desc) so the "worst" is first
+  const productsByRate = [...data.upsell_products].sort((a,b) => (b.cb_rate||0) - (a.cb_rate||0));
+  const topByRate = productsByRate[0];
   document.getElementById('stats').innerHTML = `
     <div class="stat-card"><div class="stat-label">With upsell</div><div class="stat-value" style="color:${COLORS.upsell};">${fmtNum(t.with_upsell)}</div><div class="stat-sub">${Math.round(t.with_upsell_pct*100)}% of matched</div></div>
     <div class="stat-card"><div class="stat-label">No upsell</div><div class="stat-value" style="color:${COLORS.no_upsell};">${fmtNum(t.no_upsell)}</div><div class="stat-sub">${Math.round(t.no_upsell_pct*100)}% of matched</div></div>
-    <div class="stat-card"><div class="stat-label">Top upsell in CBs</div><div class="stat-value" style="font-size:22px;">${data.upsell_products[0].product}</div><div class="stat-sub">${fmtNum(data.upsell_products[0].cbs)} CBs · ${Math.round(data.upsell_products[0].pct*100)}% of upsell CBs</div></div>
+    <div class="stat-card"><div class="stat-label">Highest CB rate</div><div class="stat-value" style="font-size:22px; color:var(--danger);">${topByRate.product}</div><div class="stat-sub">${fmtPct(topByRate.cb_rate)} · ${fmtNum(topByRate.cbs)} CBs on ${fmtNum(topByRate.units_sold)} sold</div></div>
   `;
 
-  // Product ranking bar chart (horizontal)
-  const prodColors = ['#f59e0b','#ef4444','#a78bfa','#06b6d4','#6b7280'];
+  // Product ranking bar chart — CB rate (primary) + CB count (secondary), sorted by rate desc
   new Chart(document.getElementById('product-bar').getContext('2d'), {
     type:'bar',
     data:{
-      labels: data.upsell_products.map(p => p.product),
-      datasets:[{
-        label: 'CBs', data: data.upsell_products.map(p => p.cbs),
-        backgroundColor: data.upsell_products.map((_,i) => prodColors[i % prodColors.length]),
-        borderWidth: 0,
-      }],
+      labels: productsByRate.map(p => p.product),
+      datasets:[
+        {
+          label: 'CB rate (%)',
+          data: productsByRate.map(p => +(p.cb_rate*100).toFixed(2)),
+          backgroundColor: '#ef4444',
+          borderWidth: 0,
+          xAxisID: 'xRate',
+        },
+        {
+          label: 'CB count',
+          data: productsByRate.map(p => p.cbs),
+          backgroundColor: '#60a5fa',
+          borderWidth: 0,
+          xAxisID: 'xCount',
+        },
+      ],
     },
     options:{
       indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
       scales:{
-        x:{ beginAtZero:true, ticks:{color:'#8b8fa3'}, grid:{color:'rgba(255,255,255,0.05)'}, title:{display:true, text:'CBs tied to this upsell', color:'#8b8fa3'} },
+        xRate:{ position:'top', beginAtZero:true, ticks:{color:'#ef4444', callback:(v)=>`${v}%`}, grid:{color:'rgba(255,255,255,0.05)'}, title:{display:true, text:'CB rate (CBs ÷ units sold) — primary signal', color:'#ef4444'} },
+        xCount:{ position:'bottom', beginAtZero:true, ticks:{color:'#60a5fa'}, grid:{display:false}, title:{display:true, text:'CB count (absolute) — for context', color:'#60a5fa'} },
         y:{ ticks:{color:'#e4e6eb', font:{weight:'600'}}, grid:{display:false} },
       },
       plugins:{
-        legend:{display:false},
-        tooltip:{ callbacks:{ label:(c)=>{ const p=data.upsell_products[c.dataIndex]; return `${fmtNum(p.cbs)} CBs · ${Math.round(p.pct*100)}% of upsell CBs`; } } },
+        legend:{labels:{color:'#e4e6eb'}},
+        tooltip:{
+          callbacks:{
+            label:(c)=>{
+              const p = productsByRate[c.dataIndex];
+              return [
+                `CB rate: ${fmtPct(p.cb_rate)}`,
+                `CB count: ${fmtNum(p.cbs)}`,
+                `Units sold: ${fmtNum(p.units_sold)}`,
+              ];
+            },
+          },
+        },
       },
     },
   });

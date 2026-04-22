@@ -547,47 +547,66 @@
   document.getElementById('scope').innerHTML =
     `<strong>Scope:</strong> ${data.scope}. Rebill + upsell CBs are excluded — the question "did they receive it?" only applies to first-time cream purchases where the delivery is the predictive signal.`;
 
-  const t = data.totals;
-  document.getElementById('stats').innerHTML = `
-    <div class="stat-card"><div class="stat-label">Delivered</div><div class="stat-value" style="color:${COLORS.delivered};">${fmtNum(t.delivered)}</div><div class="stat-sub">${Math.round(t.delivered_pct*100)}% — customer got product, still disputed</div></div>
-    <div class="stat-card"><div class="stat-label">Not delivered</div><div class="stat-value" style="color:${COLORS.not_delivered};">${fmtNum(t.not_delivered)}</div><div class="stat-sub">${Math.round(t.not_delivered_pct*100)}% — preventable via shipping fix</div></div>
-    <div class="stat-card"><div class="stat-label">Unknown</div><div class="stat-value" style="color:${COLORS.unknown};">${fmtNum(t.unknown)}</div><div class="stat-sub">${Math.round(t.unknown_pct*100)}% — no tracking data</div></div>
-    <div class="stat-card"><div class="stat-label">Total first-time CBs</div><div class="stat-value">${fmtNum(t.total)}</div><div class="stat-sub">window: ${data.window_days}d</div></div>
-  `;
+  // Full 90d baseline (for donut proportional scaling on mock data)
+  const baseline = data.totals.total || 1;
 
-  // Donut — detail breakdown
-  const det = data.by_status_detail;
-  new Chart(document.getElementById('donut').getContext('2d'), {
-    type:'doughnut',
-    data:{
-      labels: det.map(d => d.status),
-      datasets:[{ data: det.map(d => d.cbs), backgroundColor: det.map(d => d.color), borderWidth: 0 }],
-    },
-    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false},
-      tooltip:{ callbacks:{ label:(c)=>{ const d=det[c.dataIndex]; return `${d.status}: ${fmtNum(d.cbs)} (${Math.round(d.pct*100)}%)`; } } } } },
-  });
-  document.getElementById('donut-legend').innerHTML = det.map(d => `
-    <div class="legend-row">
-      <div class="legend-swatch" style="background:${d.color}"></div>
-      <div class="legend-name">${d.status}</div>
-      <div class="legend-val">${fmtNum(d.cbs)} · ${Math.round(d.pct*100)}%</div>
-    </div>
-  `).join('');
+  // Chart instances (rebuilt on each window change)
+  let trendChart = null;
+  let donutChart = null;
 
-  // Stacked trend
-  let chart = null;
-  function renderTrend(start, end) {
+  function renderAll(start, end) {
     const labels = data.dates.slice(start, end+1);
-    const d = data.series.delivered.slice(start, end+1);
-    const nd = data.series.not_delivered.slice(start, end+1);
-    const u = data.series.unknown.slice(start, end+1);
-    if (chart) chart.destroy();
-    chart = new Chart(document.getElementById('trend').getContext('2d'), {
+    const dSeries = data.series.delivered.slice(start, end+1);
+    const ndSeries = data.series.not_delivered.slice(start, end+1);
+    const uSeries = data.series.unknown.slice(start, end+1);
+    const dSum = dSeries.reduce((a,b)=>a+b, 0);
+    const ndSum = ndSeries.reduce((a,b)=>a+b, 0);
+    const uSum = uSeries.reduce((a,b)=>a+b, 0);
+    const totSum = dSum + ndSum + uSum;
+    const dPct = totSum ? dSum / totSum : 0;
+    const ndPct = totSum ? ndSum / totSum : 0;
+    const uPct = totSum ? uSum / totSum : 0;
+    const winLabel = `window: ${data.dates[start]} → ${data.dates[end]} · ${labels.length}d`;
+
+    // Stats
+    document.getElementById('stats').innerHTML = `
+      <div class="stat-card"><div class="stat-label">Delivered</div><div class="stat-value" style="color:${COLORS.delivered};">${fmtNum(dSum)}</div><div class="stat-sub">${Math.round(dPct*100)}% — customer got product, still disputed · ${winLabel}</div></div>
+      <div class="stat-card"><div class="stat-label">Not delivered</div><div class="stat-value" style="color:${COLORS.not_delivered};">${fmtNum(ndSum)}</div><div class="stat-sub">${Math.round(ndPct*100)}% — preventable via shipping fix · ${winLabel}</div></div>
+      <div class="stat-card"><div class="stat-label">Unknown</div><div class="stat-value" style="color:${COLORS.unknown};">${fmtNum(uSum)}</div><div class="stat-sub">${Math.round(uPct*100)}% — no tracking data · ${winLabel}</div></div>
+      <div class="stat-card"><div class="stat-label">Total first-time CBs</div><div class="stat-value">${fmtNum(totSum)}</div><div class="stat-sub">${winLabel}</div></div>
+    `;
+
+    // Donut — scale by_status_detail proportionally to window fraction (mock data only; real pipeline will have daily per-status)
+    const scale = baseline ? totSum / baseline : 1;
+    const det = data.by_status_detail.map(d => ({ ...d, cbs_in_window: Math.round(d.cbs * scale) }));
+    const detTotal = det.reduce((a,d) => a + d.cbs_in_window, 0) || 1;
+
+    if (donutChart) donutChart.destroy();
+    donutChart = new Chart(document.getElementById('donut').getContext('2d'), {
+      type:'doughnut',
+      data:{
+        labels: det.map(d => d.status),
+        datasets:[{ data: det.map(d => d.cbs_in_window), backgroundColor: det.map(d => d.color), borderWidth: 0 }],
+      },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false},
+        tooltip:{ callbacks:{ label:(c)=>{ const d=det[c.dataIndex]; return `${d.status}: ${fmtNum(d.cbs_in_window)} (${Math.round(d.cbs_in_window/detTotal*100)}%)`; } } } } },
+    });
+    document.getElementById('donut-legend').innerHTML = det.map(d => `
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:${d.color}"></div>
+        <div class="legend-name">${d.status}</div>
+        <div class="legend-val">${fmtNum(d.cbs_in_window)} · ${Math.round(d.cbs_in_window/detTotal*100)}%</div>
+      </div>
+    `).join('');
+
+    // Trend stacked bar
+    if (trendChart) trendChart.destroy();
+    trendChart = new Chart(document.getElementById('trend').getContext('2d'), {
       type:'bar',
       data:{ labels, datasets:[
-        { label:'Delivered', data:d, backgroundColor:COLORS.delivered, stack:'s' },
-        { label:'Not delivered', data:nd, backgroundColor:COLORS.not_delivered, stack:'s' },
-        { label:'Unknown', data:u, backgroundColor:COLORS.unknown, stack:'s' },
+        { label:'Delivered', data:dSeries, backgroundColor:COLORS.delivered, stack:'s' },
+        { label:'Not delivered', data:ndSeries, backgroundColor:COLORS.not_delivered, stack:'s' },
+        { label:'Unknown', data:uSeries, backgroundColor:COLORS.unknown, stack:'s' },
       ]},
       options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
         scales:{ x:{stacked:true, ticks:{color:'#8b8fa3', maxTicksLimit:12}, grid:{display:false}}, y:{stacked:true, beginAtZero:true, ticks:{color:'#8b8fa3'}, grid:{color:'rgba(255,255,255,0.05)'}} },
@@ -596,16 +615,18 @@
     });
   }
 
+  // Window/date controls
   let currentWindow = 90;
   const n = data.dates.length;
   const dateFrom = document.getElementById('date-from');
   const dateTo = document.getElementById('date-to');
   dateFrom.min = data.dates[0]; dateFrom.max = data.dates[n-1];
   dateTo.min = data.dates[0]; dateTo.max = data.dates[n-1];
+
   function sync() {
     let s = Math.max(0, n - currentWindow), e = n-1;
     dateFrom.value = data.dates[s]; dateTo.value = data.dates[e];
-    renderTrend(s, e);
+    renderAll(s, e);
   }
   document.querySelectorAll('.btn[data-window]').forEach(btn => btn.addEventListener('click', () => {
     currentWindow = parseInt(btn.dataset.window, 10);
@@ -617,7 +638,7 @@
     const s = data.dates.indexOf(dateFrom.value), e = data.dates.indexOf(dateTo.value);
     if (s < 0 || e < 0) return;
     document.querySelectorAll('.btn[data-window]').forEach(b => b.classList.remove('active'));
-    renderTrend(s, e);
+    renderAll(s, e);
   }));
   sync();
 })();

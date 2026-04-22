@@ -465,58 +465,71 @@
   document.getElementById('subtitle').textContent =
     `${data.window_start} → ${data.window_end}  ·  coverage: ${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_cc_match)} of ${fmtNum(data.coverage.total_cbs)} CBs matched to CC)  ·  ${data.notice}`;
 
-  const t = data.totals;
-  document.getElementById('stats').innerHTML = `
-    <div class="stat-card"><div class="stat-label">Rebill CBs</div><div class="stat-value" style="color:${COLORS.rebill};">${fmtNum(t.rebill)}</div><div class="stat-sub">${Math.round(t.rebill_pct*100)}% of matched</div></div>
-    <div class="stat-card"><div class="stat-label">New-sale CBs</div><div class="stat-value" style="color:${COLORS.new_sale};">${fmtNum(t.new_sale)}</div><div class="stat-sub">${Math.round(t.new_sale_pct*100)}% of matched</div></div>
-    <div class="stat-card"><div class="stat-label">Total matched</div><div class="stat-value">${fmtNum(t.total)}</div><div class="stat-sub">window: ${data.window_days}d</div></div>
-  `;
+  // Full 90d baseline (for per-platform proportional scaling on mock data)
+  const baseline = data.totals.total || 1;
 
-  // Donut
-  new Chart(document.getElementById('donut').getContext('2d'), {
-    type:'doughnut',
-    data:{
-      labels:['Rebill','New sale'],
-      datasets:[{ data:[t.rebill, t.new_sale], backgroundColor:[COLORS.rebill, COLORS.new_sale], borderWidth:0 }],
-    },
-    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(c)=>`${c.label}: ${fmtNum(c.parsed)} (${Math.round(c.parsed/t.total*100)}%)` } } } },
-  });
-  document.getElementById('donut-legend').innerHTML = `
-    <div class="legend-row"><div class="legend-swatch" style="background:${COLORS.rebill}"></div><div class="legend-name">Rebill</div><div class="legend-val">${fmtNum(t.rebill)} · ${Math.round(t.rebill_pct*100)}%</div></div>
-    <div class="legend-row"><div class="legend-swatch" style="background:${COLORS.new_sale}"></div><div class="legend-name">New sale</div><div class="legend-val">${fmtNum(t.new_sale)} · ${Math.round(t.new_sale_pct*100)}%</div></div>
-  `;
+  // Chart instances (rebuilt on each window change)
+  let trendChart = null;
+  let donutChart = null;
 
-  // Stacked bar trend
-  let chart = null;
-  function renderTrend(start, end) {
+  function renderAll(start, end) {
     const labels = data.dates.slice(start, end+1);
     const rebill = data.series.rebill.slice(start, end+1);
     const newSale = data.series.new_sale.slice(start, end+1);
-    if (chart) chart.destroy();
-    chart = new Chart(document.getElementById('trend').getContext('2d'), {
+    const rebillSum = rebill.reduce((a,b)=>a+b, 0);
+    const newSum = newSale.reduce((a,b)=>a+b, 0);
+    const totSum = rebillSum + newSum;
+    const rebillPct = totSum ? rebillSum / totSum : 0;
+    const newPct = totSum ? newSum / totSum : 0;
+    const winLabel = `${data.dates[start]} → ${data.dates[end]} · ${labels.length}d`;
+
+    // Stats
+    document.getElementById('stats').innerHTML = `
+      <div class="stat-card"><div class="stat-label">Rebill CBs</div><div class="stat-value" style="color:${COLORS.rebill};">${fmtNum(rebillSum)}</div><div class="stat-sub">${Math.round(rebillPct*100)}% of matched · ${winLabel}</div></div>
+      <div class="stat-card"><div class="stat-label">New-sale CBs</div><div class="stat-value" style="color:${COLORS.new_sale};">${fmtNum(newSum)}</div><div class="stat-sub">${Math.round(newPct*100)}% of matched · ${winLabel}</div></div>
+      <div class="stat-card"><div class="stat-label">Total matched</div><div class="stat-value">${fmtNum(totSum)}</div><div class="stat-sub">${winLabel}</div></div>
+    `;
+
+    // Donut — rebuild on each refresh
+    if (donutChart) donutChart.destroy();
+    donutChart = new Chart(document.getElementById('donut').getContext('2d'), {
+      type:'doughnut',
+      data:{
+        labels:['Rebill','New sale'],
+        datasets:[{ data:[rebillSum, newSum], backgroundColor:[COLORS.rebill, COLORS.new_sale], borderWidth:0 }],
+      },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false},
+        tooltip:{ callbacks:{ label:(c)=>`${c.label}: ${fmtNum(c.parsed)} (${totSum ? Math.round(c.parsed/totSum*100) : 0}%)` } } } },
+    });
+    document.getElementById('donut-legend').innerHTML = `
+      <div class="legend-row"><div class="legend-swatch" style="background:${COLORS.rebill}"></div><div class="legend-name">Rebill</div><div class="legend-val">${fmtNum(rebillSum)} · ${Math.round(rebillPct*100)}%</div></div>
+      <div class="legend-row"><div class="legend-swatch" style="background:${COLORS.new_sale}"></div><div class="legend-name">New sale</div><div class="legend-val">${fmtNum(newSum)} · ${Math.round(newPct*100)}%</div></div>
+    `;
+
+    // Trend stacked bar
+    if (trendChart) trendChart.destroy();
+    trendChart = new Chart(document.getElementById('trend').getContext('2d'), {
       type:'bar',
       data:{ labels, datasets:[
         { label:'Rebill', data:rebill, backgroundColor:COLORS.rebill, stack:'s' },
         { label:'New sale', data:newSale, backgroundColor:COLORS.new_sale, stack:'s' },
       ]},
-      options:{
-        responsive:true, maintainAspectRatio:false,
-        interaction:{ mode:'index', intersect:false },
-        scales:{
-          x:{ stacked:true, ticks:{color:'#8b8fa3', maxTicksLimit:12}, grid:{display:false} },
-          y:{ stacked:true, beginAtZero:true, ticks:{color:'#8b8fa3'}, grid:{color:'rgba(255,255,255,0.05)'} },
-        },
-        plugins:{ legend:{ labels:{color:'#e4e6eb'} } },
+      options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+        scales:{ x:{stacked:true, ticks:{color:'#8b8fa3', maxTicksLimit:12}, grid:{display:false}}, y:{stacked:true, beginAtZero:true, ticks:{color:'#8b8fa3'}, grid:{color:'rgba(255,255,255,0.05)'}} },
+        plugins:{ legend:{labels:{color:'#e4e6eb'}} },
       },
     });
-  }
 
-  // Per-platform table
-  document.querySelector('#platform-table tbody').innerHTML = data.by_platform.map(r => {
-    const tot = r.rebill + r.new_sale;
-    const pct = tot ? Math.round(100*r.rebill/tot) : 0;
-    return `<tr><td>${r.platform}</td><td>${fmtNum(r.rebill)}</td><td>${fmtNum(r.new_sale)}</td><td>${fmtNum(tot)}</td><td>${pct}%</td></tr>`;
-  }).join('');
+    // Per-platform table — scale proportionally to window fraction (mock data only; real pipeline will have daily per-platform)
+    const scale = baseline ? totSum / baseline : 1;
+    document.querySelector('#platform-table tbody').innerHTML = data.by_platform.map(r => {
+      const rb = Math.round(r.rebill * scale);
+      const ns = Math.round(r.new_sale * scale);
+      const tot = rb + ns;
+      const pct = tot ? Math.round(100*rb/tot) : 0;
+      return `<tr><td>${r.platform}</td><td>${fmtNum(rb)}</td><td>${fmtNum(ns)}</td><td>${fmtNum(tot)}</td><td>${pct}%</td></tr>`;
+    }).join('');
+  }
 
   // Window/date controls
   let currentWindow = 90;
@@ -529,7 +542,7 @@
   function sync() {
     let s = Math.max(0, n - currentWindow), e = n-1;
     dateFrom.value = data.dates[s]; dateTo.value = data.dates[e];
-    renderTrend(s, e);
+    renderAll(s, e);
   }
   document.querySelectorAll('.btn[data-window]').forEach(btn => btn.addEventListener('click', () => {
     currentWindow = parseInt(btn.dataset.window, 10);
@@ -541,7 +554,7 @@
     const s = data.dates.indexOf(dateFrom.value), e = data.dates.indexOf(dateTo.value);
     if (s < 0 || e < 0) return;
     document.querySelectorAll('.btn[data-window]').forEach(b => b.classList.remove('active'));
-    renderTrend(s, e);
+    renderAll(s, e);
   }));
   sync();
 })();
