@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NWP — Response Time</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-border: #2a2d3a;
+    --text: #e4e6eb;
+    --text-dim: #8b8fa3;
+    --accent: #4ade80;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    padding: 40px 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+  }
+  .title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .subtitle { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+  .back-link {
+    font-size: 13px; color: var(--text-dim); text-decoration: none;
+    padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 8px;
+    transition: border-color 0.15s;
+  }
+  .back-link:hover { border-color: var(--accent); color: var(--text); }
+
+  .tabs {
+    display: flex; gap: 4px; margin-bottom: 20px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .tab {
+    font-size: 13px; font-weight: 600; text-decoration: none; color: var(--text-dim);
+    padding: 10px 18px; border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s; margin-bottom: -1px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .stat-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px;
+  }
+  .stat-value { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
+  .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .stat-delta { font-size: 12px; font-weight: 600; margin-top: 4px; }
+  .stat-delta.good { color: var(--accent); }
+  .stat-delta.bad { color: var(--danger); }
+
+  .compare-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
+  }
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center;
+  }
+  .compare-col { text-align: center; }
+  .compare-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px; }
+  .compare-value { font-size: 32px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .compare-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .compare-arrow {
+    font-size: 20px; font-weight: 700;
+    padding: 10px 18px; border-radius: 10px;
+  }
+  .compare-arrow.improved { background: rgba(74,222,128,0.15); color: var(--accent); }
+  .compare-arrow.worsened { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+  .chart-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px 24px 24px; margin-bottom: 20px;
+  }
+  .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+  .chart-title { font-size: 16px; font-weight: 700; }
+  .chart-wrap { position: relative; height: 360px; }
+
+  .person-table {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
+  }
+  .person-table h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 10px 8px; text-align: right; border-bottom: 1px solid var(--card-border); }
+  th:first-child, td:first-child { text-align: left; font-weight: 600; }
+  th { color: var(--text-dim); font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
+  td { font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+
+  .footer-meta { margin-top: 16px; font-size: 11px; color: var(--text-dim); text-align: center; }
+  .caveat {
+    background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .caveat strong { color: var(--warn); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div>
+      <div class="title">Response Time — CB Turnaround</div>
+      <div class="subtitle" id="subtitle">Loading…</div>
+    </div>
+    <a href="hub.html" class="back-link">← Hub</a>
+  </div>
+
+  <div class="tabs">
+    <a href="cb.html" class="tab">Overview</a>
+    <a href="cb-team.html" class="tab">Team</a>
+    <a href="response-time.html" class="tab active">Response Time</a>
+  </div>
+
+  <div class="caveat" id="caveat"></div>
+
+  <div class="stats-row" id="stats"></div>
+
+  <div class="compare-card">
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-label">Before training</div>
+        <div class="compare-value" id="pre-mean">—</div>
+        <div class="compare-sub" id="pre-sub">—</div>
+      </div>
+      <div class="compare-arrow" id="delta-arrow">—</div>
+      <div class="compare-col">
+        <div class="compare-label">After training</div>
+        <div class="compare-value" id="post-mean">—</div>
+        <div class="compare-sub" id="post-sub">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">Weekly avg response time (PayPal, 90d)</div>
+    </div>
+    <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
+    <div class="footer-meta" id="chart-footer"></div>
+  </div>
+
+  <div class="person-table">
+    <h3>Per-person response time (90d window)</h3>
+    <table id="person-table-el">
+      <thead>
+        <tr><th>Person</th><th>Cases</th><th>Mean (d)</th><th>Median (d)</th><th>Max (d)</th><th>Within 7d</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script id="rt-data" type="application/json">{
+  "generated_at": "2026-04-22T13:55:47",
+  "window_days": 90,
+  "window_start": "2026-01-23",
+  "window_end": "2026-04-22",
+  "training_date": "2026-03-30",
+  "match": {
+    "monday_paypal_rows": 2938,
+    "sheet_paypal_rows": 3306,
+    "matched_total": 2549,
+    "unmatched_monday": 389,
+    "match_rate": 0.868
+  },
+  "overall_window": {
+    "n": 2349,
+    "mean": 11.1,
+    "median": 10,
+    "within_3d": 383,
+    "within_7d": 750,
+    "over_7d": 1599
+  },
+  "pre_training": {
+    "n": 1722,
+    "mean": 12.8,
+    "median": 10.0,
+    "within_3d": 125,
+    "within_7d": 360,
+    "over_7d": 1362
+  },
+  "post_training": {
+    "n": 827,
+    "mean": 7.0,
+    "median": 7,
+    "within_3d": 268,
+    "within_7d": 435,
+    "over_7d": 392
+  },
+  "weekly_trend": [
+    {
+      "week_start": "2026-01-19",
+      "n": 16,
+      "mean_days": 9.6,
+      "median_days": 10.0
+    },
+    {
+      "week_start": "2026-01-26",
+      "n": 57,
+      "mean_days": 11.5,
+      "median_days": 10
+    },
+    {
+      "week_start": "2026-02-02",
+      "n": 79,
+      "mean_days": 12.6,
+      "median_days": 10
+    },
+    {
+      "week_start": "2026-02-09",
+      "n": 84,
+      "mean_days": 10.8,
+      "median_days": 10.0
+    },
+    {
+      "week_start": "2026-02-16",
+      "n": 81,
+      "mean_days": 13.1,
+      "median_days": 10
+    },
+    {
+      "week_start": "2026-02-23",
+      "n": 96,
+      "mean_days": 13.9,
+      "median_days": 10.0
+    },
+    {
+      "week_start": "2026-03-02",
+      "n": 124,
+      "mean_days": 14.9,
+      "median_days": 10.0
+    },
+    {
+      "week_start": "2026-03-09",
+      "n": 207,
+      "mean_days": 16.3,
+      "median_days": 15
+    },
+    {
+      "week_start": "2026-03-16",
+      "n": 363,
+      "mean_days": 13.3,
+      "median_days": 11
+    },
+    {
+      "week_start": "2026-03-23",
+      "n": 415,
+      "mean_days": 12.3,
+      "median_days": 10
+    },
+    {
+      "week_start": "2026-03-30",
+      "n": 342,
+      "mean_days": 8.9,
+      "median_days": 9.0
+    },
+    {
+      "week_start": "2026-04-06",
+      "n": 321,
+      "mean_days": 6.9,
+      "median_days": 8
+    },
+    {
+      "week_start": "2026-04-13",
+      "n": 161,
+      "mean_days": 3.2,
+      "median_days": 2
+    },
+    {
+      "week_start": "2026-04-20",
+      "n": 3,
+      "mean_days": 2,
+      "median_days": 2
+    }
+  ],
+  "by_person": [
+    {
+      "person": "Abegail Preglo",
+      "n": 825,
+      "mean_days": 11.8,
+      "median_days": 10,
+      "max_days": 58
+    },
+    {
+      "person": "Reymon Lachica",
+      "n": 638,
+      "mean_days": 12.5,
+      "median_days": 10.0,
+      "max_days": 61
+    },
+    {
+      "person": "Lyn",
+      "n": 603,
+      "mean_days": 9.7,
+      "median_days": 10,
+      "max_days": 35
+    },
+    {
+      "person": "Michael Vincent Bresenio",
+      "n": 283,
+      "mean_days": 8.8,
+      "median_days": 6,
+      "max_days": 41
+    }
+  ],
+  "by_platform": [
+    {
+      "platform": "Paypal",
+      "n": 2349,
+      "mean": 11.1,
+      "median": 10,
+      "within_3d": 383,
+      "within_7d": 750,
+      "over_7d": 1599
+    }
+  ]
+}</script>
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('rt-data').textContent);
+  const fmtNum = n => (n || 0).toLocaleString('en-US');
+
+  // Subtitle
+  document.getElementById('subtitle').textContent =
+    `${data.window_start} → ${data.window_end}  ·  source: Sheet dispute_date ↔ Monday date (team-logged)  ·  PayPal only (V1)  ·  generated ${data.generated_at}`;
+
+  // Caveat
+  document.getElementById('caveat').innerHTML =
+    `<strong>V1 scope:</strong> PayPal disputes only (87% match rate, n=${fmtNum(data.match.matched_total)}). ` +
+    `Response time = days between platform dispute filing (Sheet) and team logging on Monday. ` +
+    `Stripe / Payarc / Aurora / EMS coming in v2 once ID-matching is resolved.`;
+
+  // Stat cards
+  const win = data.overall_window;
+  const within7Pct = win.n > 0 ? Math.round(100 * win.within_7d / win.n) : 0;
+  const within3Pct = win.n > 0 ? Math.round(100 * win.within_3d / win.n) : 0;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Avg response time (90d)</div>
+      <div class="stat-value">${win.mean} <span style="font-size:14px;color:var(--text-dim);">days</span></div>
+      <div class="stat-sub">median ${win.median}d · n=${fmtNum(win.n)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Within 3 days</div>
+      <div class="stat-value">${within3Pct}<span style="font-size:14px;">%</span></div>
+      <div class="stat-sub">${fmtNum(win.within_3d)} of ${fmtNum(win.n)} cases</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Within 7 days</div>
+      <div class="stat-value">${within7Pct}<span style="font-size:14px;">%</span></div>
+      <div class="stat-sub">${fmtNum(win.within_7d)} of ${fmtNum(win.n)} cases</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Over 7 days</div>
+      <div class="stat-value" style="color:${win.over_7d > win.within_7d ? 'var(--danger)' : 'var(--text)'}">${fmtNum(win.over_7d)}</div>
+      <div class="stat-sub">${win.n > 0 ? Math.round(100 * win.over_7d / win.n) : 0}% of cases</div>
+    </div>
+  `;
+
+  // Before/after training block
+  const pre = data.pre_training, post = data.post_training;
+  document.getElementById('pre-mean').textContent = pre.n ? `${pre.mean}d` : '—';
+  document.getElementById('pre-sub').textContent  = pre.n ? `median ${pre.median}d · n=${fmtNum(pre.n)}` : 'no pre-training data';
+  document.getElementById('post-mean').textContent = post.n ? `${post.mean}d` : '—';
+  document.getElementById('post-sub').textContent  = post.n ? `median ${post.median}d · n=${fmtNum(post.n)}` : 'no post-training data';
+  const arrow = document.getElementById('delta-arrow');
+  if (pre.n && post.n) {
+    const delta = post.mean - pre.mean;
+    const pct = Math.round(100 * delta / pre.mean);
+    if (delta < 0) {
+      arrow.className = 'compare-arrow improved';
+      arrow.innerHTML = `↓ ${Math.abs(delta).toFixed(1)}d<br><span style="font-size:12px;">${pct}% faster</span>`;
+    } else if (delta > 0) {
+      arrow.className = 'compare-arrow worsened';
+      arrow.innerHTML = `↑ ${delta.toFixed(1)}d<br><span style="font-size:12px;">+${pct}% slower</span>`;
+    } else {
+      arrow.textContent = '→ no change';
+    }
+  }
+
+  // Weekly trend chart
+  const labels = data.weekly_trend.map(w => w.week_start);
+  const meanSeries = data.weekly_trend.map(w => w.mean_days);
+  const medianSeries = data.weekly_trend.map(w => w.median_days);
+  const trainingIdx = labels.findIndex(l => l >= data.training_date);
+
+  new Chart(document.getElementById('trend-chart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Mean days',
+          data: meanSeries,
+          borderColor: '#4ade80',
+          backgroundColor: 'rgba(74,222,128,0.1)',
+          borderWidth: 2, tension: 0.25, pointRadius: 4, pointHoverRadius: 6,
+          fill: true,
+        },
+        {
+          label: 'Median days',
+          data: medianSeries,
+          borderColor: '#a78bfa',
+          borderDash: [4, 4],
+          borderWidth: 2, tension: 0.25, pointRadius: 3, pointHoverRadius: 5,
+          fill: false,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: { ticks: { color: '#8b8fa3', maxTicksLimit: 12 }, grid: { display: false } },
+        y: { beginAtZero: true, ticks: { color: '#8b8fa3' }, grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'days', color: '#8b8fa3' } },
+      },
+      plugins: {
+        legend: { labels: { color: '#e4e6eb' } },
+        tooltip: {
+          backgroundColor: '#1a1d27', borderColor: '#2a2d3a', borderWidth: 1,
+          titleColor: '#e4e6eb', bodyColor: '#e4e6eb', padding: 10,
+          callbacks: {
+            footer: (items) => {
+              const wk = data.weekly_trend[items[0].dataIndex];
+              return `n = ${wk.n} cases`;
+            },
+          },
+        },
+        annotation: {
+          annotations: trainingIdx >= 0 ? {
+            trainingLine: {
+              type: 'line',
+              xMin: trainingIdx, xMax: trainingIdx,
+              borderColor: '#f59e0b', borderWidth: 2, borderDash: [6, 4],
+              label: {
+                display: true, content: `Training ${data.training_date}`,
+                position: 'start', backgroundColor: 'rgba(245,158,11,0.85)',
+                color: '#0f1117', font: { size: 10, weight: 'bold' },
+              },
+            },
+          } : {},
+        },
+      },
+    },
+  });
+
+  document.getElementById('chart-footer').textContent =
+    `${data.weekly_trend.length} weekly buckets · training marker = ${data.training_date}`;
+
+  // Per-person table
+  const tbody = document.querySelector('#person-table-el tbody');
+  tbody.innerHTML = data.by_person.map(p => {
+    const within7Pct = p.n > 0 ? Math.round(100 * p.within_7d / p.n) : 0;
+    const colorClass = p.mean_days <= 7 ? 'var(--accent)' : (p.mean_days <= 14 ? 'var(--warn)' : 'var(--danger)');
+    return `
+      <tr>
+        <td>${p.person}</td>
+        <td>${fmtNum(p.n)}</td>
+        <td style="color:${colorClass};font-weight:600;">${p.mean_days}</td>
+        <td>${p.median_days}</td>
+        <td>${p.max_days}</td>
+        <td>${within7Pct}%</td>
+      </tr>
+    `;
+  }).join('');
+})();
+</script>
+</body>
+</html>
