@@ -147,6 +147,10 @@
   .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
 
   .person-table h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+  #sla-table th, #sla-table td { padding:10px 8px; text-align:right; border-bottom:1px solid var(--card-border); }
+  #sla-table th { color:var(--text-dim); font-weight:600; text-transform:uppercase; font-size:10px; letter-spacing:1px; }
+  #sla-table td { font-variant-numeric:tabular-nums; }
+  #sla-table tbody tr:last-child td { border-bottom:none; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th, td { padding: 10px 8px; text-align: right; border-bottom: 1px solid var(--card-border); }
   th:first-child, td:first-child { text-align: left; font-weight: 600; }
@@ -201,16 +205,25 @@
     </div>
   </div>
 
-  <!-- Overall stats in window (targets baked into each card) -->
-  <div class="stats-row" id="stats"></div>
-
-  <!-- SLA tiles — targets clearly shown per platform -->
+  <!-- Per-platform SLA compliance — TABLE with totals row -->
   <div class="sla-card">
     <div class="sla-head">
       <div class="sla-title">Per-platform SLA compliance</div>
       <div class="sla-sub" id="sla-window-sub">window: —</div>
     </div>
-    <div class="sla-grid" id="sla-grid"></div>
+    <table id="sla-table" style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Platform</th>
+          <th>Target</th>
+          <th>Cases</th>
+          <th>Mean (d)</th>
+          <th>Median</th>
+          <th>% on target</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
   <!-- Per-person table (moved above training per Sindy) -->
@@ -222,12 +235,24 @@
       <span style="display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--warn);"></span>Borderline (5–7d)</span>
       <span style="display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--danger);"></span>Missing target (&gt;7d)</span>
     </div>
-    <table id="person-table-el">
+    <div style="overflow-x:auto;">
+    <table id="person-table-el" style="min-width:900px;">
       <thead>
-        <tr><th>Person</th><th>Cases</th><th>Mean (d)</th><th>Median</th><th>% ≤ 5d</th><th>% ≤ 7d</th><th>Max</th></tr>
+        <tr>
+          <th>Person</th>
+          <th>Total cases</th>
+          <th>Avg (d)</th>
+          <th>% on target</th>
+          <th>PayPal (≤5d)</th>
+          <th>Stripe (7-14d)</th>
+          <th>Payarc (≤7d)</th>
+          <th>EMS (≤7d)</th>
+          <th>Aurora (≤7d)</th>
+        </tr>
       </thead>
       <tbody></tbody>
     </table>
+    </div>
   </div>
 
   <!-- Training block (moved right above weekly trend per Sindy) — always on ALL matched data, not filtered -->
@@ -21311,136 +21336,158 @@
       `${labels.length} weekly buckets  ·  mean across all matched platforms  ·  green line = PayPal 5d SLA  ·  orange = Mar 30 training`;
   }
 
-  // ---- Stats row — targets baked in ----
-  function renderStats(filteredCases) {
-    const deltas = filteredCases.map(c => c.delta);
-    const n = deltas.length;
-    const mn = n ? mean(deltas) : 0;
-    const md = n ? median(deltas) : 0;
-    const w3 = within(deltas, 3), w5 = within(deltas, 5), w7 = within(deltas, 7);
-    const mnColor = mn <= 5 ? 'var(--accent)' : (mn <= 7 ? 'var(--warn)' : 'var(--danger)');
-    const w5Pct = n ? Math.round(100*w5/n) : 0;
-    const w7Pct = n ? Math.round(100*w7/n) : 0;
-    const w5Color = w5Pct >= 70 ? 'var(--accent)' : (w5Pct >= 40 ? 'var(--warn)' : 'var(--danger)');
-    const w7Color = w7Pct >= 70 ? 'var(--accent)' : (w7Pct >= 40 ? 'var(--warn)' : 'var(--danger)');
-    document.getElementById('stats').innerHTML = `
-      <div class="stat-card">
-        <div class="stat-label">Avg response</div>
-        <div class="stat-value" style="color:${mnColor};">${mn.toFixed(1)}<span style="font-size:14px;color:var(--text-dim);"> d</span></div>
-        <div class="stat-sub">median ${md}d · n=${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">🎯 Target: ≤5d PayPal · ≤7d Payarc/EMS/Aurora · 7-14d Stripe</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Within 3 days</div>
-        <div class="stat-value">${n ? Math.round(100*w3/n) : 0}<span style="font-size:14px;">%</span></div>
-        <div class="stat-sub">${fmtNum(w3)} of ${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">Best-in-class benchmark (no SLA tied here)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Within 5 days</div>
-        <div class="stat-value" style="color:${w5Color};">${w5Pct}<span style="font-size:14px;">%</span></div>
-        <div class="stat-sub">${fmtNum(w5)} of ${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">🎯 PayPal SLA — goal: 100% (gives 5d buffer before 10d deadline)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Within 7 days</div>
-        <div class="stat-value" style="color:${w7Color};">${w7Pct}<span style="font-size:14px;">%</span></div>
-        <div class="stat-sub">${fmtNum(w7)} of ${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">🎯 Payarc / EMS / Aurora SLA — goal: 100%</div>
-      </div>
-    `;
+  // ---- SLA compliance — TABLE with totals row ----
+  function sladeltaHit(deltas, cfg) {
+    if (cfg.type === 'max') return within(deltas, cfg.target);
+    const [lo, hi] = cfg.target; return withinBand(deltas, lo, hi);
+  }
+  function slaTargetLabel(cfg) {
+    if (cfg.type === 'max') return `≤ ${cfg.target}d`;
+    const [lo, hi] = cfg.target; return `${lo}-${hi}d`;
+  }
+  function slaUpper(cfg) {
+    return cfg.type === 'max' ? cfg.target : cfg.target[1];
+  }
+  function pctColor(pct) {
+    return pct >= 70 ? 'var(--accent)' : (pct >= 40 ? 'var(--warn)' : 'var(--danger)');
+  }
+  function meanColor(mn, upper) {
+    return mn <= upper ? 'var(--accent)' : (mn <= upper * 1.5 ? 'var(--warn)' : 'var(--danger)');
   }
 
-  // ---- SLA tiles ----
   function renderSLA(filteredCases) {
     document.getElementById('sla-window-sub').textContent = `window: ${getWindowLabel()}`;
-    const gridEl = document.getElementById('sla-grid');
     const byPlat = {};
     for (const c of filteredCases) {
       (byPlat[c.platform] = byPlat[c.platform] || []).push(c.delta);
     }
-
-    const tiles = Object.entries(SLA).map(([plat, cfg]) => {
+    let totalCases = 0, totalHit = 0, allDeltas = [];
+    const rows = Object.entries(SLA).map(([plat, cfg]) => {
       const deltas = byPlat[plat] || [];
-      const hasData = deltas.length > 0;
-      let pct = 0, hit = 0, total = deltas.length;
-      let targetLabel = '';
-      let targetUpper = 0; // used for coloring mean
-      if (cfg.type === 'max') {
-        targetLabel = `Target: ≤ ${cfg.target} days`;
-        hit = within(deltas, cfg.target);
-        targetUpper = cfg.target;
-      } else {
-        const [lo, hi] = cfg.target;
-        targetLabel = `Target: ${lo}-${hi} days (sweet spot)`;
-        hit = withinBand(deltas, lo, hi);
-        targetUpper = hi;
-      }
-      pct = total ? Math.round(100 * hit / total) : 0;
-      const mn = hasData ? mean(deltas) : 0;
-      const md = hasData ? median(deltas) : 0;
-      const meanColor = hasData
-        ? (mn <= targetUpper ? 'var(--accent)' : (mn <= targetUpper * 1.5 ? 'var(--warn)' : 'var(--danger)'))
-        : 'var(--text-dim)';
-      const pctColor = pct >= 70 ? 'var(--accent)' : (pct >= 40 ? 'var(--warn)' : 'var(--danger)');
-      const inactive = !hasData ? ' inactive' : '';
-
-      return `
-        <div class="sla-tile${inactive}">
-          <div class="sla-tile-plat">${plat}</div>
-          <div class="sla-tile-target">${targetLabel}</div>
-          <div class="sla-tile-val" style="color:${meanColor}">
-            ${hasData ? mn.toFixed(1) : '—'}<span class="pct">${hasData ? ' d avg' : ''}</span>
-          </div>
-          <div class="sla-tile-meta" style="margin-top:6px;">
-            ${hasData ? `median ${md}d · n=${fmtNum(total)}` : 'no data'}
-          </div>
-          <div class="sla-tile-meta" style="margin-top:8px; padding-top:8px; border-top:1px solid var(--card-border);">
-            ${hasData ? `<span style="color:${pctColor}; font-weight:600;">${pct}%</span> on target · ${fmtNum(hit)} of ${fmtNum(total)}` : 'pending match'}
-          </div>
-        </div>
-      `;
+      const n = deltas.length;
+      const hit = sladeltaHit(deltas, cfg);
+      const pct = n ? Math.round(100 * hit / n) : 0;
+      const mn = n ? mean(deltas) : 0;
+      const md = n ? median(deltas) : 0;
+      const mnCol = n ? meanColor(mn, slaUpper(cfg)) : 'var(--text-dim)';
+      const pctCol = pctColor(pct);
+      totalCases += n; totalHit += hit; allDeltas = allDeltas.concat(deltas);
+      return n > 0 ? `
+        <tr>
+          <td style="text-align:left; font-weight:600;">${plat}</td>
+          <td style="color:var(--text-dim);">${slaTargetLabel(cfg)}</td>
+          <td>${fmtNum(n)}</td>
+          <td style="color:${mnCol}; font-weight:600;">${mn.toFixed(1)}</td>
+          <td>${md.toFixed ? md.toFixed(1) : md}</td>
+          <td style="color:${pctCol}; font-weight:600;">${pct}%</td>
+        </tr>` : `
+        <tr style="opacity:0.4;">
+          <td style="text-align:left; font-weight:600;">${plat}</td>
+          <td style="color:var(--text-dim);">${slaTargetLabel(cfg)}</td>
+          <td colspan="4" style="color:var(--text-dim); text-align:center;">no data in window</td>
+        </tr>`;
     }).join('');
-    gridEl.innerHTML = tiles;
+    const overallMn = allDeltas.length ? mean(allDeltas) : 0;
+    const overallMd = allDeltas.length ? median(allDeltas) : 0;
+    const overallPct = totalCases ? Math.round(100 * totalHit / totalCases) : 0;
+    const overallPctCol = pctColor(overallPct);
+    const tfoot = `
+      <tr style="border-top:2px solid var(--card-border); font-weight:700;">
+        <td style="text-align:left;">TOTAL</td>
+        <td style="color:var(--text-dim);">mixed</td>
+        <td>${fmtNum(totalCases)}</td>
+        <td>${overallMn.toFixed(1)}</td>
+        <td>${overallMd.toFixed ? overallMd.toFixed(1) : overallMd}</td>
+        <td style="color:${overallPctCol};">${overallPct}%</td>
+      </tr>`;
+    document.querySelector('#sla-table tbody').innerHTML = rows + tfoot;
   }
 
-  // ---- Per-person table ----
+  // ---- Per-person table — per-platform breakdown + team totals ----
+  const PLAT_COLS = ['Paypal','Stripe','Payarc','EMS','Aurora'];
   function renderPersonTable(filteredCases) {
     document.getElementById('person-table-title').textContent =
       `Per-person response time · ${getWindowLabel()}`;
+
+    // Group: byPerson[plat] = [deltas]
     const byPerson = {};
     for (const c of filteredCases) {
-      (byPerson[c.person] = byPerson[c.person] || []).push(c.delta);
+      const p = c.person || '(unassigned)';
+      if (!byPerson[p]) byPerson[p] = { all: [], plats: {} };
+      byPerson[p].all.push(c.delta);
+      (byPerson[p].plats[c.platform] = byPerson[p].plats[c.platform] || []).push(c.delta);
     }
-    const rows = Object.entries(byPerson)
-      .sort((a,b) => b[1].length - a[1].length)
-      .map(([person, ds]) => {
-        const n = ds.length, mn = mean(ds), md = median(ds);
-        const w5 = Math.round(100 * within(ds, 5) / n);
-        const w7 = Math.round(100 * within(ds, 7) / n);
-        const mx = Math.max(...ds);
-        const mnColor = mn <= 5 ? 'var(--accent)' : (mn <= 7 ? 'var(--warn)' : 'var(--danger)');
-        const w5Color = w5 >= 70 ? 'var(--accent)' : (w5 >= 40 ? 'var(--warn)' : 'var(--danger)');
-        return `
-          <tr>
-            <td>${person}</td>
-            <td>${fmtNum(n)}</td>
-            <td style="color:${mnColor};font-weight:600;">${mn.toFixed(1)}</td>
-            <td>${md}</td>
-            <td style="color:${w5Color};font-weight:600;">${w5}%</td>
-            <td>${w7}%</td>
-            <td>${mx}</td>
-          </tr>
-        `;
-      }).join('');
-    document.querySelector('#person-table-el tbody').innerHTML = rows || '<tr><td colspan="7" style="text-align:center;color:var(--text-dim);">no cases in this window</td></tr>';
+
+    function platCell(deltas, cfg) {
+      if (!deltas || !deltas.length) return '<td style="color:var(--text-dim);">—</td>';
+      const n = deltas.length;
+      const hit = sladeltaHit(deltas, cfg);
+      const pct = Math.round(100 * hit / n);
+      const mn = mean(deltas);
+      const col = pctColor(pct);
+      return `<td><div style="font-weight:600;">${fmtNum(n)}</div>
+        <div style="font-size:10px; color:${col};">${pct}% on target · ${mn.toFixed(1)}d avg</div></td>`;
+    }
+
+    const sorted = Object.entries(byPerson).sort((a,b) => b[1].all.length - a[1].all.length);
+    let teamAll = [];
+    const bodyRows = sorted.map(([person, g]) => {
+      const n = g.all.length, mn = mean(g.all);
+      // Overall on-target: use each platform's own target
+      let hitSum = 0;
+      for (const [plat, deltas] of Object.entries(g.plats)) {
+        const cfg = SLA[plat]; if (!cfg) continue;
+        hitSum += sladeltaHit(deltas, cfg);
+      }
+      const overallPct = n ? Math.round(100 * hitSum / n) : 0;
+      const mnCol = mn <= 5 ? 'var(--accent)' : (mn <= 7 ? 'var(--warn)' : 'var(--danger)');
+      const pctCol = pctColor(overallPct);
+      teamAll = teamAll.concat(g.all);
+      return `
+        <tr>
+          <td style="font-weight:600;">${person}</td>
+          <td>${fmtNum(n)}</td>
+          <td style="color:${mnCol}; font-weight:600;">${mn.toFixed(1)}</td>
+          <td style="color:${pctCol}; font-weight:600;">${overallPct}%</td>
+          ${PLAT_COLS.map(p => platCell(g.plats[p], SLA[p])).join('')}
+        </tr>`;
+    }).join('');
+
+    // Team total row
+    const teamByPlat = {};
+    for (const c of filteredCases) {
+      (teamByPlat[c.platform] = teamByPlat[c.platform] || []).push(c.delta);
+    }
+    const teamN = teamAll.length;
+    const teamMn = teamN ? mean(teamAll) : 0;
+    let teamHit = 0;
+    for (const [plat, deltas] of Object.entries(teamByPlat)) {
+      const cfg = SLA[plat]; if (!cfg) continue;
+      teamHit += sladeltaHit(deltas, cfg);
+    }
+    const teamPct = teamN ? Math.round(100 * teamHit / teamN) : 0;
+    const teamMnCol = teamMn <= 5 ? 'var(--accent)' : (teamMn <= 7 ? 'var(--warn)' : 'var(--danger)');
+    const teamPctCol = pctColor(teamPct);
+    const totalRow = `
+      <tr style="border-top:2px solid var(--card-border); font-weight:700;">
+        <td>TEAM TOTAL</td>
+        <td>${fmtNum(teamN)}</td>
+        <td style="color:${teamMnCol};">${teamMn.toFixed(1)}</td>
+        <td style="color:${teamPctCol};">${teamPct}%</td>
+        ${PLAT_COLS.map(p => {
+          const d = teamByPlat[p] || [];
+          return platCell(d, SLA[p]);
+        }).join('')}
+      </tr>`;
+
+    document.querySelector('#person-table-el tbody').innerHTML =
+      (bodyRows || '<tr><td colspan="9" style="text-align:center;color:var(--text-dim);">no cases in this window</td></tr>') + totalRow;
   }
 
   // ---- Orchestrate ----
   function refresh() {
     const filtered = getFilteredCases();
     renderChart(filtered);
-    renderStats(filtered);
     renderSLA(filtered);
     renderPersonTable(filtered);
   }
