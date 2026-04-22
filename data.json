@@ -1,36 +1,36 @@
 {
-  "lastRefreshed": "2026-04-22T11:16:34",
+  "lastRefreshed": "2026-04-22T11:26:00",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-16",
-      "fileAge": 146.4
+      "fileAge": 146.5
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-15",
-      "fileAge": 149.2
+      "fileAge": 149.3
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-16",
-      "fileAge": 147.2
+      "fileAge": 147.3
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 147.2
+      "fileAge": 147.3
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.0
+      "fileAge": 0.2
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 1.2
+      "fileAge": 1.4
     }
   },
   "stock": {
@@ -440,7 +440,7 @@
           "depositDate": "19 February 2026",
           "productionDays": 40,
           "inTransitDays": 20,
-          "productionStatus": "Partial \u00b7 125K / 150K delivered \u00b7 2d overdue",
+          "productionStatus": "Delivered 125K \u00b7 25K in transit",
           "productionCls": "warn",
           "paymentStatus": "Paid ($287,400)",
           "paymentCls": "ok",
@@ -527,6 +527,9 @@
           "deliveredQty": 0,
           "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice."
         }
+      ],
+      "alerts": [
+        "Risk of loss: 25K units outstanding (10K arriving this week, 10K awaiting Sendy delivery update, ~5K variance). Track closely."
       ]
     },
     {
@@ -634,7 +637,8 @@
           "deliveredQty": 0,
           "notes": null
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "group": "Recurring 2 \u2014 300K/mo Sendy",
@@ -675,7 +679,8 @@
           "deliveredQty": 0,
           "notes": null
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "group": "Amazon FBA",
@@ -881,7 +886,8 @@
           "deliveredQty": 0,
           "notes": null
         }
-      ]
+      ],
+      "alerts": []
     }
   ],
   "payments": {
