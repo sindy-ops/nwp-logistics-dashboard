@@ -1,26 +1,26 @@
 {
-  "lastRefreshed": "2026-04-22T11:26:00",
+  "lastRefreshed": "2026-04-22T11:28:55",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-16",
-      "fileAge": 146.5
+      "fileAge": 146.6
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-15",
-      "fileAge": 149.3
+      "fileAge": 149.4
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-16",
-      "fileAge": 147.3
+      "fileAge": 147.4
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 147.3
+      "fileAge": 147.4
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
@@ -529,7 +529,10 @@
         }
       ],
       "alerts": [
-        "Risk of loss: 25K units outstanding (10K arriving this week, 10K awaiting Sendy delivery update, ~5K variance). Track closely."
+        {
+          "po": "PO-SL-300K-AIR",
+          "text": "Risk of loss: 25K units outstanding (10K arriving this week, 10K awaiting Sendy delivery update, ~5K variance). Track closely."
+        }
       ]
     },
     {
