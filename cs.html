@@ -307,11 +307,24 @@ function renderChart() {
 
 function renderTable() {
   const { days } = windowSlice();
-  // Build agents with windowed totals
+  const winDays = days.length;
+  // Build agents with windowed totals + avg/cal + avg/active
   const agents = CS_DATA.agents.map(a => {
     let total = 0;
-    for (const d of days) total += a.per_day[d] || 0;
-    return { name: a.name, total, per_day: a.per_day };
+    let activeDays = 0;
+    for (const d of days) {
+      const v = a.per_day[d] || 0;
+      total += v;
+      if (v > 0) activeDays++;
+    }
+    return {
+      name: a.name,
+      total,
+      avg_cal: total / winDays,
+      avg_active: activeDays ? total / activeDays : 0,
+      active_days: activeDays,
+      per_day: a.per_day,
+    };
   }).filter(a => a.total > 0);
 
   // Sort
@@ -319,6 +332,8 @@ function renderTable() {
     let av, bv;
     if (sortCol === 'name') { av = a.name; bv = b.name; }
     else if (sortCol === 'total') { av = a.total; bv = b.total; }
+    else if (sortCol === 'avg_cal') { av = a.avg_cal; bv = b.avg_cal; }
+    else if (sortCol === 'avg_active') { av = a.avg_active; bv = b.avg_active; }
     else { av = a.per_day[sortCol] || 0; bv = b.per_day[sortCol] || 0; }
     if (av < bv) return sortDir === 'asc' ? -1 : 1;
     if (av > bv) return sortDir === 'asc' ? 1 : -1;
@@ -340,15 +355,20 @@ function renderTable() {
     return `<th class="${sorted}" data-col="${col}">${label}${arrow}</th>`;
   };
 
+  const fmt1 = n => n.toFixed(1);
   let html = '<table><thead><tr>';
   html += th('Agent', 'name');
   html += th('Total', 'total');
+  html += th('Avg / cal day', 'avg_cal');
+  html += th('Avg / active day', 'avg_active');
   for (const d of days) html += th(d.slice(5), d);
   html += '</tr></thead><tbody>';
   for (const a of agents) {
     html += '<tr>';
     html += `<td class="agent-name">${a.name}</td>`;
     html += `<td class="total-col">${fmt(a.total)}</td>`;
+    html += `<td>${fmt1(a.avg_cal)}</td>`;
+    html += `<td title="${a.active_days} active days">${fmt1(a.avg_active)}</td>`;
     for (const d of days) {
       const v = a.per_day[d] || 0;
       html += `<td class="${heat(v)}">${v || ''}</td>`;
