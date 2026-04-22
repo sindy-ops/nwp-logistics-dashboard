@@ -1,11 +1,11 @@
 {
-  "lastRefreshed": "2026-04-22T11:36:54",
+  "lastRefreshed": "2026-04-22T11:39:38",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-16",
-      "fileAge": 146.7
+      "fileAge": 146.8
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
@@ -15,12 +15,12 @@
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-16",
-      "fileAge": 147.5
+      "fileAge": 147.6
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 147.5
+      "fileAge": 147.6
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
@@ -459,6 +459,7 @@
           "deliveryDue": "10 May 2026",
           "batchTotal": 217800,
           "deliveredQty": 125000,
+          "supplierTint": "sendy",
           "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K.",
           "hasAlert": true
         },
@@ -493,6 +494,7 @@
           "deliveryDue": "20 May 2026",
           "batchTotal": 123420,
           "deliveredQty": 0,
+          "supplierTint": "sendy",
           "notes": "Via A2Z Matson DDP (HR-001: 84,980u). Picked up Apr 10, ETD Apr 14, ETA May 7. $0.30/u.",
           "hasAlert": false
         },
@@ -527,6 +529,7 @@
           "deliveryDue": "20 May 2026",
           "batchTotal": 94378,
           "deliveredQty": 0,
+          "supplierTint": "sendy",
           "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice.",
           "hasAlert": false
         }
@@ -575,6 +578,7 @@
           "deliveryDue": "20 May 2026 (est.)",
           "batchTotal": 108900,
           "deliveredQty": 0,
+          "supplierTint": "sendy",
           "notes": null,
           "hasAlert": false
         },
@@ -609,6 +613,7 @@
           "deliveryDue": "27 May 2026",
           "batchTotal": 290400,
           "deliveredQty": 0,
+          "supplierTint": "sendy",
           "notes": null,
           "hasAlert": false
         },
@@ -643,6 +648,7 @@
           "deliveryDue": "27 May 2026",
           "batchTotal": 87120,
           "deliveredQty": 0,
+          "supplierTint": "sendy",
           "notes": null,
           "hasAlert": false
         }
@@ -686,6 +692,7 @@
           "deliveryDue": "1 June 2026 (est.)",
           "batchTotal": 435600,
           "deliveredQty": 0,
+          "supplierTint": "sendy",
           "notes": null,
           "hasAlert": false
         }
@@ -729,6 +736,7 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
+          "supplierTint": "eagle",
           "notes": null,
           "hasAlert": false
         },
@@ -763,6 +771,7 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
+          "supplierTint": "eagle",
           "notes": null,
           "hasAlert": false
         },
@@ -797,6 +806,7 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
+          "supplierTint": "eagle",
           "notes": null,
           "hasAlert": false
         },
@@ -831,6 +841,7 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
+          "supplierTint": "eagle",
           "notes": null,
           "hasAlert": false
         },
@@ -865,6 +876,7 @@
           "deliveryDue": "n/a",
           "batchTotal": 0,
           "deliveredQty": 0,
+          "supplierTint": "eagle",
           "notes": null,
           "hasAlert": false
         },
@@ -899,6 +911,51 @@
           "deliveryDue": "TBD",
           "batchTotal": 116160,
           "deliveredQty": 0,
+          "supplierTint": "sendy",
+          "notes": null,
+          "hasAlert": false
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "group": "Laura Wong \u2014 100K (Bailiny)",
+      "totalQty": 100000,
+      "poCount": 1,
+      "layout": "table",
+      "cards": [
+        {
+          "po": "PO-LW-100K",
+          "supplier": "Laura Wong",
+          "qty": 100000,
+          "dest": "Bailiny",
+          "shipMethod": "Sea",
+          "shipDate": "26 March 2026 (est.)",
+          "eta": "5 May 2026",
+          "orderDate": "9 February 2026",
+          "depositDate": "9 February 2026",
+          "productionDays": 45,
+          "inTransitDays": 40,
+          "productionStatus": "Relabeling",
+          "productionCls": "warn",
+          "paymentStatus": "Partial \u2014 balance due",
+          "paymentCls": "warn",
+          "nextPayment": "Delivery 70% ~$87,500",
+          "nextPaymentDue": "5 May 2026",
+          "unitCost": 1.25,
+          "totalValue": 125000,
+          "depositAmount": 0,
+          "depositPaid": false,
+          "depositDue": "n/a",
+          "productionAmount": 0,
+          "productionPaid": false,
+          "productionDue": "n/a",
+          "deliveryAmount": 0,
+          "deliveryPaid": false,
+          "deliveryDue": "n/a",
+          "batchTotal": 0,
+          "deliveredQty": 0,
+          "supplierTint": "laura",
           "notes": null,
           "hasAlert": false
         }
