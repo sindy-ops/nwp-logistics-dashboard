@@ -1,31 +1,31 @@
 {
-  "lastRefreshed": "2026-04-22T13:25:37",
+  "lastRefreshed": "2026-04-22T13:26:59",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-22",
-      "fileAge": 0.1
+      "fileAge": 0.2
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-21",
-      "fileAge": 1.3
+      "fileAge": 1.4
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-22",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.4
+      "fileAge": 0.0
     },
     "amazon": {
       "name": "Amazon FBA",
@@ -451,6 +451,7 @@
           "qty": 150000,
           "dest": "TFM",
           "shipMethod": "Air",
+          "carrier": "Sendy Li (air freight)",
           "shipDate": "31 March 2026",
           "eta": "20 April 2026",
           "orderDate": "19 February 2026 (est.)",
@@ -479,7 +480,7 @@
           "supplierTint": "sendy",
           "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K.",
+          "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update.",
           "hasAlert": true
         },
         {
@@ -488,6 +489,7 @@
           "qty": 85000,
           "dest": "TFM",
           "shipMethod": "Sea",
+          "carrier": "A2Z Matson DDP",
           "shipDate": "10 April 2026",
           "eta": "7 May 2026",
           "orderDate": "1 March 2026 (est.)",
@@ -525,6 +527,7 @@
           "qty": 65000,
           "dest": "TFM",
           "shipMethod": "Sea",
+          "carrier": "A2Z Matson DDP",
           "shipDate": "10 April 2026",
           "eta": "11 May 2026",
           "orderDate": "1 March 2026 (est.)",
@@ -582,6 +585,7 @@
           "qty": 75000,
           "dest": "Bailiny",
           "shipMethod": "Land",
+          "carrier": "Sendy Li (CN local)",
           "shipDate": "10 April 2026 (est.)",
           "eta": "Del \u00b7 15 April 2026",
           "orderDate": "1 March 2026 (est.)",
@@ -619,6 +623,7 @@
           "qty": 200000,
           "dest": "TFM",
           "shipMethod": "Sea",
+          "carrier": "A2Z Fast Sea Zim DDP",
           "shipDate": "17 April 2026",
           "eta": "TBD",
           "orderDate": "8 March 2026 (est.)",
@@ -647,7 +652,7 @@
           "supplierTint": "sendy",
           "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, ship Apr 17, ETD May 24 (per Husna). Product: $138,138 (2nd 30% + 60K shipping).",
+          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, ship Apr 17, ETD May 24 (per Husna).",
           "hasAlert": false
         },
         {
@@ -656,6 +661,7 @@
           "qty": 60000,
           "dest": "TFM",
           "shipMethod": "Sea",
+          "carrier": "A2Z Normal Sea",
           "shipDate": "17 April 2026",
           "eta": "2 June 2026 (est.)",
           "orderDate": "8 March 2026 (est.)",
@@ -708,6 +714,7 @@
           "qty": 300000,
           "dest": "TFM+Bailiny",
           "shipMethod": "Sea",
+          "carrier": "TBD",
           "shipDate": "22 April 2026 (est.)",
           "eta": "1 June 2026 (est.)",
           "orderDate": "13 March 2026 (est.)",
@@ -736,7 +743,7 @@
           "supplierTint": "sendy",
           "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "Recurring batch (Apr). Deposit 30% $118,800 PAID Apr 8 (Airwallex 20260407Q). Production in progress. Batch shipping: first 100K ~15-18d after prod start.",
+          "notes": "Recurring batch (Apr). Deposit 30% $118,800 PAID Apr 8 (Airwallex 20260407Q). Production in progress. Carrier TBD.",
           "hasAlert": false
         }
       ],
@@ -760,6 +767,7 @@
           "qty": 310000,
           "dest": "TFM",
           "shipMethod": "Sea",
+          "carrier": "TBD",
           "shipDate": "27 May 2026 (est.)",
           "eta": "28 June 2026 (est.)",
           "orderDate": "17 April 2026 (est.)",
@@ -812,6 +820,7 @@
           "qty": 80000,
           "dest": "TFM",
           "shipMethod": "Sea",
+          "carrier": "TBD",
           "shipDate": "10 May 2026 (est.)",
           "eta": "15 June 2026 (est.)",
           "orderDate": "31 March 2026 (est.)",
@@ -862,6 +871,7 @@
           "qty": 28000,
           "dest": "Amazon FBA",
           "shipMethod": "Ground",
+          "carrier": "UPS SPD",
           "shipDate": "28 March 2026",
           "eta": "Del \u00b7 3 April 2026",
           "orderDate": "14 March 2026 (est.)",
@@ -899,6 +909,7 @@
           "qty": 25340,
           "dest": "Amazon FBA",
           "shipMethod": "UPS SPD",
+          "carrier": "UPS SPD",
           "shipDate": "10 April 2026",
           "eta": "Del \u00b7 15 April 2026",
           "orderDate": "27 March 2026 (est.)",
@@ -936,6 +947,7 @@
           "qty": 29715,
           "dest": "Amazon FBA",
           "shipMethod": "UPS SPD",
+          "carrier": "UPS SPD",
           "shipDate": "26 April 2026 (est.)",
           "eta": "29 April 2026 (est.)",
           "orderDate": "12 April 2026 (est.)",
@@ -964,7 +976,7 @@
           "supplierTint": "eagle",
           "paymentModel": "eagle_receipt",
           "packSplit": "18060 singles | 3717 sets 3pk (11151u) | 84 sets 6pk (504u)",
-          "notes": "72K close-out per Eagle schedule Apr 20. Sam Apr 21: singles ship Fri 4/24, 3pk/6pk Mon/Tue 4/27-4/28. 16945-jar gap vs original 72K \u2014 TBD if cut or rolled to recurring.",
+          "notes": "72K close-out per Eagle schedule Apr 20. Sam Apr 21: singles ship Fri 4/24, 3pk/6pk Mon/Tue 4/27-4/28.",
           "hasAlert": false
         },
         {
@@ -973,6 +985,7 @@
           "qty": 191100,
           "dest": "Amazon FBA",
           "shipMethod": "TBD",
+          "carrier": "UPS SPD",
           "shipDate": "13 May 2026 (est.)",
           "eta": "16 May 2026 (est.)",
           "orderDate": "29 April 2026 (est.)",
@@ -1010,6 +1023,7 @@
           "qty": 142740,
           "dest": "Amazon FBA",
           "shipMethod": "TBD",
+          "carrier": "UPS SPD",
           "shipDate": "5 June 2026 (est.)",
           "eta": "8 June 2026 (est.)",
           "orderDate": "22 May 2026 (est.)",
@@ -1062,6 +1076,7 @@
           "qty": 100000,
           "dest": "Bailiny",
           "shipMethod": "Sea",
+          "carrier": "Laura (sea)",
           "shipDate": "26 March 2026 (est.)",
           "eta": "5 May 2026 (est.)",
           "orderDate": "9 February 2026 (est.)",
