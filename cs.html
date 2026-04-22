@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NWP — Customer Support</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-border: #2a2d3a;
+    --text: #e4e6eb;
+    --text-dim: #8b8fa3;
+    --accent: #4ade80;
+    --blue: #3b82f6;
+    --orange: #f59e0b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    padding: 40px 24px;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+  }
+  .title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .subtitle { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+  .back-link {
+    font-size: 13px; color: var(--text-dim); text-decoration: none;
+    padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 8px;
+    transition: border-color 0.15s;
+  }
+  .back-link:hover { border-color: var(--accent); color: var(--text); }
+
+  .kpi-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 18px 20px;
+  }
+  .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-dim); margin-bottom: 8px; }
+  .kpi-value { font-size: 28px; font-weight: 800; letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums; }
+  .kpi-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  .chart-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px 24px 24px; margin-bottom: 20px;
+  }
+  .chart-header { display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+  .chart-title { font-size: 16px; font-weight: 700; }
+  .chart-wrap { position: relative; height: 380px; }
+
+  .table-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px 24px; overflow-x: auto;
+  }
+  .table-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px;
+    font-variant-numeric: tabular-nums; }
+  th, td { padding: 8px 8px; text-align: right; white-space: nowrap;
+    border-bottom: 1px solid rgba(255,255,255,0.04); }
+  th:first-child, td:first-child { text-align: left; }
+  th {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--text-dim); padding: 10px 8px;
+    position: sticky; top: 0; background: var(--card);
+    cursor: pointer; user-select: none;
+  }
+  th:hover { color: var(--text); }
+  th.sorted { color: var(--accent); }
+  td.agent-name { font-weight: 600; }
+  td.total-col { font-weight: 700; color: var(--text); }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .heat-0 { color: rgba(228,230,235,0.25); }
+  .heat-1 { color: rgba(228,230,235,0.55); }
+  .heat-2 { color: var(--text); }
+  .heat-3 { color: var(--accent); font-weight: 600; }
+
+  .footer-meta { margin-top: 16px; font-size: 11px;
+    color: var(--text-dim); text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div>
+      <div class="title">Customer Support — Last 30 Days</div>
+      <div class="subtitle" id="subtitle">Loading…</div>
+    </div>
+    <a href="hub.html" class="back-link">← Hub</a>
+  </div>
+
+  <div class="kpi-row" id="kpi-row"></div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">Daily customer messages &amp; new tickets</div>
+    </div>
+    <div class="chart-wrap"><canvas id="volume-chart"></canvas></div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-title">Replies per agent per day (click a column to sort)</div>
+    <div id="agent-table"></div>
+  </div>
+
+  <div class="footer-meta" id="footer">–</div>
+</div>
+
+<script>
+let CS_DATA = null;
+let sortCol = 'total';
+let sortDir = 'desc';
+
+async function load() {
+  const res = await fetch('cs_data.json?t=' + Date.now());
+  CS_DATA = await res.json();
+  render();
+}
+
+function fmt(n) { return (n || 0).toLocaleString('en-US'); }
+
+function renderKpis() {
+  const m = CS_DATA.meta;
+  const row = document.getElementById('kpi-row');
+  row.innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-label">Customer Messages</div>
+      <div class="kpi-value">${fmt(m.total_customer_msgs)}</div>
+      <div class="kpi-sub">${fmt(Math.round(m.total_customer_msgs / m.window_days))}/day avg</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">New Tickets</div>
+      <div class="kpi-value">${fmt(m.total_new_tickets)}</div>
+      <div class="kpi-sub">${fmt(Math.round(m.total_new_tickets / m.window_days))}/day avg</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Agent Replies</div>
+      <div class="kpi-value">${fmt(m.total_agent_replies)}</div>
+      <div class="kpi-sub">${fmt(Math.round(m.total_agent_replies / m.window_days))}/day avg • ${m.agent_count} agents</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Reply : Inbound</div>
+      <div class="kpi-value">${(m.total_agent_replies / Math.max(1, m.total_customer_msgs)).toFixed(2)}×</div>
+      <div class="kpi-sub">replies per inbound msg</div>
+    </div>
+  `;
+}
+
+function renderChart() {
+  const ctx = document.getElementById('volume-chart').getContext('2d');
+  const labels = CS_DATA.days.map(d => d.slice(5));
+  new Chart(ctx, {
+    data: {
+      labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Customer messages',
+          data: CS_DATA.customer_msgs_per_day,
+          backgroundColor: 'rgba(59,130,246,0.55)',
+          borderColor: 'rgba(59,130,246,1)',
+          borderWidth: 1,
+          yAxisID: 'y',
+        },
+        {
+          type: 'line',
+          label: 'New tickets',
+          data: CS_DATA.new_tickets_per_day,
+          borderColor: 'rgba(245,158,11,1)',
+          backgroundColor: 'rgba(245,158,11,0.15)',
+          tension: 0.25, pointRadius: 3, borderWidth: 2,
+          yAxisID: 'y',
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: '#e4e6eb', font: { size: 12 } } },
+        tooltip: { backgroundColor: '#1a1d27', borderColor: '#2a2d3a', borderWidth: 1 },
+      },
+      scales: {
+        x: { ticks: { color: '#8b8fa3', maxRotation: 0, autoSkipPadding: 16 },
+             grid: { color: 'rgba(255,255,255,0.03)' } },
+        y: { beginAtZero: true, ticks: { color: '#8b8fa3' },
+             grid: { color: 'rgba(255,255,255,0.05)' } },
+      },
+    },
+  });
+}
+
+function renderTable() {
+  const days = CS_DATA.days;
+  const agents = [...CS_DATA.agents];
+
+  // Sort
+  agents.sort((a, b) => {
+    let av, bv;
+    if (sortCol === 'name') { av = a.name; bv = b.name; }
+    else if (sortCol === 'total') { av = a.total; bv = b.total; }
+    else { av = a.per_day[sortCol] || 0; bv = b.per_day[sortCol] || 0; }
+    if (av < bv) return sortDir === 'asc' ? -1 : 1;
+    if (av > bv) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  // Compute max for heat scale
+  let maxDay = 0;
+  for (const a of agents) for (const d of days) maxDay = Math.max(maxDay, a.per_day[d] || 0);
+  const heat = v => {
+    if (!v) return 'heat-0';
+    if (v >= maxDay * 0.66) return 'heat-3';
+    if (v >= maxDay * 0.33) return 'heat-2';
+    return 'heat-1';
+  };
+
+  const th = (label, col) => {
+    const sorted = sortCol === col ? 'sorted' : '';
+    const arrow = sortCol === col ? (sortDir === 'desc' ? ' ↓' : ' ↑') : '';
+    return `<th class="${sorted}" data-col="${col}">${label}${arrow}</th>`;
+  };
+
+  let html = '<table><thead><tr>';
+  html += th('Agent', 'name');
+  html += th('Total', 'total');
+  for (const d of days) html += th(d.slice(5), d);
+  html += '</tr></thead><tbody>';
+  for (const a of agents) {
+    html += '<tr>';
+    html += `<td class="agent-name">${a.name}</td>`;
+    html += `<td class="total-col">${fmt(a.total)}</td>`;
+    for (const d of days) {
+      const v = a.per_day[d] || 0;
+      html += `<td class="${heat(v)}">${v || ''}</td>`;
+    }
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  document.getElementById('agent-table').innerHTML = html;
+
+  // Wire up column sort
+  document.querySelectorAll('th').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.getAttribute('data-col');
+      if (sortCol === col) sortDir = sortDir === 'desc' ? 'asc' : 'desc';
+      else { sortCol = col; sortDir = col === 'name' ? 'asc' : 'desc'; }
+      renderTable();
+    });
+  });
+}
+
+function renderFooter() {
+  const m = CS_DATA.meta;
+  document.getElementById('subtitle').textContent =
+    `${m.window_start} → ${m.window_end} (${m.window_days} days) · ${m.agent_count} agents`;
+  const gen = new Date(m.generated_at);
+  document.getElementById('footer').textContent =
+    `Source: Gorgias /api/stats · Generated ${gen.toLocaleString()} · Excludes bots, admin-only, shared inboxes`;
+}
+
+function render() {
+  renderKpis();
+  renderChart();
+  renderTable();
+  renderFooter();
+}
+
+load();
+</script>
+</body>
+</html>
