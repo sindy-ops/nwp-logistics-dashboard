@@ -1,36 +1,36 @@
 {
-  "lastRefreshed": "2026-04-22T11:44:58",
+  "lastRefreshed": "2026-04-22T11:52:14",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-16",
-      "fileAge": 146.8
+      "fileAge": 147.0
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-15",
-      "fileAge": 149.6
+      "fileAge": 149.8
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-16",
-      "fileAge": 147.7
+      "fileAge": 147.8
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 147.7
+      "fileAge": 147.8
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.5
+      "fileAge": 0.0
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 1.7
+      "fileAge": 1.8
     }
   },
   "stock": {
@@ -340,7 +340,7 @@
       "status": "Relabeling",
       "method": "Sea",
       "eta": "2026-05-05",
-      "payment": "PARTIAL",
+      "payment": "PARTIAL ($62,500)",
       "paymentCls": "due"
     },
     {
@@ -428,6 +428,11 @@
       "poCount": 3,
       "layout": "table",
       "dominantTint": "sendy",
+      "paymentHeaders": [
+        "Deposit 35%",
+        "Production 35%",
+        "Delivery 40%"
+      ],
       "cards": [
         {
           "po": "PO-SL-300K-AIR",
@@ -461,6 +466,7 @@
           "batchTotal": 217800,
           "deliveredQty": 125000,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K.",
           "hasAlert": true
         },
@@ -496,6 +502,7 @@
           "batchTotal": 123420,
           "deliveredQty": 0,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": "Via A2Z Matson DDP (HR-001: 84,980u). Picked up Apr 10, ETD Apr 14, ETA May 7. $0.30/u.",
           "hasAlert": false
         },
@@ -531,6 +538,7 @@
           "batchTotal": 94378,
           "deliveredQty": 0,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice.",
           "hasAlert": false
         }
@@ -548,6 +556,11 @@
       "poCount": 3,
       "layout": "table",
       "dominantTint": "sendy",
+      "paymentHeaders": [
+        "Deposit 35%",
+        "Production 35%",
+        "Delivery 40%"
+      ],
       "cards": [
         {
           "po": "PO-SL-335K-75K",
@@ -581,6 +594,7 @@
           "batchTotal": 108900,
           "deliveredQty": 0,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": null,
           "hasAlert": false
         },
@@ -616,6 +630,7 @@
           "batchTotal": 290400,
           "deliveredQty": 0,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": null,
           "hasAlert": false
         },
@@ -651,6 +666,7 @@
           "batchTotal": 87120,
           "deliveredQty": 0,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": null,
           "hasAlert": false
         }
@@ -663,6 +679,11 @@
       "poCount": 1,
       "layout": "table",
       "dominantTint": "sendy",
+      "paymentHeaders": [
+        "Deposit 35%",
+        "Production 35%",
+        "Delivery 40%"
+      ],
       "cards": [
         {
           "po": "PO-SL-300K-REC",
@@ -696,6 +717,7 @@
           "batchTotal": 435600,
           "deliveredQty": 0,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": null,
           "hasAlert": false
         }
@@ -708,6 +730,11 @@
       "poCount": 1,
       "layout": "table",
       "dominantTint": "sendy",
+      "paymentHeaders": [
+        "Deposit 35%",
+        "Production 35%",
+        "Delivery 40%"
+      ],
       "cards": [
         {
           "po": "PO-SL-80K-NEW",
@@ -741,6 +768,7 @@
           "batchTotal": 116160,
           "deliveredQty": 0,
           "supplierTint": "sendy",
+          "paymentModel": "sendy_353540",
           "notes": null,
           "hasAlert": false
         }
@@ -753,6 +781,11 @@
       "poCount": 5,
       "layout": "table",
       "dominantTint": "eagle",
+      "paymentHeaders": [
+        "\u2014",
+        "Invoice Due on Receipt",
+        "\u2014"
+      ],
       "cards": [
         {
           "po": "PO-EL-28K-AMZ",
@@ -775,17 +808,18 @@
           "unitCost": 4.66,
           "totalValue": 130480,
           "depositAmount": 0,
-          "depositPaid": false,
-          "depositDue": "n/a",
-          "productionAmount": 0,
-          "productionPaid": false,
-          "productionDue": "n/a",
+          "depositPaid": true,
+          "depositDue": "\u2014",
+          "productionAmount": 130480,
+          "productionPaid": true,
+          "productionDue": "3 April 2026",
           "deliveryAmount": 0,
-          "deliveryPaid": false,
-          "deliveryDue": "n/a",
-          "batchTotal": 0,
+          "deliveryPaid": true,
+          "deliveryDue": "\u2014",
+          "batchTotal": 130480,
           "deliveredQty": 0,
           "supplierTint": "eagle",
+          "paymentModel": "eagle_receipt",
           "notes": null,
           "hasAlert": false
         },
@@ -810,17 +844,18 @@
           "unitCost": 4.66,
           "totalValue": 118084,
           "depositAmount": 0,
-          "depositPaid": false,
-          "depositDue": "n/a",
-          "productionAmount": 0,
+          "depositPaid": true,
+          "depositDue": "\u2014",
+          "productionAmount": 118084,
           "productionPaid": false,
-          "productionDue": "n/a",
+          "productionDue": "15 April 2026",
           "deliveryAmount": 0,
-          "deliveryPaid": false,
-          "deliveryDue": "n/a",
-          "batchTotal": 0,
+          "deliveryPaid": true,
+          "deliveryDue": "\u2014",
+          "batchTotal": 118084,
           "deliveredQty": 0,
           "supplierTint": "eagle",
+          "paymentModel": "eagle_receipt",
           "notes": null,
           "hasAlert": false
         },
@@ -845,17 +880,18 @@
           "unitCost": 4.66,
           "totalValue": 138471,
           "depositAmount": 0,
-          "depositPaid": false,
-          "depositDue": "n/a",
-          "productionAmount": 0,
+          "depositPaid": true,
+          "depositDue": "\u2014",
+          "productionAmount": 138471,
           "productionPaid": false,
-          "productionDue": "n/a",
+          "productionDue": "29 April 2026",
           "deliveryAmount": 0,
-          "deliveryPaid": false,
-          "deliveryDue": "n/a",
-          "batchTotal": 0,
+          "deliveryPaid": true,
+          "deliveryDue": "\u2014",
+          "batchTotal": 138471,
           "deliveredQty": 0,
           "supplierTint": "eagle",
+          "paymentModel": "eagle_receipt",
           "notes": null,
           "hasAlert": false
         },
@@ -880,17 +916,18 @@
           "unitCost": 4.66,
           "totalValue": 890526,
           "depositAmount": 0,
-          "depositPaid": false,
-          "depositDue": "n/a",
-          "productionAmount": 0,
+          "depositPaid": true,
+          "depositDue": "\u2014",
+          "productionAmount": 890526,
           "productionPaid": false,
-          "productionDue": "n/a",
+          "productionDue": "16 May 2026",
           "deliveryAmount": 0,
-          "deliveryPaid": false,
-          "deliveryDue": "n/a",
-          "batchTotal": 0,
+          "deliveryPaid": true,
+          "deliveryDue": "\u2014",
+          "batchTotal": 890526,
           "deliveredQty": 0,
           "supplierTint": "eagle",
+          "paymentModel": "eagle_receipt",
           "notes": null,
           "hasAlert": false
         },
@@ -915,17 +952,18 @@
           "unitCost": 4.66,
           "totalValue": 665168,
           "depositAmount": 0,
-          "depositPaid": false,
-          "depositDue": "n/a",
-          "productionAmount": 0,
+          "depositPaid": true,
+          "depositDue": "\u2014",
+          "productionAmount": 665168,
           "productionPaid": false,
-          "productionDue": "n/a",
+          "productionDue": "8 June 2026",
           "deliveryAmount": 0,
-          "deliveryPaid": false,
-          "deliveryDue": "n/a",
-          "batchTotal": 0,
+          "deliveryPaid": true,
+          "deliveryDue": "\u2014",
+          "batchTotal": 665168,
           "deliveredQty": 0,
           "supplierTint": "eagle",
+          "paymentModel": "eagle_receipt",
           "notes": null,
           "hasAlert": false
         }
@@ -938,6 +976,11 @@
       "poCount": 1,
       "layout": "table",
       "dominantTint": "laura",
+      "paymentHeaders": [
+        "Deposit 50%",
+        "Balance 50%",
+        "\u2014"
+      ],
       "cards": [
         {
           "po": "PO-LW-100K",
@@ -959,31 +1002,37 @@
           "nextPaymentDue": "5 May 2026",
           "unitCost": 1.25,
           "totalValue": 125000,
-          "depositAmount": 0,
-          "depositPaid": false,
-          "depositDue": "n/a",
-          "productionAmount": 0,
+          "depositAmount": 62500,
+          "depositPaid": true,
+          "depositDue": "9 February 2026",
+          "productionAmount": 62500,
           "productionPaid": false,
-          "productionDue": "n/a",
+          "productionDue": "5 May 2026",
           "deliveryAmount": 0,
-          "deliveryPaid": false,
-          "deliveryDue": "n/a",
-          "batchTotal": 0,
+          "deliveryPaid": true,
+          "deliveryDue": "\u2014",
+          "batchTotal": 125000,
           "deliveredQty": 0,
           "supplierTint": "laura",
-          "notes": null,
-          "hasAlert": false
+          "paymentModel": "laura_5050",
+          "notes": "50/50 terms (<250K MOQ). Deposit 50% (~$62,500) paid. Balance $62,500 due on delivery. Delayed 20+ days for relabeling at Laura's cost \u2014 old label version (2025-6 vs 2025-7), misspellings, blurry print. Relabeling compensation under negotiation (Sindy asking, Sajjad handling). Cream quality concerns raised (texture, scent, absorption) vs SendyLi.",
+          "hasAlert": true
         }
       ],
-      "alerts": []
+      "alerts": [
+        {
+          "po": "PO-LW-100K",
+          "text": "Relabeling compensation under negotiation \u2014 20+ day delay at Laura's cost (old label version, misspellings, blurry print). * Sindy asks: compensation for delay + quality issues. * Sajjad new offer: pending. * Cream quality concerns (texture/scent/absorption) also flagged."
+        }
+      ]
     }
   ],
   "payments": {
     "balance": 124693,
     "pendingApproval": 0,
-    "fundsNeeded": 302780,
+    "fundsNeeded": 277780,
     "maxFundsDate": "22 April 2026",
-    "shortfall": -178086,
+    "shortfall": -153086,
     "inApproval": [],
     "upcoming": [],
     "pipelineUpcoming": [
@@ -1011,7 +1060,7 @@
         "po": "PO-LW-100K",
         "supplier": "Laura Wong",
         "qty": 100000,
-        "amount": 87500,
+        "amount": 62500,
         "milestone": "Pay on delivery",
         "due": "~May 05",
         "poStatus": "Relabeling",
@@ -1038,7 +1087,7 @@
         "actionBy": "Bianca"
       }
     ],
-    "pipelineUpcomingTotal": 302780,
+    "pipelineUpcomingTotal": 277780,
     "recentLogistics": [
       {
         "recipient": "Bailiny",
