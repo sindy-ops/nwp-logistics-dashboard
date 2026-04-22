@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-22T14:41:31",
+  "lastRefreshed": "2026-04-22T14:47:06",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
@@ -10,7 +10,7 @@
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-21",
-      "fileAge": 0.5
+      "fileAge": 0.6
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
@@ -25,12 +25,12 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.5
+      "fileAge": 0.6
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 0.5
+      "fileAge": 0.6
     }
   },
   "stock": {
