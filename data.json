@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-22T11:10:53",
+  "lastRefreshed": "2026-04-22T11:13:56",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
@@ -25,12 +25,12 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 1.1
+      "fileAge": 1.2
     }
   },
   "stock": {
@@ -440,7 +440,7 @@
           "depositDate": "19 February 2026",
           "productionDays": 40,
           "inTransitDays": 20,
-          "productionStatus": "Partial \u2014 last mile (2d past ETA)",
+          "productionStatus": "Partial \u00b7 2d overdue",
           "productionCls": "warn",
           "paymentStatus": "Paid ($287,400)",
           "paymentCls": "ok",
