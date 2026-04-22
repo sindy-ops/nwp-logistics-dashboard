@@ -219,7 +219,7 @@
   <!-- Date filter + trend chart -->
   <div class="chart-card">
     <div class="chart-header">
-      <div class="chart-title">Weekly avg response time (PayPal V1)</div>
+      <div class="chart-title">Weekly avg response time (all platforms)</div>
       <div class="controls-row">
         <div class="btn-group">
           <span class="btn-label">Window</span>
@@ -256,7 +256,7 @@
 </div>
 
 <script id="rt-data" type="application/json">{
-  "generated_at": "2026-04-22T14:06:01",
+  "generated_at": "2026-04-22T14:54:08",
   "window_days": 90,
   "window_start": "2026-01-23",
   "window_end": "2026-04-22",
@@ -292,9 +292,48 @@
     }
   },
   "match": {
+    "by_platform": {
+      "Paypal": {
+        "monday_rows": 2938,
+        "sheet_rows": 3306,
+        "matched": 2549,
+        "unmatched": 389,
+        "match_rate": 0.868
+      },
+      "Stripe": {
+        "monday_rows": 596,
+        "sheet_rows": 523,
+        "matched": 207,
+        "unmatched": 389,
+        "match_rate": 0.347
+      },
+      "EMS": {
+        "monday_rows": 84,
+        "sheet_rows": 94,
+        "matched": 47,
+        "unmatched": 37,
+        "match_rate": 0.56
+      },
+      "Payarc": {
+        "monday_rows": 274,
+        "sheet_rows": 478,
+        "matched": 159,
+        "unmatched": 115,
+        "match_rate": 0.58
+      },
+      "Aurora": {
+        "monday_rows": 22,
+        "sheet_rows": 90,
+        "matched": 8,
+        "unmatched": 14,
+        "match_rate": 0.364
+      }
+    },
+    "matched_total": 2970,
+    "monday_total": 3914,
+    "overall_match_rate": 0.759,
     "monday_paypal_rows": 2938,
     "sheet_paypal_rows": 3306,
-    "matched_total": 2549,
     "unmatched_monday": 389,
     "match_rate": 0.868
   },
@@ -1497,6 +1536,13 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-01-18",
+      "monday_date": "2026-01-21",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
       "dispute_date": "2026-01-19",
       "monday_date": "2026-01-29",
       "person": "Lyn",
@@ -1539,6 +1585,13 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-01-19",
+      "monday_date": "2026-01-19",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-01-20",
       "monday_date": "2026-02-19",
       "person": "Lyn",
@@ -1572,6 +1625,20 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 4
+    },
+    {
+      "dispute_date": "2026-01-20",
+      "monday_date": "2026-01-23",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-01-20",
+      "monday_date": "2026-01-20",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
     },
     {
       "dispute_date": "2026-01-21",
@@ -1635,6 +1702,27 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 2
+    },
+    {
+      "dispute_date": "2026-01-21",
+      "monday_date": "2026-02-04",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 14
+    },
+    {
+      "dispute_date": "2026-01-21",
+      "monday_date": "2026-02-04",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 14
+    },
+    {
+      "dispute_date": "2026-01-21",
+      "monday_date": "2026-01-30",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 9
     },
     {
       "dispute_date": "2026-01-22",
@@ -1746,6 +1834,20 @@
       "monday_date": "2026-01-27",
       "person": "Lyn",
       "platform": "Paypal",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-01-23",
+      "monday_date": "2026-01-30",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-01-23",
+      "monday_date": "2026-01-27",
+      "person": "Lyn",
+      "platform": "Payarc",
       "delta": 4
     },
     {
@@ -1901,6 +2003,27 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 6
+    },
+    {
+      "dispute_date": "2026-01-27",
+      "monday_date": "2026-02-04",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-01-27",
+      "monday_date": "2026-02-04",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-01-27",
+      "monday_date": "2026-01-27",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
     },
     {
       "dispute_date": "2026-01-28",
@@ -2323,6 +2446,20 @@
       "delta": 4
     },
     {
+      "dispute_date": "2026-02-02",
+      "monday_date": "2026-02-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 14
+    },
+    {
+      "dispute_date": "2026-02-02",
+      "monday_date": "2026-02-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 14
+    },
+    {
       "dispute_date": "2026-02-03",
       "monday_date": "2026-04-05",
       "person": "Reymon Lachica",
@@ -2414,6 +2551,27 @@
       "delta": 1
     },
     {
+      "dispute_date": "2026-02-03",
+      "monday_date": "2026-02-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-02-03",
+      "monday_date": "2026-02-04",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-02-03",
+      "monday_date": "2026-02-04",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
       "dispute_date": "2026-02-04",
       "monday_date": "2026-02-23",
       "person": "Lyn",
@@ -2468,6 +2626,13 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 10
+    },
+    {
+      "dispute_date": "2026-02-04",
+      "monday_date": "2026-02-04",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
     },
     {
       "dispute_date": "2026-02-05",
@@ -2545,6 +2710,20 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 5
+    },
+    {
+      "dispute_date": "2026-02-05",
+      "monday_date": "2026-02-09",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-02-05",
+      "monday_date": "2026-02-09",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 4
     },
     {
       "dispute_date": "2026-02-06",
@@ -2673,6 +2852,13 @@
       "delta": 7
     },
     {
+      "dispute_date": "2026-02-07",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 11
+    },
+    {
       "dispute_date": "2026-02-08",
       "monday_date": "2026-03-11",
       "person": "Lyn",
@@ -2764,6 +2950,13 @@
       "delta": 6
     },
     {
+      "dispute_date": "2026-02-08",
+      "monday_date": "2026-02-09",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
       "dispute_date": "2026-02-09",
       "monday_date": "2026-02-19",
       "person": "Lyn",
@@ -2832,6 +3025,13 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 2
+    },
+    {
+      "dispute_date": "2026-02-09",
+      "monday_date": "2026-02-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 7
     },
     {
       "dispute_date": "2026-02-10",
@@ -2953,6 +3153,76 @@
       "delta": 0
     },
     {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-18",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-16",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-16",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-02-10",
+      "monday_date": "2026-02-16",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
       "dispute_date": "2026-02-11",
       "monday_date": "2026-02-28",
       "person": "Lyn",
@@ -3037,6 +3307,13 @@
       "delta": 10
     },
     {
+      "dispute_date": "2026-02-11",
+      "monday_date": "2026-02-11",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-02-12",
       "monday_date": "2026-02-22",
       "person": "Lyn",
@@ -3091,6 +3368,13 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 2
+    },
+    {
+      "dispute_date": "2026-02-12",
+      "monday_date": "2026-02-12",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
     },
     {
       "dispute_date": "2026-02-13",
@@ -3154,6 +3438,13 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 7
+    },
+    {
+      "dispute_date": "2026-02-13",
+      "monday_date": "2026-02-14",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
     },
     {
       "dispute_date": "2026-02-14",
@@ -3590,6 +3881,13 @@
       "delta": 6
     },
     {
+      "dispute_date": "2026-02-17",
+      "monday_date": "2026-02-27",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 10
+    },
+    {
       "dispute_date": "2026-02-18",
       "monday_date": "2026-03-07",
       "person": "Lyn",
@@ -3721,6 +4019,13 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 10
+    },
+    {
+      "dispute_date": "2026-02-20",
+      "monday_date": "2026-02-23",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 3
     },
     {
       "dispute_date": "2026-02-21",
@@ -4108,6 +4413,13 @@
       "delta": 10
     },
     {
+      "dispute_date": "2026-02-24",
+      "monday_date": "2026-02-27",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 3
+    },
+    {
       "dispute_date": "2026-02-25",
       "monday_date": "2026-03-29",
       "person": "Abegail Preglo",
@@ -4225,6 +4537,13 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 10
+    },
+    {
+      "dispute_date": "2026-02-25",
+      "monday_date": "2026-02-27",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 2
     },
     {
       "dispute_date": "2026-02-26",
@@ -4358,6 +4677,27 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 7
+    },
+    {
+      "dispute_date": "2026-02-26",
+      "monday_date": "2026-02-27",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-02-26",
+      "monday_date": "2026-02-27",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-02-26",
+      "monday_date": "2026-02-27",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
     },
     {
       "dispute_date": "2026-02-27",
@@ -4589,6 +4929,20 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-01",
+      "monday_date": "2026-03-02",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-01",
+      "monday_date": "2026-03-02",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
     },
     {
       "dispute_date": "2026-03-02",
@@ -4857,6 +5211,13 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-03",
+      "monday_date": "2026-03-12",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 9
+    },
+    {
       "dispute_date": "2026-03-04",
       "monday_date": "2026-04-21",
       "person": "Reymon Lachica",
@@ -4981,6 +5342,27 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 7
+    },
+    {
+      "dispute_date": "2026-03-04",
+      "monday_date": "2026-03-06",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-03-04",
+      "monday_date": "2026-03-06",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-03-04",
+      "monday_date": "2026-03-04",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 0
     },
     {
       "dispute_date": "2026-03-05",
@@ -5270,6 +5652,20 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-06",
+      "monday_date": "2026-03-06",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-06",
+      "monday_date": "2026-03-06",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-03-07",
       "monday_date": "2026-04-17",
       "person": "Michael Vincent Bresenio",
@@ -5457,6 +5853,20 @@
       "person": "Abegail Preglo",
       "platform": "Paypal",
       "delta": 7
+    },
+    {
+      "dispute_date": "2026-03-08",
+      "monday_date": "2026-03-12",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-03-08",
+      "monday_date": "2026-03-09",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
     },
     {
       "dispute_date": "2026-03-09",
@@ -5669,6 +6079,27 @@
       "delta": 8
     },
     {
+      "dispute_date": "2026-03-09",
+      "monday_date": "2026-03-17",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-03-09",
+      "monday_date": "2026-03-16",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-03-09",
+      "monday_date": "2026-03-09",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-03-10",
       "monday_date": "2026-04-08",
       "person": "Reymon Lachica",
@@ -5779,6 +6210,27 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-10",
+      "monday_date": "2026-03-23",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-03-10",
+      "monday_date": "2026-03-16",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-03-10",
+      "monday_date": "2026-03-16",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 6
     },
     {
       "dispute_date": "2026-03-11",
@@ -6290,6 +6742,20 @@
       "person": "Abegail Preglo",
       "platform": "Paypal",
       "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-12",
+      "monday_date": "2026-03-12",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-12",
+      "monday_date": "2026-03-12",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 0
     },
     {
       "dispute_date": "2026-03-13",
@@ -6488,6 +6954,27 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-13",
+      "monday_date": "2026-03-23",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-13",
+      "monday_date": "2026-03-23",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-13",
+      "monday_date": "2026-03-23",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 10
+    },
+    {
       "dispute_date": "2026-03-14",
       "monday_date": "2026-04-16",
       "person": "Abegail Preglo",
@@ -6754,6 +7241,20 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-03-14",
+      "monday_date": "2026-03-25",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 11
+    },
+    {
+      "dispute_date": "2026-03-14",
+      "monday_date": "2026-03-19",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
       "dispute_date": "2026-03-15",
       "monday_date": "2026-04-14",
       "person": "Reymon Lachica",
@@ -6906,6 +7407,13 @@
       "person": "Abegail Preglo",
       "platform": "Paypal",
       "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-15",
+      "monday_date": "2026-03-16",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
     },
     {
       "dispute_date": "2026-03-16",
@@ -7258,6 +7766,13 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-16",
+      "monday_date": "2026-03-17",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 1
+    },
+    {
       "dispute_date": "2026-03-17",
       "monday_date": "2026-04-17",
       "person": "Michael Vincent Bresenio",
@@ -7543,6 +8058,20 @@
       "person": "Abegail Preglo",
       "platform": "Paypal",
       "delta": 4
+    },
+    {
+      "dispute_date": "2026-03-17",
+      "monday_date": "2026-03-20",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-17",
+      "monday_date": "2026-03-20",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 3
     },
     {
       "dispute_date": "2026-03-18",
@@ -7913,6 +8442,41 @@
       "monday_date": "2026-03-21",
       "person": "Abegail Preglo",
       "platform": "Paypal",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-18",
+      "monday_date": "2026-03-26",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-03-18",
+      "monday_date": "2026-03-26",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-03-18",
+      "monday_date": "2026-03-23",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-03-18",
+      "monday_date": "2026-03-23",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-03-18",
+      "monday_date": "2026-03-21",
+      "person": "Lyn",
+      "platform": "Stripe",
       "delta": 3
     },
     {
@@ -8294,6 +8858,62 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-04-01",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-03-26",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-03-24",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-03-21",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-03-20",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-03-20",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-03-20",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-19",
+      "monday_date": "2026-03-20",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
       "dispute_date": "2026-03-20",
       "monday_date": "2026-04-17",
       "person": "Abegail Preglo",
@@ -8700,6 +9320,27 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-20",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-03-20",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-03-20",
+      "monday_date": "2026-03-20",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-03-21",
       "monday_date": "2026-04-20",
       "person": "Abegail Preglo",
@@ -8998,6 +9639,20 @@
       "monday_date": "2026-03-24",
       "person": "Lyn",
       "platform": "Paypal",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-21",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-03-21",
+      "monday_date": "2026-03-24",
+      "person": "Lyn",
+      "platform": "Stripe",
       "delta": 3
     },
     {
@@ -9869,6 +10524,13 @@
       "delta": 4
     },
     {
+      "dispute_date": "2026-03-23",
+      "monday_date": "2026-03-23",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-03-24",
       "monday_date": "2026-04-21",
       "person": "Abegail Preglo",
@@ -10359,6 +11021,62 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-27",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-25",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-25",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-25",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-25",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-24",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-24",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-24",
+      "monday_date": "2026-03-24",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-03-25",
       "monday_date": "2026-04-21",
       "person": "Abegail Preglo",
@@ -10840,6 +11558,48 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-25",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-03-25",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-03-25",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-03-25",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-03-25",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-03-25",
+      "monday_date": "2026-03-25",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 0
     },
     {
       "dispute_date": "2026-03-26",
@@ -11374,6 +12134,62 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-03-29",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-03-29",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-03-29",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-03-26",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-03-26",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-03-26",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-26",
+      "monday_date": "2026-03-26",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-03-27",
       "monday_date": "2026-04-21",
       "person": "Abegail Preglo",
@@ -11780,6 +12596,55 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-27",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-03-27",
+      "monday_date": "2026-04-01",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-03-27",
+      "monday_date": "2026-04-01",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-03-27",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-03-27",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-03-27",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-03-27",
+      "monday_date": "2026-03-30",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
       "dispute_date": "2026-03-28",
       "monday_date": "2026-04-15",
       "person": "Abegail Preglo",
@@ -12051,6 +12916,69 @@
       "person": "Lyn",
       "platform": "Paypal",
       "delta": 4
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 12
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 12
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-03-30",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-03-28",
+      "monday_date": "2026-03-29",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
     },
     {
       "dispute_date": "2026-03-29",
@@ -12352,6 +13280,76 @@
       "person": "Abegail Preglo",
       "platform": "Paypal",
       "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 11
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 11
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 11
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-04-01",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-29",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
     },
     {
       "dispute_date": "2026-03-30",
@@ -12942,6 +13940,27 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-03-30",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-30",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 10
+    },
+    {
+      "dispute_date": "2026-03-30",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 10
+    },
+    {
       "dispute_date": "2026-03-31",
       "monday_date": "2026-04-21",
       "person": "Abegail Preglo",
@@ -13339,6 +14358,132 @@
       "person": "Michael Vincent Bresenio",
       "platform": "Paypal",
       "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 14
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 14
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 14
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-06",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-01",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-03-31",
+      "monday_date": "2026-03-31",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
     },
     {
       "dispute_date": "2026-04-01",
@@ -13726,6 +14871,83 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 8
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-01",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-01",
+      "monday_date": "2026-04-01",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-04-02",
       "monday_date": "2026-04-22",
       "person": "Abegail Preglo",
@@ -13964,6 +15186,160 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-16",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 14
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 13
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 11
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 11
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-06",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-06",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-02",
+      "monday_date": "2026-04-02",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-04-03",
       "monday_date": "2026-04-21",
       "person": "Michael Vincent Bresenio",
@@ -14328,6 +15704,48 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-04-03",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 12
+    },
+    {
+      "dispute_date": "2026-04-03",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-03",
+      "monday_date": "2026-04-06",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-03",
+      "monday_date": "2026-04-06",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-03",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-03",
+      "monday_date": "2026-04-03",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-04-04",
       "monday_date": "2026-04-21",
       "person": "Abegail Preglo",
@@ -14601,6 +16019,62 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-04",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
       "dispute_date": "2026-04-05",
       "monday_date": "2026-04-21",
       "person": "Reymon Lachica",
@@ -14748,6 +16222,41 @@
       "delta": 1
     },
     {
+      "dispute_date": "2026-04-05",
+      "monday_date": "2026-04-16",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 11
+    },
+    {
+      "dispute_date": "2026-04-05",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-04-05",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-05",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-05",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
       "dispute_date": "2026-04-06",
       "monday_date": "2026-04-22",
       "person": "Abegail Preglo",
@@ -15161,6 +16670,118 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-10",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-06",
+      "monday_date": "2026-04-06",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-04-07",
       "monday_date": "2026-04-22",
       "person": "Abegail Preglo",
@@ -15490,6 +17111,118 @@
       "delta": 0
     },
     {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-07",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-07",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 10
+    },
+    {
       "dispute_date": "2026-04-08",
       "monday_date": "2026-04-22",
       "person": "Abegail Preglo",
@@ -15847,6 +17580,181 @@
       "delta": 0
     },
     {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 7
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-10",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-10",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-09",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-08",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 12
+    },
+    {
+      "dispute_date": "2026-04-08",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 12
+    },
+    {
       "dispute_date": "2026-04-09",
       "monday_date": "2026-04-21",
       "person": "Reymon Lachica",
@@ -16274,6 +18182,97 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 6
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-10",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-10",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-10",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-09",
+      "monday_date": "2026-04-09",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-04-10",
       "monday_date": "2026-04-22",
       "person": "Abegail Preglo",
@@ -16631,6 +18630,48 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-04-10",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 5
+    },
+    {
+      "dispute_date": "2026-04-10",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-10",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-10",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-10",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-10",
+      "monday_date": "2026-04-10",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-04-11",
       "monday_date": "2026-04-20",
       "person": "Abegail Preglo",
@@ -16806,6 +18847,55 @@
       "delta": 3
     },
     {
+      "dispute_date": "2026-04-11",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-11",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-11",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-11",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-11",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-11",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-11",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
       "dispute_date": "2026-04-12",
       "monday_date": "2026-04-21",
       "person": "Abegail Preglo",
@@ -16995,6 +19085,55 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-04-12",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-12",
+      "monday_date": "2026-04-21",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 9
+    },
+    {
+      "dispute_date": "2026-04-12",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-12",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-12",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-12",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-12",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
       "dispute_date": "2026-04-13",
       "monday_date": "2026-04-22",
       "person": "Abegail Preglo",
@@ -17154,6 +19293,139 @@
       "person": "Abegail Preglo",
       "platform": "Paypal",
       "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-13",
+      "monday_date": "2026-04-13",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
     },
     {
       "dispute_date": "2026-04-14",
@@ -17338,6 +19610,209 @@
       "delta": 1
     },
     {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-17",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-17",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 3
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Aurora",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-14",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-14",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "EMS",
+      "delta": 3
+    },
+    {
       "dispute_date": "2026-04-15",
       "monday_date": "2026-04-22",
       "person": "Reymon Lachica",
@@ -17632,6 +20107,265 @@
       "delta": 1
     },
     {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-15",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-15",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 5
+    },
+    {
       "dispute_date": "2026-04-16",
       "monday_date": "2026-04-21",
       "person": "Michael Vincent Bresenio",
@@ -17840,6 +20574,118 @@
       "person": "Michael Vincent Bresenio",
       "platform": "Paypal",
       "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-16",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 4
+    },
+    {
+      "dispute_date": "2026-04-16",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 4
     },
     {
       "dispute_date": "2026-04-17",
@@ -17933,6 +20779,76 @@
       "delta": 2
     },
     {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
+      "dispute_date": "2026-04-17",
+      "monday_date": "2026-04-17",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
+    },
+    {
       "dispute_date": "2026-04-18",
       "monday_date": "2026-04-21",
       "person": "Reymon Lachica",
@@ -18056,6 +20972,48 @@
       "monday_date": "2026-04-20",
       "person": "Reymon Lachica",
       "platform": "Paypal",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-18",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-18",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-18",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-18",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-18",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-18",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
       "delta": 2
     },
     {
@@ -18119,6 +21077,27 @@
       "monday_date": "2026-04-20",
       "person": "Reymon Lachica",
       "platform": "Paypal",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-19",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-19",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
+      "delta": 1
+    },
+    {
+      "dispute_date": "2026-04-19",
+      "monday_date": "2026-04-20",
+      "person": "Michael Vincent Bresenio",
+      "platform": "Stripe",
       "delta": 1
     },
     {
@@ -18141,6 +21120,13 @@
       "person": "Abegail Preglo",
       "platform": "Paypal",
       "delta": 2
+    },
+    {
+      "dispute_date": "2026-04-20",
+      "monday_date": "2026-04-20",
+      "person": "Lyn",
+      "platform": "Payarc",
+      "delta": 0
     }
   ]
 }</script>
@@ -18155,12 +21141,16 @@
   const PLATFORMS_WITH_DATA = new Set(data.cases.map(c => c.platform));
 
   // ---- Header + caveat ----
+  const overallPct = Math.round((data.match.overall_match_rate || 0) * 100);
   document.getElementById('subtitle').textContent =
-    `source: Sheet dispute_date ↔ Monday date (team-logged)  ·  PayPal V1 (match ${Math.round(data.match.match_rate*100)}%)  ·  generated ${data.generated_at}`;
+    `source: Sheet dispute_date ↔ Monday date (team-logged)  ·  all 5 platforms (overall match ${overallPct}%)  ·  generated ${data.generated_at}`;
 
+  const byPlat = data.match.by_platform || {};
+  const pctFor = p => byPlat[p] ? Math.round(byPlat[p].match_rate * 100) + '%' : '—';
   document.getElementById('caveat').innerHTML =
-    `<strong>V1 scope:</strong> PayPal only (n=${fmtNum(data.match.matched_total)}). ` +
-    `Stripe / Payarc / EMS / Aurora pending v2 once ID fuzzy-match is wired.`;
+    `<strong>V2 scope:</strong> All 5 platforms via fuzzy match (amount + date within 14d). ` +
+    `PayPal: ${pctFor('Paypal')} (exact ID) · Stripe: ${pctFor('Stripe')} · Payarc: ${pctFor('Payarc')} · Aurora: ${pctFor('Aurora')} · EMS: ${pctFor('EMS')}. ` +
+    `Unmatched rows are likely RDR-early-alert CBs that fire before order creation (per Reiner), or pre-Oct 2025 Monday rows predating sheet coverage.`;
 
   // ---- Training block (always — uses ALL data, not filtered window) ----
   const preAll = data.cases.filter(c => c.dispute_date < trainingDate).map(c => c.delta);
@@ -18315,7 +21305,7 @@
     });
 
     document.getElementById('chart-footer').textContent =
-      `${labels.length} weekly buckets  ·  goal line @ 5d (PayPal SLA)  ·  orange = Mar 30 training`;
+      `${labels.length} weekly buckets  ·  mean across all matched platforms  ·  green line = PayPal 5d SLA  ·  orange = Mar 30 training`;
   }
 
   // ---- Stats row ----

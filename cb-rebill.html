@@ -92,6 +92,23 @@
     Coverage will be ~15% of fightable CBs (limited by Reiner's Sheet.number population rate).
   </div>
 
+  <div class="chart-card" style="padding:14px 20px; margin-bottom:16px;">
+    <div class="controls-row" style="justify-content:flex-start;">
+      <div class="btn-group">
+        <span class="btn-label">Window</span>
+        <button class="btn" data-window="7">7d</button>
+        <button class="btn" data-window="30">30d</button>
+        <button class="btn active" data-window="90">90d</button>
+      </div>
+      <div class="btn-group">
+        <span class="btn-label">Range</span>
+        <input type="date" id="date-from" class="date-input">
+        <span class="date-sep">→</span>
+        <input type="date" id="date-to" class="date-input">
+      </div>
+    </div>
+  </div>
+
   <div class="stats-row" id="stats"></div>
 
   <div class="donut-card">
@@ -105,20 +122,6 @@
   <div class="chart-card">
     <div class="chart-header">
       <div class="chart-title">Daily CBs — Rebill vs New (stacked)</div>
-      <div class="controls-row">
-        <div class="btn-group">
-          <span class="btn-label">Window</span>
-          <button class="btn" data-window="7">7d</button>
-          <button class="btn" data-window="30">30d</button>
-          <button class="btn active" data-window="90">90d</button>
-        </div>
-        <div class="btn-group">
-          <span class="btn-label">Range</span>
-          <input type="date" id="date-from" class="date-input">
-          <span class="date-sep">→</span>
-          <input type="date" id="date-to" class="date-input">
-        </div>
-      </div>
     </div>
     <div class="chart-wrap"><canvas id="trend"></canvas></div>
   </div>
