@@ -182,7 +182,24 @@
     <a href="cb-delivered.html" class="tab">Delivered</a>
   </div>
 
-  <div class="caveat" id="caveat"></div>
+  <!-- Filter at top — controls everything on the board (matches rebill/upsell/delivered pattern) -->
+  <div class="chart-card" style="padding:14px 20px; margin-bottom:16px;">
+    <div class="controls-row" style="justify-content:flex-start;">
+      <div class="btn-group">
+        <span class="btn-label">Window</span>
+        <button class="btn" data-window="7">7d</button>
+        <button class="btn" data-window="30">30d</button>
+        <button class="btn active" data-window="90">90d</button>
+        <button class="btn" data-window="all">All</button>
+      </div>
+      <div class="btn-group">
+        <span class="btn-label">Range</span>
+        <input type="date" id="date-from" class="date-input" title="From">
+        <span class="date-sep">→</span>
+        <input type="date" id="date-to" class="date-input" title="To">
+      </div>
+    </div>
+  </div>
 
   <!-- Training block — always visible, independent of filter -->
   <div class="training-card">
@@ -207,6 +224,9 @@
     </div>
   </div>
 
+  <!-- Overall stats in window (targets baked into each card) -->
+  <div class="stats-row" id="stats"></div>
+
   <!-- SLA tiles — targets clearly shown per platform -->
   <div class="sla-card">
     <div class="sla-head">
@@ -216,36 +236,24 @@
     <div class="sla-grid" id="sla-grid"></div>
   </div>
 
-  <!-- Date filter + trend chart -->
+  <!-- Trend chart -->
   <div class="chart-card">
     <div class="chart-header">
       <div class="chart-title">Weekly avg response time (all platforms)</div>
-      <div class="controls-row">
-        <div class="btn-group">
-          <span class="btn-label">Window</span>
-          <button class="btn" data-window="7">7d</button>
-          <button class="btn" data-window="30">30d</button>
-          <button class="btn active" data-window="90">90d</button>
-          <button class="btn" data-window="all">All</button>
-        </div>
-        <div class="btn-group">
-          <span class="btn-label">Range</span>
-          <input type="date" id="date-from" class="date-input" title="From">
-          <span class="date-sep">→</span>
-          <input type="date" id="date-to" class="date-input" title="To">
-        </div>
-      </div>
     </div>
     <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
     <div class="footer-meta" id="chart-footer"></div>
   </div>
 
-  <!-- Overall stats in window -->
-  <div class="stats-row" id="stats"></div>
-
   <!-- Per-person table (window + SLA column) -->
   <div class="person-table">
     <h3 id="person-table-title">Per-person response time</h3>
+    <div style="font-size:12px; color:var(--text-dim); margin-bottom:12px; display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+      <span><strong style="color:var(--text);">🎯 Target:</strong> PayPal ≤5d · Payarc/EMS/Aurora ≤7d · Stripe 7-14d sweet spot</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--accent);"></span>On target (≤5d)</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--warn);"></span>Borderline (5–7d)</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--danger);"></span>Missing target (&gt;7d)</span>
+    </div>
     <table id="person-table-el">
       <thead>
         <tr><th>Person</th><th>Cases</th><th>Mean (d)</th><th>Median</th><th>% ≤ 5d</th><th>% ≤ 7d</th><th>Max</th></tr>
@@ -21145,12 +21153,7 @@
   document.getElementById('subtitle').textContent =
     `source: Sheet dispute_date ↔ Monday date (team-logged)  ·  all 5 platforms (overall match ${overallPct}%)  ·  generated ${data.generated_at}`;
 
-  const byPlat = data.match.by_platform || {};
-  const pctFor = p => byPlat[p] ? Math.round(byPlat[p].match_rate * 100) + '%' : '—';
-  document.getElementById('caveat').innerHTML =
-    `<strong>V2 scope:</strong> All 5 platforms via fuzzy match (amount + date within 14d). ` +
-    `PayPal: ${pctFor('Paypal')} (exact ID) · Stripe: ${pctFor('Stripe')} · Payarc: ${pctFor('Payarc')} · Aurora: ${pctFor('Aurora')} · EMS: ${pctFor('EMS')}. ` +
-    `Unmatched rows are likely RDR-early-alert CBs that fire before order creation (per Reiner), or pre-Oct 2025 Monday rows predating sheet coverage.`;
+  // caveat removed per Sindy — match rates are now shown in the per-platform SLA tiles
 
   // ---- Training block (always — uses ALL data, not filtered window) ----
   const preAll = data.cases.filter(c => c.dispute_date < trainingDate).map(c => c.delta);
@@ -21308,33 +21311,42 @@
       `${labels.length} weekly buckets  ·  mean across all matched platforms  ·  green line = PayPal 5d SLA  ·  orange = Mar 30 training`;
   }
 
-  // ---- Stats row ----
+  // ---- Stats row — targets baked in ----
   function renderStats(filteredCases) {
     const deltas = filteredCases.map(c => c.delta);
     const n = deltas.length;
     const mn = n ? mean(deltas) : 0;
     const md = n ? median(deltas) : 0;
     const w3 = within(deltas, 3), w5 = within(deltas, 5), w7 = within(deltas, 7);
+    const mnColor = mn <= 5 ? 'var(--accent)' : (mn <= 7 ? 'var(--warn)' : 'var(--danger)');
+    const w5Pct = n ? Math.round(100*w5/n) : 0;
+    const w7Pct = n ? Math.round(100*w7/n) : 0;
+    const w5Color = w5Pct >= 70 ? 'var(--accent)' : (w5Pct >= 40 ? 'var(--warn)' : 'var(--danger)');
+    const w7Color = w7Pct >= 70 ? 'var(--accent)' : (w7Pct >= 40 ? 'var(--warn)' : 'var(--danger)');
     document.getElementById('stats').innerHTML = `
       <div class="stat-card">
-        <div class="stat-label">Avg response (window)</div>
-        <div class="stat-value">${mn.toFixed(1)}<span style="font-size:14px;color:var(--text-dim);"> d</span></div>
+        <div class="stat-label">Avg response</div>
+        <div class="stat-value" style="color:${mnColor};">${mn.toFixed(1)}<span style="font-size:14px;color:var(--text-dim);"> d</span></div>
         <div class="stat-sub">median ${md}d · n=${fmtNum(n)}</div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);"><strong style="color:var(--accent);">🎯 Target: ≤5d</strong> (PayPal), ≤7d (Payarc/EMS/Aurora)</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Within 3 days</div>
         <div class="stat-value">${n ? Math.round(100*w3/n) : 0}<span style="font-size:14px;">%</span></div>
         <div class="stat-sub">${fmtNum(w3)} of ${fmtNum(n)}</div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);">Best-in-class benchmark</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Within 5 days <span style="color:var(--accent);">· PayPal SLA</span></div>
-        <div class="stat-value">${n ? Math.round(100*w5/n) : 0}<span style="font-size:14px;">%</span></div>
+        <div class="stat-label">Within 5 days</div>
+        <div class="stat-value" style="color:${w5Color};">${w5Pct}<span style="font-size:14px;">%</span></div>
         <div class="stat-sub">${fmtNum(w5)} of ${fmtNum(n)}</div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);"><strong style="color:var(--accent);">🎯 PayPal SLA target: 100%</strong></div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Within 7 days</div>
-        <div class="stat-value">${n ? Math.round(100*w7/n) : 0}<span style="font-size:14px;">%</span></div>
+        <div class="stat-value" style="color:${w7Color};">${w7Pct}<span style="font-size:14px;">%</span></div>
         <div class="stat-sub">${fmtNum(w7)} of ${fmtNum(n)}</div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);"><strong style="color:var(--accent);">🎯 Payarc / EMS / Aurora SLA: 100%</strong></div>
       </div>
     `;
   }

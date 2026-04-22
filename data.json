@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-22T15:01:19",
+  "lastRefreshed": "2026-04-22T15:10:54",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
@@ -10,7 +10,7 @@
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-21",
-      "fileAge": 0.8
+      "fileAge": 1.0
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
@@ -25,12 +25,12 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.8
+      "fileAge": 0.0
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 0.8
+      "fileAge": 1.0
     }
   },
   "stock": {
@@ -41,11 +41,11 @@
         "stockDate": "2026-04-21",
         "demand": 9371,
         "dos": 2,
-        "incoming": 960000,
+        "incoming": 810000,
         "effOOS": "2026-04-24",
         "status": "RED - 2d",
         "statusCls": "red-status",
-        "qtyNeeded": 0
+        "qtyNeeded": 12749
       },
       {
         "name": "Bailiny",
@@ -74,7 +74,7 @@
     ],
     "totalStock": 93878,
     "totalDemand": 12776,
-    "totalIncoming": 1370815
+    "totalIncoming": 1220815
   },
   "stockProjection": [
     {
@@ -260,7 +260,7 @@
       "supplier": "Sendy Li",
       "qty": 150000,
       "dest": "TFM",
-      "status": "In Transit",
+      "status": "Delivered",
       "method": "Air",
       "eta": "2026-04-20",
       "payment": "PAID ($287,400)",
@@ -453,17 +453,17 @@
           "shipMethod": "Air",
           "carrier": "Sendy Li (air freight)",
           "shipDate": "31 March 2026",
-          "eta": "20 April 2026",
+          "eta": "Del \u00b7 20 April 2026",
           "orderDate": "19 February 2026 (est.)",
           "depositDate": "19 February 2026 (est.)",
           "productionDays": 40,
           "inTransitDays": 20,
-          "productionStatus": "Delivered 125K \u00b7 25K in transit",
-          "productionCls": "warn",
+          "productionStatus": "Delivered",
+          "productionCls": "ok",
           "paymentStatus": "Paid ($287,400)",
           "paymentCls": "ok",
-          "nextPayment": "Final 40% ~$79,200",
-          "nextPaymentDue": "20 April 2026",
+          "nextPayment": "\u2014 complete \u2014",
+          "nextPaymentDue": "",
           "unitCost": 1.32,
           "totalValue": 198000,
           "depositAmount": 59400,
@@ -473,7 +473,7 @@
           "productionPaid": true,
           "productionDue": "31 March 2026",
           "deliveryAmount": 79200,
-          "deliveryPaid": false,
+          "deliveryPaid": true,
           "deliveryDue": "10 May 2026",
           "batchTotal": 198000,
           "deliveredQty": 125000,
