@@ -132,11 +132,17 @@
 </div>
 
 <script id="cb-data" type="application/json">{
-  "generated_at": "2026-04-22T11:03:00",
+  "generated_at": "2026-04-22T11:20:54",
   "window_days": 90,
-  "window_start": "2026-01-23",
-  "window_end": "2026-04-22",
+  "window_start": "2026-01-22",
+  "window_end": "2026-04-21",
+  "max_observed_date": "2026-04-21",
+  "today": "2026-04-22",
+  "partial_dates": [
+    "2026-04-21"
+  ],
   "dates": [
+    "2026-01-22",
     "2026-01-23",
     "2026-01-24",
     "2026-01-25",
@@ -225,8 +231,7 @@
     "2026-04-18",
     "2026-04-19",
     "2026-04-20",
-    "2026-04-21",
-    "2026-04-22"
+    "2026-04-21"
   ],
   "platforms": [
     "Paypal",
@@ -240,6 +245,7 @@
   ],
   "series": {
     "Paypal": [
+      14,
       11,
       5,
       10,
@@ -328,10 +334,10 @@
       40,
       50,
       72,
-      4,
-      0
+      4
     ],
     "Stripe Dispute": [
+      3,
       3,
       2,
       2,
@@ -420,10 +426,10 @@
       14,
       5,
       2,
-      8,
-      0
+      8
     ],
     "Stripe by RDR": [
+      0,
       2,
       1,
       1,
@@ -512,10 +518,10 @@
       0,
       0,
       1,
-      0,
       0
     ],
     "Payarc": [
+      0,
       1,
       0,
       0,
@@ -604,10 +610,10 @@
       0,
       0,
       26,
-      0,
       0
     ],
     "Aurora": [
+      1,
       0,
       0,
       0,
@@ -696,7 +702,6 @@
       0,
       0,
       3,
-      0,
       0
     ],
     "EMS": [
@@ -716,6 +721,7 @@
       0,
       0,
       0,
+      0,
       1,
       0,
       1,
@@ -787,11 +793,11 @@
       0,
       0,
       2,
-      0,
       0,
       0
     ],
     "Kount": [
+      44,
       23,
       10,
       9,
@@ -880,10 +886,10 @@
       81,
       54,
       128,
-      24,
-      0
+      24
     ],
     "(blank)": [
+      0,
       0,
       0,
       0,
@@ -972,32 +978,31 @@
       0,
       0,
       0,
-      0,
       0
     ]
   },
   "totals_by_platform": {
-    "Paypal": 3071,
-    "Stripe Dispute": 445,
+    "Paypal": 3085,
+    "Stripe Dispute": 448,
     "Stripe by RDR": 60,
     "Payarc": 467,
-    "Aurora": 89,
+    "Aurora": 90,
     "EMS": 92,
-    "Kount": 6449,
+    "Kount": 6493,
     "(blank)": 1
   },
   "amounts_by_platform": {
-    "Paypal": 381366.92,
-    "Stripe Dispute": 53108.92,
+    "Paypal": 383256.67,
+    "Stripe Dispute": 53543.68,
     "Stripe by RDR": 5834.42,
     "Payarc": 60975.71,
-    "Aurora": 11633.2,
+    "Aurora": 11807.2,
     "EMS": 12788.24,
-    "Kount": 788102.18,
+    "Kount": 792911.83,
     "(blank)": 0.0
   },
-  "grand_total_count": 10674,
-  "grand_total_amount": 1313809.59
+  "grand_total_count": 10736,
+  "grand_total_amount": 1321117.75
 }</script>
 <script>
 (function() {
@@ -1019,15 +1024,19 @@
   const kindOf   = p => FIGHTABLE.has(p) ? 'fight' : (AUTO.has(p) ? 'auto' : 'other');
 
   const visiblePlatforms = data.platforms.filter(p => p && p !== '(blank)');
+  const partialDatesSet = new Set(data.partial_dates || []);
 
   // State
   let currentWindow = 90;
   let currentFilter = 'all';   // 'all' | 'fight' | 'auto'
   const hiddenByLegend = new Set();
 
-  // Subtitle
+  // Subtitle — flag partial days explicitly
+  const partialNote = partialDatesSet.size
+    ? `  ·  ⚠ ${[...partialDatesSet].join(', ')} is partial (sheet still being updated — shown at 50% opacity)`
+    : '';
   document.getElementById('subtitle').textContent =
-    `${data.window_start} → ${data.window_end}  ·  source: Daily CB Analysis 3 › Analysis of dispute  ·  updated ${data.generated_at}`;
+    `${data.window_start} → ${data.window_end}  ·  source: Daily CB Analysis 3 › Analysis of dispute  ·  updated ${data.generated_at}${partialNote}`;
 
   const fmtUSD = n => '$' + (n || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtNum = n => (n || 0).toLocaleString('en-US');
@@ -1066,12 +1075,16 @@
     },
   };
 
-  // Build chart
+  // Build chart — per-bar bg color dims partial days to 50% opacity
   const ctx = document.getElementById('cb-chart').getContext('2d');
+  const withAlpha = (hex, alphaHex) => hex + alphaHex;
   const datasets = visiblePlatforms.map(p => ({
     label: p,
     data: data.series[p].slice(),
-    backgroundColor: colorFor(p),
+    backgroundColor: (c) => {
+      const label = c.chart.data.labels[c.dataIndex];
+      return partialDatesSet.has(label) ? withAlpha(colorFor(p), '80') : colorFor(p);
+    },
     borderWidth: 0,
     stack: 'cb',
     hidden: false,
