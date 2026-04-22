@@ -21328,25 +21328,25 @@
         <div class="stat-label">Avg response</div>
         <div class="stat-value" style="color:${mnColor};">${mn.toFixed(1)}<span style="font-size:14px;color:var(--text-dim);"> d</span></div>
         <div class="stat-sub">median ${md}d · n=${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);"><strong style="color:var(--accent);">🎯 Target: ≤5d</strong> (PayPal), ≤7d (Payarc/EMS/Aurora)</div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">🎯 Target: ≤5d PayPal · ≤7d Payarc/EMS/Aurora · 7-14d Stripe</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Within 3 days</div>
         <div class="stat-value">${n ? Math.round(100*w3/n) : 0}<span style="font-size:14px;">%</span></div>
         <div class="stat-sub">${fmtNum(w3)} of ${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);">Best-in-class benchmark</div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">Best-in-class benchmark (no SLA tied here)</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Within 5 days</div>
         <div class="stat-value" style="color:${w5Color};">${w5Pct}<span style="font-size:14px;">%</span></div>
         <div class="stat-sub">${fmtNum(w5)} of ${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);"><strong style="color:var(--accent);">🎯 PayPal SLA target: 100%</strong></div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">🎯 PayPal SLA — goal: 100% (gives 5d buffer before 10d deadline)</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Within 7 days</div>
         <div class="stat-value" style="color:${w7Color};">${w7Pct}<span style="font-size:14px;">%</span></div>
         <div class="stat-sub">${fmtNum(w7)} of ${fmtNum(n)}</div>
-        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border);"><strong style="color:var(--accent);">🎯 Payarc / EMS / Aurora SLA: 100%</strong></div>
+        <div class="stat-sub" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--card-border); color:var(--text-dim);">🎯 Payarc / EMS / Aurora SLA — goal: 100%</div>
       </div>
     `;
   }
@@ -21365,29 +21365,39 @@
       const hasData = deltas.length > 0;
       let pct = 0, hit = 0, total = deltas.length;
       let targetLabel = '';
+      let targetUpper = 0; // used for coloring mean
       if (cfg.type === 'max') {
         targetLabel = `Target: ≤ ${cfg.target} days`;
         hit = within(deltas, cfg.target);
+        targetUpper = cfg.target;
       } else {
         const [lo, hi] = cfg.target;
         targetLabel = `Target: ${lo}-${hi} days (sweet spot)`;
         hit = withinBand(deltas, lo, hi);
+        targetUpper = hi;
       }
       pct = total ? Math.round(100 * hit / total) : 0;
-      const color = pct >= 70 ? 'var(--accent)' : (pct >= 40 ? 'var(--warn)' : 'var(--danger)');
+      const mn = hasData ? mean(deltas) : 0;
+      const md = hasData ? median(deltas) : 0;
+      const meanColor = hasData
+        ? (mn <= targetUpper ? 'var(--accent)' : (mn <= targetUpper * 1.5 ? 'var(--warn)' : 'var(--danger)'))
+        : 'var(--text-dim)';
+      const pctColor = pct >= 70 ? 'var(--accent)' : (pct >= 40 ? 'var(--warn)' : 'var(--danger)');
       const inactive = !hasData ? ' inactive' : '';
-      const metaLine = hasData
-        ? `${fmtNum(hit)} of ${fmtNum(total)} · mean ${mean(deltas).toFixed(1)}d`
-        : 'no V1 data — pending ID match fix';
 
       return `
         <div class="sla-tile${inactive}">
           <div class="sla-tile-plat">${plat}</div>
           <div class="sla-tile-target">${targetLabel}</div>
-          <div class="sla-tile-val" style="color:${hasData ? color : 'var(--text-dim)'}">
-            ${hasData ? pct : '—'}<span class="pct">${hasData ? '%' : ''}</span>
+          <div class="sla-tile-val" style="color:${meanColor}">
+            ${hasData ? mn.toFixed(1) : '—'}<span class="pct">${hasData ? ' d avg' : ''}</span>
           </div>
-          <div class="sla-tile-meta">${metaLine}</div>
+          <div class="sla-tile-meta" style="margin-top:6px;">
+            ${hasData ? `median ${md}d · n=${fmtNum(total)}` : 'no data'}
+          </div>
+          <div class="sla-tile-meta" style="margin-top:8px; padding-top:8px; border-top:1px solid var(--card-border);">
+            ${hasData ? `<span style="color:${pctColor}; font-weight:600;">${pct}%</span> on target · ${fmtNum(hit)} of ${fmtNum(total)}` : 'pending match'}
+          </div>
         </div>
       `;
     }).join('');
