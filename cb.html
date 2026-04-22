@@ -1041,12 +1041,12 @@
   const fmtUSD = n => '$' + (n || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtNum = n => (n || 0).toLocaleString('en-US');
 
-  // Custom plugin: draws stacked-total number above each bar
+  // Custom plugin: draws stacked-total number above each bar (visible datasets only)
   const totalOnTopPlugin = {
     id: 'totalOnTop',
     afterDatasetsDraw(chart) {
       const ctx = chart.ctx;
-      const metas = chart.data.datasets.map((_, i) => chart.getDatasetMeta(i));
+      const datasets = chart.data.datasets;
       const barCount = chart.data.labels.length;
       ctx.save();
       ctx.font = '600 10px -apple-system, BlinkMacSystemFont, Inter, sans-serif';
@@ -1055,18 +1055,19 @@
       ctx.textBaseline = 'bottom';
       for (let idx = 0; idx < barCount; idx++) {
         let total = 0, topY = Infinity, x = null, barWidth = 0;
-        for (let di = 0; di < metas.length; di++) {
-          const meta = metas[di];
+        for (let di = 0; di < datasets.length; di++) {
+          // Skip datasets hidden via dataset.hidden = true (filter/legend toggles)
+          if (datasets[di].hidden) continue;
+          const meta = chart.getDatasetMeta(di);
           if (meta.hidden) continue;
           const el = meta.data[idx];
           if (!el) continue;
-          const v = chart.data.datasets[di].data[idx] || 0;
+          const v = datasets[di].data[idx] || 0;
           if (v === 0) continue;
           total += v;
           if (x === null) { x = el.x; barWidth = el.width || 0; }
           if (el.y < topY) topY = el.y;
         }
-        // Only render label if the bar is wide enough to fit it cleanly
         if (total > 0 && x !== null && isFinite(topY) && barWidth >= 18) {
           ctx.fillText(String(total), x, topY - 4);
         }
