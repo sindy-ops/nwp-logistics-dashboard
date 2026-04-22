@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-04-22T11:39:38",
+  "lastRefreshed": "2026-04-22T11:43:20",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
@@ -10,7 +10,7 @@
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-15",
-      "fileAge": 149.5
+      "fileAge": 149.6
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
@@ -25,12 +25,12 @@
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.4
+      "fileAge": 0.5
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 1.6
+      "fileAge": 1.7
     }
   },
   "stock": {
@@ -427,6 +427,7 @@
       "totalQty": 300000,
       "poCount": 3,
       "layout": "table",
+      "dominantTint": "sendy",
       "cards": [
         {
           "po": "PO-SL-300K-AIR",
@@ -546,6 +547,7 @@
       "totalQty": 335000,
       "poCount": 3,
       "layout": "table",
+      "dominantTint": "sendy",
       "cards": [
         {
           "po": "PO-SL-335K-75K",
@@ -660,6 +662,7 @@
       "totalQty": 300000,
       "poCount": 1,
       "layout": "table",
+      "dominantTint": "sendy",
       "cards": [
         {
           "po": "PO-SL-300K-REC",
@@ -704,6 +707,7 @@
       "totalQty": 496895,
       "poCount": 6,
       "layout": "table",
+      "dominantTint": "eagle",
       "cards": [
         {
           "po": "PO-EL-28K-AMZ",
@@ -923,6 +927,7 @@
       "totalQty": 100000,
       "poCount": 1,
       "layout": "table",
+      "dominantTint": "laura",
       "cards": [
         {
           "po": "PO-LW-100K",
