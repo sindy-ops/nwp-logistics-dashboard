@@ -1,31 +1,31 @@
 {
-  "lastRefreshed": "2026-04-22T11:07:34",
+  "lastRefreshed": "2026-04-22T11:10:53",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-16",
-      "fileAge": 146.2
+      "fileAge": 146.3
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-15",
-      "fileAge": 149.0
+      "fileAge": 149.1
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-16",
-      "fileAge": 147.0
+      "fileAge": 147.1
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 147.0
+      "fileAge": 147.1
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 8.3
+      "fileAge": 0.0
     },
     "amazon": {
       "name": "Amazon FBA",
@@ -440,7 +440,7 @@
           "depositDate": "19 February 2026",
           "productionDays": 40,
           "inTransitDays": 20,
-          "productionStatus": "Arrived \u2014 verify",
+          "productionStatus": "Partial \u2014 last mile (2d past ETA)",
           "productionCls": "warn",
           "paymentStatus": "Paid ($287,400)",
           "paymentCls": "ok",
@@ -457,7 +457,7 @@
           "deliveryAmount": 79200,
           "deliveryPaid": false,
           "deliveryDue": "10 May 2026",
-          "notes": "1071 ctns. Delivered: 693 (142+15+228+310). 2 cases lost \u2014 added to next 300K. 378 ctns (~53K) pending last mile."
+          "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K."
         },
         {
           "po": "PO-SL-300K-SEA1",
