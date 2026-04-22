@@ -1,36 +1,36 @@
 {
-  "lastRefreshed": "2026-04-22T12:11:47",
+  "lastRefreshed": "2026-04-22T13:05:01",
   "updatedOn": "22/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-22",
-      "fileAge": 0.1
+      "fileAge": 1.0
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-21",
-      "fileAge": 0.1
+      "fileAge": 1.0
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-22",
-      "fileAge": 0.0
+      "fileAge": 0.9
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-22",
-      "fileAge": 0.0
+      "fileAge": 0.9
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.1
+      "fileAge": 0.0
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 2.2
+      "fileAge": 3.0
     }
   },
   "stock": {
@@ -41,11 +41,11 @@
         "stockDate": "2026-04-21",
         "demand": 9371,
         "dos": 2,
-        "incoming": 570000,
+        "incoming": 960000,
         "effOOS": "2026-04-24",
         "status": "RED - 2d",
         "statusCls": "red-status",
-        "qtyNeeded": 252749
+        "qtyNeeded": 0
       },
       {
         "name": "Bailiny",
@@ -74,7 +74,7 @@
     ],
     "totalStock": 93878,
     "totalDemand": 12776,
-    "totalIncoming": 980815
+    "totalIncoming": 1370815
   },
   "stockProjection": [
     {
@@ -326,7 +326,7 @@
       "supplier": "Sendy Li",
       "qty": 300000,
       "dest": "TFM+Bailiny",
-      "status": "Ordered",
+      "status": "In Production",
       "method": "Sea",
       "eta": "2026-06-01",
       "payment": "PAID ($118,800)",
@@ -402,11 +402,22 @@
       "po": "PO-SL-80K-NEW",
       "supplier": "Sendy Li",
       "qty": 80000,
-      "dest": "TBD",
+      "dest": "TFM",
       "status": "In Production",
-      "method": "TBD",
-      "eta": "TBD",
+      "method": "Sea",
+      "eta": "2026-06-15",
       "payment": "PAID ($31,687)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-310K-REC",
+      "supplier": "Sendy Li",
+      "qty": 310000,
+      "dest": "TFM",
+      "status": "In Production",
+      "method": "Sea",
+      "eta": "2026-06-28",
+      "payment": "PAID ($122,760)",
       "paymentCls": "paid"
     },
     {
@@ -429,9 +440,9 @@
       "layout": "table",
       "dominantTint": "sendy",
       "paymentHeaders": [
-        "Deposit 35%",
-        "Production 35%",
-        "Delivery 40%"
+        "Deposit 30%",
+        "Production 30%",
+        "Delivery 40% (NET 40)"
       ],
       "cards": [
         {
@@ -454,19 +465,19 @@
           "nextPaymentDue": "20 April 2026",
           "unitCost": 1.32,
           "totalValue": 198000,
-          "depositAmount": 69300,
+          "depositAmount": 59400,
           "depositPaid": true,
           "depositDue": "19 February 2026",
-          "productionAmount": 69300,
+          "productionAmount": 59400,
           "productionPaid": true,
           "productionDue": "31 March 2026",
           "deliveryAmount": 79200,
           "deliveryPaid": false,
           "deliveryDue": "10 May 2026",
-          "batchTotal": 217800,
+          "batchTotal": 198000,
           "deliveredQty": 125000,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
           "notes": "1071 ctns total. Husna Apr 22: 893 ctns (~125K) delivered (693 earlier + 200 ctns/28K received 21/4). 10K arriving this week. 10K awaiting delivery update. 2 cases lost \u2014 added to next 300K.",
           "hasAlert": true
@@ -491,19 +502,19 @@
           "nextPaymentDue": "7 May 2026",
           "unitCost": 1.32,
           "totalValue": 112200,
-          "depositAmount": 39270,
+          "depositAmount": 33660,
           "depositPaid": true,
           "depositDue": "1 March 2026",
-          "productionAmount": 39270,
+          "productionAmount": 33660,
           "productionPaid": true,
           "productionDue": "10 April 2026",
           "deliveryAmount": 44880,
           "deliveryPaid": false,
           "deliveryDue": "20 May 2026",
-          "batchTotal": 123420,
+          "batchTotal": 112200,
           "deliveredQty": 0,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
           "notes": "Via A2Z Matson DDP (HR-001: 84,980u). Picked up Apr 10, ETD Apr 14, ETA May 7. $0.30/u.",
           "hasAlert": false
@@ -528,19 +539,19 @@
           "nextPaymentDue": "11 May 2026",
           "unitCost": 1.32,
           "totalValue": 85800,
-          "depositAmount": 30029,
+          "depositAmount": 25740,
           "depositPaid": true,
           "depositDue": "1 March 2026",
-          "productionAmount": 30029,
+          "productionAmount": 25740,
           "productionPaid": true,
           "productionDue": "10 April 2026",
           "deliveryAmount": 34320,
           "deliveryPaid": false,
           "deliveryDue": "20 May 2026",
-          "batchTotal": 94378,
+          "batchTotal": 85800,
           "deliveredQty": 0,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
           "notes": "Via A2Z Matson DDP (HR-002: 64,690u). Picked up Apr 10, ETD Apr 15. $0.31/u. Cost: Ameer $19,930 vs Husna $19,390 \u2014 pending invoice.",
           "hasAlert": false
@@ -560,9 +571,9 @@
       "layout": "table",
       "dominantTint": "sendy",
       "paymentHeaders": [
-        "Deposit 35%",
-        "Production 35%",
-        "Delivery 40%"
+        "Deposit 30%",
+        "Production 30%",
+        "Delivery 40% (NET 40)"
       ],
       "cards": [
         {
@@ -585,19 +596,19 @@
           "nextPaymentDue": "",
           "unitCost": 1.32,
           "totalValue": 99000,
-          "depositAmount": 34650,
+          "depositAmount": 29700,
           "depositPaid": true,
           "depositDue": "1 March 2026",
-          "productionAmount": 34650,
+          "productionAmount": 29700,
           "productionPaid": true,
           "productionDue": "10 April 2026",
           "deliveryAmount": 39600,
           "deliveryPaid": true,
           "deliveryDue": "20 May 2026 (est.)",
-          "batchTotal": 108900,
+          "batchTotal": 99000,
           "deliveredQty": 0,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
           "notes": "From 335K. 536 ctns total. 455 confirmed received, 81 pending confirmation from 3PL.",
           "hasAlert": false
@@ -614,29 +625,29 @@
           "depositDate": "8 March 2026",
           "productionDays": 40,
           "inTransitDays": 40,
-          "productionStatus": "Ordered \u00b7 prod start NOT SHARED",
-          "productionCls": "red",
+          "productionStatus": "Ordered \u2014 not started",
+          "productionCls": "pending",
           "paymentStatus": "Paid ($138,138)",
           "paymentCls": "ok",
           "nextPayment": "Final 40% ~$105,600",
           "nextPaymentDue": "On arrival",
           "unitCost": 1.32,
           "totalValue": 264000,
-          "depositAmount": 92400,
+          "depositAmount": 79200,
           "depositPaid": true,
           "depositDue": "8 March 2026",
-          "productionAmount": 92400,
+          "productionAmount": 79200,
           "productionPaid": true,
           "productionDue": "17 April 2026",
           "deliveryAmount": 105600,
           "deliveryPaid": false,
           "deliveryDue": "27 May 2026",
-          "batchTotal": 290400,
+          "batchTotal": 264000,
           "deliveredQty": 0,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, ship Apr 17, ETD May 24 (per Husna). Product: $138,138 (2nd 35% + 60K shipping).",
+          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, ship Apr 17, ETD May 24 (per Husna). Product: $138,138 (2nd 30% + 60K shipping).",
           "hasAlert": false
         },
         {
@@ -659,19 +670,19 @@
           "nextPaymentDue": "2 June 2026",
           "unitCost": 1.32,
           "totalValue": 79200,
-          "depositAmount": 27720,
+          "depositAmount": 23760,
           "depositPaid": true,
           "depositDue": "8 March 2026",
-          "productionAmount": 27720,
+          "productionAmount": 23760,
           "productionPaid": true,
           "productionDue": "17 April 2026",
           "deliveryAmount": 31680,
           "deliveryPaid": false,
           "deliveryDue": "27 May 2026",
-          "batchTotal": 87120,
+          "batchTotal": 79200,
           "deliveredQty": 0,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
           "notes": "Via Normal Sea. Ship Apr 17, ETD May 22 (per Husna). Shipping $18,018.",
           "hasAlert": false
@@ -680,15 +691,15 @@
       "alerts": []
     },
     {
-      "group": "Recurring 2 \u2014 300K/mo Sendy",
+      "group": "Recurring 2 \u2014 300K Sendy (Apr batch)",
       "totalQty": 300000,
       "poCount": 1,
       "layout": "table",
       "dominantTint": "sendy",
       "paymentHeaders": [
-        "Deposit 35%",
-        "Production 35%",
-        "Delivery 40%"
+        "Deposit 30%",
+        "Production 30%",
+        "Delivery 40% (NET 40)"
       ],
       "cards": [
         {
@@ -703,29 +714,81 @@
           "depositDate": "13 March 2026",
           "productionDays": 40,
           "inTransitDays": 40,
-          "productionStatus": "Ordered \u00b7 prod start NOT SHARED",
-          "productionCls": "red",
+          "productionStatus": "In production",
+          "productionCls": "warn",
           "paymentStatus": "Paid ($118,800)",
           "paymentCls": "ok",
           "nextPayment": "Production 35% ~$138,600",
           "nextPaymentDue": "2 May 2026",
           "unitCost": 1.32,
           "totalValue": 396000,
-          "depositAmount": 138600,
+          "depositAmount": 118800,
           "depositPaid": true,
           "depositDue": "13 March 2026",
-          "productionAmount": 138600,
+          "productionAmount": 118800,
           "productionPaid": true,
           "productionDue": "22 April 2026",
           "deliveryAmount": 158400,
           "deliveryPaid": false,
           "deliveryDue": "1 June 2026 (est.)",
-          "batchTotal": 435600,
+          "batchTotal": 396000,
           "deliveredQty": 0,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "Recurring 300K/month. Deposit $118,800 paid (P260402-4398FL1). 2nd payment $118,880 due May 1. Production start date NOT SHARED by Sendy \u2014 chase Michelle.",
+          "notes": "Recurring batch (Apr). Deposit 30% $118,800 PAID Apr 8 (Airwallex 20260407Q). Production in progress. Batch shipping: first 100K ~15-18d after prod start.",
+          "hasAlert": false
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "group": "Recurring 3 \u2014 310K Sendy (May batch)",
+      "totalQty": 310000,
+      "poCount": 1,
+      "layout": "table",
+      "dominantTint": "sendy",
+      "paymentHeaders": [
+        "Deposit 30%",
+        "Production 30%",
+        "Delivery 40% (NET 40)"
+      ],
+      "cards": [
+        {
+          "po": "PO-SL-310K-REC",
+          "supplier": "Sendy Li",
+          "qty": 310000,
+          "dest": "TFM",
+          "shipMethod": "Sea",
+          "shipDate": "27 May 2026",
+          "eta": "28 June 2026",
+          "orderDate": "17 April 2026",
+          "depositDate": "17 April 2026",
+          "productionDays": 40,
+          "inTransitDays": 32,
+          "productionStatus": "In production",
+          "productionCls": "warn",
+          "paymentStatus": "Paid ($122,760)",
+          "paymentCls": "ok",
+          "nextPayment": "Production 35% ~$143,220",
+          "nextPaymentDue": "27 May 2026",
+          "unitCost": 1.32,
+          "totalValue": 409200,
+          "depositAmount": 122760,
+          "depositPaid": true,
+          "depositDue": "17 April 2026",
+          "productionAmount": 122760,
+          "productionPaid": true,
+          "productionDue": "27 May 2026",
+          "deliveryAmount": 163680,
+          "deliveryPaid": false,
+          "deliveryDue": "6 July 2026",
+          "batchTotal": 409200,
+          "deliveredQty": 0,
+          "supplierTint": "sendy",
+          "paymentModel": "sendy_303040",
+          "packSplit": "",
+          "notes": "Recurring 2 per Sendy (Apr 21 thread). 310K \u00d7 $1.32 = $409,200. Deposit 30% $122,760 PAID Apr 21 (Airwallex 310K 20260421Q). Production started Apr 23. Finish 20-26 May. ETD 27 May. ETA 26-30 June W4 June/W1 July.",
           "hasAlert": false
         }
       ],
@@ -738,46 +801,46 @@
       "layout": "table",
       "dominantTint": "sendy",
       "paymentHeaders": [
-        "Deposit 35%",
-        "Production 35%",
-        "Delivery 40%"
+        "Deposit 30%",
+        "Production 30%",
+        "Delivery 40% (NET 40)"
       ],
       "cards": [
         {
           "po": "PO-SL-80K-NEW",
           "supplier": "Sendy Li",
           "qty": 80000,
-          "dest": "TBD",
-          "shipMethod": "TBD",
-          "shipDate": "TBD",
-          "eta": "TBD",
-          "orderDate": "TBD",
-          "depositDate": "TBD",
+          "dest": "TFM",
+          "shipMethod": "Sea",
+          "shipDate": "10 May 2026",
+          "eta": "15 June 2026",
+          "orderDate": "31 March 2026",
+          "depositDate": "31 March 2026",
           "productionDays": 40,
-          "inTransitDays": 30,
+          "inTransitDays": 36,
           "productionStatus": "In production",
           "productionCls": "warn",
           "paymentStatus": "Paid ($31,687)",
           "paymentCls": "ok",
           "nextPayment": "Production 35% ~$36,960",
-          "nextPaymentDue": "+40d from order",
+          "nextPaymentDue": "10 May 2026",
           "unitCost": 1.32,
           "totalValue": 105600,
-          "depositAmount": 36960,
+          "depositAmount": 31680,
           "depositPaid": true,
-          "depositDue": "Now",
-          "productionAmount": 36960,
+          "depositDue": "31 March 2026",
+          "productionAmount": 31680,
           "productionPaid": true,
-          "productionDue": "End of prod (40d)",
+          "productionDue": "10 May 2026",
           "deliveryAmount": 42240,
           "deliveryPaid": false,
-          "deliveryDue": "TBD",
-          "batchTotal": 116160,
+          "deliveryDue": "19 June 2026",
+          "batchTotal": 105600,
           "deliveredQty": 0,
           "supplierTint": "sendy",
-          "paymentModel": "sendy_353540",
+          "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "New order Apr 16. $105,600 total. Deposit 30% $31,687 PAID Apr 17 (Airwallex ref 20260416). Production started Apr 20 per memory. Old 30/30/40 terms (pre 35/35/40 switch).",
+          "notes": "New order Apr 16. $105,600 total. Deposit 30% $31,687 PAID Apr 17 (Airwallex 20260416). Production started Apr 20. Finish 7 May per Sendy (Apr 21 thread). Ship/ETA are ESTIMATES until Sendy confirms.",
           "hasAlert": false
         }
       ],
@@ -901,7 +964,7 @@
           "supplierTint": "eagle",
           "paymentModel": "eagle_receipt",
           "packSplit": "18060 singles | 3717 sets 3pk (11151u) | 84 sets 6pk (504u)",
-          "notes": "72K close-out per Eagle schedule Apr 20. Sam Apr 21: singles ship Fri 4/24, 3pk/6pk Mon/Tue 4/27-4/28. Replaces PO-EL-72K-3PK6PK + PO-EL-72K-REMAIN. 16945-jar gap vs original 72K \u2014 TBD if cut or rolled to recurring.",
+          "notes": "72K close-out per Eagle schedule Apr 20. Sam Apr 21: singles ship Fri 4/24, 3pk/6pk Mon/Tue 4/27-4/28. 16945-jar gap vs original 72K \u2014 TBD if cut or rolled to recurring.",
           "hasAlert": false
         },
         {
@@ -938,7 +1001,7 @@
           "supplierTint": "eagle",
           "paymentModel": "eagle_receipt",
           "packSplit": "139800 singles | 40500 3pk | 10800 6pk",
-          "notes": "Recurring M01 per Eagle schedule Apr 20. Apr 27-May 16 firm pack-outs. Sam Apr 8 confirmed 72K/month recurring stocking position. No PO# or unit price issued yet \u2014 chase Xeomara.",
+          "notes": "Recurring M01 per Eagle schedule Apr 20. Apr 27-May 16 firm pack-outs. No PO# or unit price issued yet \u2014 chase Xeomara.",
           "hasAlert": false
         },
         {
@@ -975,7 +1038,7 @@
           "supplierTint": "eagle",
           "paymentModel": "eagle_receipt",
           "packSplit": "pack split TBD",
-          "notes": "Recurring M02 per Eagle schedule Apr 20. May 29-Jun 8 batch pool (13 batches \u00d7 ~10,980 singles). Eagle splits ~1 month before ship. No PO# or price yet.",
+          "notes": "Recurring M02 per Eagle schedule Apr 20. May 29-Jun 8 batch pool. No PO# or price yet.",
           "hasAlert": false
         }
       ],
@@ -1027,14 +1090,14 @@
           "supplierTint": "laura",
           "paymentModel": "laura_5050",
           "packSplit": "",
-          "notes": "50/50 terms (<250K MOQ). Deposit 50% (~$62,500) paid. Balance $62,500 BLOCKED pending relabeling compensation negotiation. 20+ day delay at Laura's cost (old label version 2025-6 vs 2025-7, misspellings, blurry print). Sindy asking compensation (amount TBD from channel). Sajjad handling. Cream quality concerns raised (texture, scent, absorption) vs SendyLi.",
+          "notes": "50/50 terms (<250K MOQ). Deposit 50% (~$62,500) paid. Balance $62,500 BLOCKED pending relabeling compensation negotiation.",
           "hasAlert": true
         }
       ],
       "alerts": [
         {
           "po": "PO-LW-100K",
-          "text": "Relabeling compensation \u2014 open. Timeline: (1) Mar 27 \u2014 20+ day relabeling delay confirmed at Laura's cost: old label version (2025-6 vs 2025-7), misspellings, blurry print, 100K units all relabeled. (2) Apr \u2014 Sindy asked for compensation (amount TBD \u2014 paste from channel). (3) Apr \u2014 Sajjad handling negotiation with Laura (new offer pending). (4) Open: cream quality concerns (texture/scent/absorption) vs SendyLi \u2014 may impact negotiation leverage. Balance 50% ($62,500) BLOCKED until nego settled."
+          "text": "Relabeling compensation \u2014 open. Mar 25: label errors found (wrong file v2025-6, 'Amica'/'discomfot' typos, blurry print). Late Mar: Laura offered $8,700 relabel only \u2014 rejected. Apr 10: Sindy/Sajjad counter \u2014 target $30-35K, floor $20K, full relabel at Laura's cost, plus $0.03/u reduction on 335K (~$10K). Apr 16: Sajjad demanded only $10,600 + relabel (below $20K floor, no 335K leverage). Apr 20: Laura said 'will confirm by Wednesday'. Apr 21 am: Laura split offer \u2014 rework + $2,300 OR no rework + $10,600. Apr 21 pm: Bianca asked for side-by-side jar photos; Sajjad pushed for BOTH $10,600 + relabel, escalate to senior mgmt. Apr 22 (today): Laura's deadline \u2014 no response yet. Balance $62,500 BLOCKED until settled."
         }
       ]
     }
