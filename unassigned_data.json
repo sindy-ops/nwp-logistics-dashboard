@@ -1,24 +1,24 @@
 {
-  "generated": "2026-04-23T10:39:51.764414+00:00",
+  "generated": "2026-04-23T11:30:37.653100+00:00",
   "age_metric": "waiting = last_received_message_datetime >= last_message_datetime",
-  "total": 3371,
-  "waiting": 1432,
-  "answered": 1939,
-  "over_1d": 771,
+  "total": 3263,
+  "waiting": 1394,
+  "answered": 1869,
+  "over_1d": 745,
   "over_3d": 0,
   "over_7d": 0,
   "over_30d": 0,
   "oldest_days": 2,
   "oldest_date": "2026-04-20",
-  "oldest_ticket_id": 217568553,
+  "oldest_ticket_id": 217533307,
   "buckets": [
     {
       "label": "0-1d",
-      "count": 661
+      "count": 649
     },
     {
       "label": "1-3d",
-      "count": 771
+      "count": 745
     },
     {
       "label": "3-7d",
@@ -36,5 +36,12 @@
       "label": "30d+",
       "count": 0
     }
-  ]
+  ],
+  "response_time_24h": {
+    "median_first_response_sec": 1133,
+    "median_resolution_sec": 1,
+    "total_messages_sent_24h": 2914,
+    "total_messages_received_24h": 2475,
+    "total_new_tickets_24h": 1094
+  }
 }
