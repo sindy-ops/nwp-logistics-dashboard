@@ -529,26 +529,26 @@ function renderQueueHealth() {
     </div>
   `;
 
-  // Age distribution card
+  // Age distribution card — percentages are of "waiting" (the bucket denominator the user cares about)
   const bk = QUEUE.buckets || [];
   const max = Math.max(...bk.map(b => b.count));
   const maxBucket = bk.reduce((a, b) => b.count > (a?.count || 0) ? b : a, null);
+  const pctBucket = (n) => Math.round(n / Math.max(1, waiting) * 100);
   const colorFor = (label) => {
     if (label === '0-1d') return 'var(--accent)';
     if (label === '1-3d') return 'var(--orange)';
     return 'var(--red)';
   };
   let html = '<div class="kpi-card"><div class="kpi-label">Queue by age';
-  if (maxBucket) html += ` &middot; biggest: <span style="color:var(--text)">${maxBucket.label}</span> (${pct(maxBucket.count)}%)`;
+  if (maxBucket) html += ` &middot; biggest: <span style="color:var(--text)">${maxBucket.label}</span> (${pctBucket(maxBucket.count)}%)`;
   html += '</div><div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:10px;">';
   for (const b of bk) {
-    const barH = max ? Math.round(b.count / max * 40) : 0;
     html += `
       <div style="display:flex;flex-direction:column;align-items:center;">
         <div style="font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;">${fmt(b.count)}</div>
-        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px;">${pct(b.count)}%</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px;">${pctBucket(b.count)}%</div>
         <div style="width:100%;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
-          <div style="width:${pct(b.count)}%;height:100%;background:${colorFor(b.label)};"></div>
+          <div style="width:${pctBucket(b.count)}%;height:100%;background:${colorFor(b.label)};"></div>
         </div>
         <div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px;">${b.label}</div>
       </div>`;
