@@ -1,26 +1,26 @@
 {
-  "generated": "2026-04-22T14:54:30.751777+00:00",
+  "generated": "2026-04-23T08:40:27.997103+00:00",
   "age_metric": "last_received_message_datetime",
-  "total": 3274,
-  "over_1d": 1747,
-  "over_3d": 4,
+  "total": 3483,
+  "over_1d": 2029,
+  "over_3d": 0,
   "over_7d": 0,
   "over_30d": 0,
-  "oldest_days": 3,
-  "oldest_date": "2026-04-19",
-  "oldest_ticket_id": 213082928,
+  "oldest_days": 2,
+  "oldest_date": "2026-04-20",
+  "oldest_ticket_id": 216103001,
   "buckets": [
     {
       "label": "0-1d",
-      "count": 1527
+      "count": 1454
     },
     {
       "label": "1-3d",
-      "count": 1743
+      "count": 2029
     },
     {
       "label": "3-7d",
-      "count": 4
+      "count": 0
     },
     {
       "label": "7-14d",
