@@ -25,6 +25,15 @@
     border-radius:8px; padding:10px 14px; margin-bottom:20px; font-size:12px; color:var(--text-dim);
   }
   .scope-note strong { color: var(--info); }
+  .freshness-strip {
+    display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    background:var(--card); border:1px solid var(--card-border);
+    border-radius:8px; padding:8px 14px; margin-bottom:16px;
+    font-size:11px; color:var(--text-dim);
+  }
+  .fs-label { font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+  .fs-value { color:var(--text); font-weight:600; font-variant-numeric:tabular-nums; }
+  .fs-divider { opacity:0.5; }
 
   .stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:24px; }
   .stat-card { background:var(--card); border:1px solid var(--card-border); border-radius:12px; padding:16px 18px; }
@@ -82,6 +91,14 @@
     <a href="cb-rebill.html" class="tab">Rebill</a>
     <a href="cb-upsell.html" class="tab">Upsell</a>
     <a href="cb-delivered.html" class="tab active">Delivered</a>
+  </div>
+
+  <div class="freshness-strip">
+    <span class="fs-label">UPDATED</span>
+    <span class="fs-value" id="fs-updated">—</span>
+    <span class="fs-divider">·</span>
+    <span class="fs-label">ANALYZED</span>
+    <span class="fs-value" id="fs-coverage">—</span>
   </div>
 
   <div class="scope-note">
@@ -13732,7 +13749,10 @@
   const COLORS = { delivered:'#4ade80', not_delivered:'#ef4444', unknown:'#8b8fa3' };
 
   document.getElementById('subtitle').textContent =
-    `${data.window_start} → ${data.window_end}  ·  coverage: ${Math.round(data.coverage.match_rate*100)}%  ·  ${data.notice}`;
+    `${data.window_start} → ${data.window_end}  ·  ${data.notice}`;
+  document.getElementById('fs-updated').textContent = data.generated_at.replace('T', ' ');
+  document.getElementById('fs-coverage').textContent =
+    `${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_cc_match)} of ${fmtNum(data.coverage.total_cbs)} CBs matched to CC)`;
 
   // Index dates for fast lookup
   const dateIdx = new Map();

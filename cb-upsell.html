@@ -49,6 +49,15 @@
   td { font-variant-numeric:tabular-nums; }
   tr:last-child td { border-bottom:none; }
   .table-card h3 { font-size:16px; font-weight:700; margin-bottom:14px; }
+  .freshness-strip {
+    display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    background:var(--card); border:1px solid var(--card-border);
+    border-radius:8px; padding:8px 14px; margin-bottom:16px;
+    font-size:11px; color:var(--text-dim);
+  }
+  .fs-label { font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+  .fs-value { color:var(--text); font-weight:600; font-variant-numeric:tabular-nums; }
+  .fs-divider { opacity:0.5; }
 
   .split-row { display:grid; grid-template-columns: minmax(260px, 340px) 1fr; gap:16px; margin-bottom:20px; }
   @media(max-width: 820px) { .split-row { grid-template-columns: 1fr; } }
@@ -88,6 +97,14 @@
     <a href="cb-rebill.html" class="tab">Rebill</a>
     <a href="cb-upsell.html" class="tab active">Upsell</a>
     <a href="cb-delivered.html" class="tab">Delivered</a>
+  </div>
+
+  <div class="freshness-strip">
+    <span class="fs-label">UPDATED</span>
+    <span class="fs-value" id="fs-updated">—</span>
+    <span class="fs-divider">·</span>
+    <span class="fs-label">ANALYZED</span>
+    <span class="fs-value" id="fs-coverage">—</span>
   </div>
 
   <div class="chart-card" style="padding:14px 20px; margin-bottom:16px;">
@@ -489,7 +506,10 @@
   const PRODUCT_COLORS = ['#f59e0b','#ef4444','#a78bfa','#06b6d4','#6b7280'];
 
   document.getElementById('subtitle').textContent =
-    `${data.window_start} → ${data.window_end}  ·  coverage: ${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_cc_match)} of ${fmtNum(data.coverage.total_cbs)} CBs matched)  ·  ${data.notice}`;
+    `${data.window_start} → ${data.window_end}  ·  ${data.notice}`;
+  document.getElementById('fs-updated').textContent = data.generated_at.replace('T', ' ');
+  document.getElementById('fs-coverage').textContent =
+    `${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_cc_match)} of ${fmtNum(data.coverage.total_cbs)} CBs matched to CC)`;
 
   let trendChart = null, donutChart = null, productChart = null;
 

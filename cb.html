@@ -117,6 +117,15 @@
     font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
     padding: 2px 6px; border-radius: 4px; margin-left: 4px;
   }
+  .freshness-strip {
+    display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    background:var(--card); border:1px solid var(--card-border);
+    border-radius:8px; padding:8px 14px; margin-bottom:16px;
+    font-size:11px; color:var(--text-dim);
+  }
+  .fs-label { font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+  .fs-value { color:var(--text); font-weight:600; font-variant-numeric:tabular-nums; }
+  .fs-divider { opacity:0.5; }
   .plat-kind.fight { background: rgba(74,222,128,0.15); color: var(--accent); }
   .plat-kind.auto  { background: rgba(139,143,163,0.18); color: var(--text-dim); }
 
@@ -142,6 +151,14 @@
     <a href="cb-rebill.html" class="tab">Rebill</a>
     <a href="cb-upsell.html" class="tab">Upsell</a>
     <a href="cb-delivered.html" class="tab">Delivered</a>
+  </div>
+
+  <div class="freshness-strip">
+    <span class="fs-label">UPDATED</span>
+    <span class="fs-value" id="fs-updated">—</span>
+    <span class="fs-divider">·</span>
+    <span class="fs-label">ANALYZED</span>
+    <span class="fs-value" id="fs-coverage">100% of Sheet CBs (all disputes)</span>
   </div>
 
   <div class="stats-row" id="stats"></div>
@@ -1094,7 +1111,8 @@
     ? `  ·  ⚠ ${[...partialDatesSet].join(', ')} is partial (sheet still being updated — shown at 50% opacity)`
     : '';
   document.getElementById('subtitle').textContent =
-    `${data.window_start} → ${data.window_end}  ·  source: Daily CB Analysis 3 › Analysis of dispute  ·  updated ${data.generated_at}${partialNote}`;
+    `${data.window_start} → ${data.window_end}  ·  source: Daily CB Analysis 3 › Analysis of dispute${partialNote}`;
+  document.getElementById('fs-updated').textContent = data.generated_at.replace('T', ' ');
 
   const fmtUSD = n => '$' + (n || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const fmtNum = n => (n || 0).toLocaleString('en-US');
