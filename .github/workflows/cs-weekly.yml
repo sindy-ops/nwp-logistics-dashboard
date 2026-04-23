@@ -1,0 +1,48 @@
+name: CS Weekly — Volume + Score Card Refresh
+
+on:
+  schedule:
+    # Mondays 07:05 UTC = 09:05 Paris (CEST DST).
+    - cron: "5 7 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cs-weekly
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh Volume data
+        env:
+          GORGIAS_AUTH_TOKEN: ${{ secrets.GORGIAS_AUTH_TOKEN }}
+        run: python scripts/refresh_volume.py
+
+      - name: Refresh Score Card data
+        env:
+          GORGIAS_AUTH_TOKEN: ${{ secrets.GORGIAS_AUTH_TOKEN }}
+        run: python scripts/refresh_scorecard.py
+
+      - name: Commit updated JSON
+        run: |
+          git config user.name "nwp-dashboard-bot"
+          git config user.email "noreply@nw-project.com"
+          CHANGES=$(git status --porcelain cs_data.json scorecard_data.json)
+          if [[ -n "$CHANGES" ]]; then
+            git add cs_data.json scorecard_data.json
+            git commit -m "Volume + Score Card weekly refresh $(date -u +'%Y-%m-%d')"
+            git push
+          else
+            echo "No changes"
+          fi

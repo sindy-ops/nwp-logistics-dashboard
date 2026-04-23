@@ -1,0 +1,43 @@
+name: CS Daily — Unassigned Queue Check
+
+on:
+  schedule:
+    # 07:00 UTC = 09:00 Paris (CEST DST). In winter (CET) this will be 08:00 Paris.
+    - cron: "0 7 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cs-daily
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run unassigned queue check + Slack post
+        env:
+          GORGIAS_AUTH_TOKEN: ${{ secrets.GORGIAS_AUTH_TOKEN }}
+          SLACK_NWP_TOKEN: ${{ secrets.SLACK_NWP_TOKEN }}
+          UNASSIGNED_CHANNEL: C0AB7JL4T2N
+        run: python scripts/check_unassigned.py --slack
+
+      - name: Commit updated JSON
+        run: |
+          git config user.name "nwp-dashboard-bot"
+          git config user.email "noreply@nw-project.com"
+          if [[ -n "$(git status --porcelain unassigned_data.json)" ]]; then
+            git add unassigned_data.json
+            git commit -m "Queue Health auto-update $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          else
+            echo "No changes"
+          fi
