@@ -482,31 +482,36 @@ function renderQueueHealth() {
     buckets.innerHTML = '';
     return;
   }
-  const pct = (n) => Math.round(n / Math.max(1, QUEUE.total) * 100);
   const gen = new Date(QUEUE.generated);
-  const under_24h = QUEUE.total - QUEUE.over_1d;
-  const over24Cls = QUEUE.over_1d / Math.max(1, QUEUE.total) > 0.2 ? 'score-bad' : 'score-ok';
+  // New schema: QUEUE has waiting/answered/over_* where over_* is counted against waiting only.
+  // Fallback to legacy schema if those fields are missing.
+  const hasNewSchema = typeof QUEUE.waiting === 'number';
+  const waiting = hasNewSchema ? QUEUE.waiting : QUEUE.total;
+  const answered = hasNewSchema ? QUEUE.answered : 0;
+  const under_24h = waiting - QUEUE.over_1d;
+  const pctWait = (n) => Math.round(n / Math.max(1, waiting) * 100);
+  const over24Cls = QUEUE.over_1d / Math.max(1, waiting) > 0.2 ? 'score-bad' : 'score-ok';
   const oldestCls = QUEUE.oldest_days > 1 ? 'score-bad' : 'score-good';
   row.innerHTML = `
     <div class="kpi-card">
-      <div class="kpi-label">Unassigned Now</div>
+      <div class="kpi-label">Unassigned View</div>
       <div class="kpi-value">${fmt(QUEUE.total)}</div>
-      <div class="kpi-sub">as of ${gen.toLocaleString()}</div>
+      <div class="kpi-sub">${fmt(answered)} already answered · as of ${gen.toLocaleString()}</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">&lt; 24h (under target)</div>
-      <div class="kpi-value score-good">${fmt(under_24h)}</div>
-      <div class="kpi-sub">${pct(under_24h)}% of queue</div>
+      <div class="kpi-label">Waiting for Reply</div>
+      <div class="kpi-value">${fmt(waiting)}</div>
+      <div class="kpi-sub">client is the last author on these tickets</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">&gt; 24h (over target)</div>
       <div class="kpi-value ${over24Cls}">${fmt(QUEUE.over_1d)}</div>
-      <div class="kpi-sub">${pct(QUEUE.over_1d)}% of queue</div>
+      <div class="kpi-sub">${pctWait(QUEUE.over_1d)}% of waiting · ${fmt(under_24h)} under 24h</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Oldest Ticket</div>
+      <div class="kpi-label">Oldest Waiting</div>
       <div class="kpi-value ${oldestCls}">${QUEUE.oldest_days}d</div>
-      <div class="kpi-sub">#${QUEUE.oldest_ticket_id || '?'} · ${QUEUE.oldest_date || ''}</div>
+      <div class="kpi-sub">#${QUEUE.oldest_ticket_id || '?'} · client wrote ${QUEUE.oldest_date || ''}</div>
     </div>
   `;
 

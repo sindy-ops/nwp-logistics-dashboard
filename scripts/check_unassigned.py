@@ -53,9 +53,24 @@ def slack_post(channel, text):
 
 
 def scan():
+    """
+    Scan Gorgias Unassigned view. For each ticket:
+      - WAITING: customer's last message is the latest event on the ticket
+        (last_received_message_datetime >= last_message_datetime). Customer
+        still needs a response.
+      - ANSWERED: someone (agent or bot) has already replied. Ticket is just
+        in the Unassigned view because no one formally took ownership.
+
+    Age buckets + over-Nd counts apply ONLY to WAITING tickets — that's the
+    real SLA metric.
+    """
     now = datetime.now(timezone.utc)
     next_url = f"/api/views/{UNASSIGNED_VIEW_ID}/items?limit=100"
-    totals = {"total": 0, "over_1d": 0, "over_3d": 0, "over_7d": 0, "over_30d": 0}
+
+    total = 0
+    answered = 0
+    waiting = 0
+    waiting_over = {"1d": 0, "3d": 0, "7d": 0, "30d": 0}
     oldest_dt = None
     oldest_id = None
     by_bucket = {}
@@ -68,16 +83,26 @@ def scan():
         if not items:
             break
         for t in items:
-            ref = t.get("last_received_message_datetime") or t.get("created_datetime")
-            if not ref:
+            total += 1
+            lrm = t.get("last_received_message_datetime")
+            lm = t.get("last_message_datetime")
+            if not lrm:
+                # Edge case: no customer message at all. Skip from "waiting".
+                answered += 1
                 continue
-            c = datetime.fromisoformat(ref.replace("Z", "+00:00"))
+            # Customer is waiting iff their message is the last event on the ticket.
+            # (last_received == last_message means they are the most recent author.)
+            is_waiting = not lm or lrm >= lm
+            if not is_waiting:
+                answered += 1
+                continue
+            waiting += 1
+            c = datetime.fromisoformat(lrm.replace("Z", "+00:00"))
             age = (now - c).total_seconds() / 86400
-            totals["total"] += 1
-            if age >= 1:  totals["over_1d"]  += 1
-            if age >= 3:  totals["over_3d"]  += 1
-            if age >= 7:  totals["over_7d"]  += 1
-            if age >= 30: totals["over_30d"] += 1
+            if age >= 1:  waiting_over["1d"]  += 1
+            if age >= 3:  waiting_over["3d"]  += 1
+            if age >= 7:  waiting_over["7d"]  += 1
+            if age >= 30: waiting_over["30d"] += 1
             if oldest_dt is None or c < oldest_dt:
                 oldest_dt = c
                 oldest_id = t["id"]
@@ -90,15 +115,21 @@ def scan():
             by_bucket[b] = by_bucket.get(b, 0) + 1
         next_url = data.get("meta", {}).get("next_items")
         if pages % 10 == 0:
-            print(f"  page {pages}: total={totals['total']}", flush=True)
+            print(f"  page {pages}: total={total} waiting={waiting} answered={answered}", flush=True)
         time.sleep(0.15)
 
     order = ["0-1d", "1-3d", "3-7d", "7-14d", "14-30d", "30d+"]
     buckets = [{"label": b, "count": by_bucket.get(b, 0)} for b in order]
     return {
         "generated": now.isoformat(),
-        "age_metric": "last_received_message_datetime",
-        **totals,
+        "age_metric": "waiting = last_received_message_datetime >= last_message_datetime",
+        "total": total,
+        "waiting": waiting,
+        "answered": answered,
+        "over_1d": waiting_over["1d"],
+        "over_3d": waiting_over["3d"],
+        "over_7d": waiting_over["7d"],
+        "over_30d": waiting_over["30d"],
         "oldest_days": (now - oldest_dt).days if oldest_dt else 0,
         "oldest_date": oldest_dt.date().isoformat() if oldest_dt else None,
         "oldest_ticket_id": oldest_id,
@@ -107,18 +138,22 @@ def scan():
 
 
 def summary(s):
-    pct = lambda n: int(round(n / max(1, s["total"]) * 100))
-    under = s["total"] - s["over_1d"]
+    pct_of = lambda n, d: int(round(n / max(1, d) * 100))
+    waiting = s["waiting"]
+    under_24h = waiting - s["over_1d"]
     return (
         "*Gorgias Unassigned — Queue Health*\n"
-        "_Age = time since last message from client. Target: under 24h._\n\n"
-        f"Total unassigned: *{s['total']:,}*\n"
-        f":white_check_mark: Under 24h: *{under:,}* ({pct(under)}%)\n"
-        f":warning: Over 24h: *{s['over_1d']:,}* ({pct(s['over_1d'])}%)\n"
-        f":rotating_light: Over 3 days: *{s['over_3d']:,}* ({pct(s['over_3d'])}%)\n"
-        f":rotating_light: Over 7 days: *{s['over_7d']:,}* ({pct(s['over_7d'])}%)\n\n"
-        f"Oldest client msg: *{s['oldest_days']}d ago* "
-        f"(ticket #{s['oldest_ticket_id']}, {s['oldest_date']})\n"
+        "_SLA = client waiting for response over 24h. "
+        "Answered tickets are excluded._\n\n"
+        f"Total unassigned view: *{s['total']:,}*\n"
+        f"  Already answered (agent/bot replied): {s['answered']:,}\n"
+        f"  :hourglass_flowing_sand: Waiting for response: *{waiting:,}*\n\n"
+        f":white_check_mark: Under 24h: *{under_24h:,}* ({pct_of(under_24h, waiting)}% of waiting)\n"
+        f":warning: Over 24h: *{s['over_1d']:,}* ({pct_of(s['over_1d'], waiting)}% of waiting)\n"
+        f":rotating_light: Over 3 days: *{s['over_3d']:,}*\n"
+        f":rotating_light: Over 7 days: *{s['over_7d']:,}*\n\n"
+        f"Oldest waiting: *{s['oldest_days']}d* "
+        f"(ticket #{s['oldest_ticket_id']}, client wrote {s['oldest_date']})\n"
         "Dashboard: https://dashboard.nw-project.com/cs.html"
     )
 
