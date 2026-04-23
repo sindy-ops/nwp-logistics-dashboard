@@ -37,7 +37,10 @@ jobs:
           if [[ -n "$(git status --porcelain unassigned_data.json)" ]]; then
             git add unassigned_data.json
             git commit -m "Queue Health auto-update $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push
+            # Rebase on top of any remote changes that landed during our scan, then push.
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push && break || sleep 5
+            done
           else
             echo "No changes"
           fi

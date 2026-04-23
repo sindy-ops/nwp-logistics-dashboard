@@ -42,7 +42,9 @@ jobs:
           if [[ -n "$CHANGES" ]]; then
             git add cs_data.json scorecard_data.json
             git commit -m "Volume + Score Card weekly refresh $(date -u +'%Y-%m-%d')"
-            git push
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push && break || sleep 5
+            done
           else
             echo "No changes"
           fi
