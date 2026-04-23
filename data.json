@@ -1,26 +1,26 @@
 {
-  "lastRefreshed": "2026-04-23T11:27:25",
+  "lastRefreshed": "2026-04-23T11:31:19",
   "updatedOn": "23/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-23",
-      "fileAge": 0.0
+      "fileAge": 0.1
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-22",
-      "fileAge": 4.7
+      "fileAge": 4.8
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-23",
-      "fileAge": 1.5
+      "fileAge": 0.0
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-23",
-      "fileAge": 1.5
+      "fileAge": 0.0
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
@@ -41,7 +41,7 @@
         "stockDate": "2026-04-22",
         "demand": 8671,
         "dos": 5,
-        "incoming": 1010000,
+        "incoming": 750000,
         "effOOS": "2026-04-28",
         "status": "RED - 5d",
         "statusCls": "red-status",
@@ -74,7 +74,7 @@
     ],
     "totalStock": 115063,
     "totalDemand": 11946,
-    "totalIncoming": 1417344
+    "totalIncoming": 1157344
   },
   "stockProjection": [
     {
@@ -109,32 +109,32 @@
     },
     {
       "date": "May 23",
-      "tfm": 124792,
+      "tfm": 0,
       "bailiny": 66290
     },
     {
       "date": "May 28",
-      "tfm": 81437,
+      "tfm": 0,
       "bailiny": 51315
     },
     {
       "date": "Jun 02",
-      "tfm": 308082,
+      "tfm": 48082,
       "bailiny": 126340
     },
     {
       "date": "Jun 07",
-      "tfm": 264727,
+      "tfm": 4727,
       "bailiny": 111365
     },
     {
       "date": "Jun 12",
-      "tfm": 221372,
+      "tfm": 0,
       "bailiny": 96390
     },
     {
       "date": "Jun 17",
-      "tfm": 258017,
+      "tfm": 0,
       "bailiny": 81415
     }
   ],
@@ -304,7 +304,7 @@
       "supplier": "Sendy Li",
       "qty": 200000,
       "dest": "TFM",
-      "status": "In Transit",
+      "status": "Delivered",
       "method": "Sea",
       "eta": "2026-05-20",
       "payment": "PAID ($138,138)",
@@ -315,7 +315,7 @@
       "supplier": "Sendy Li",
       "qty": 60000,
       "dest": "TFM",
-      "status": "In Transit",
+      "status": "Delivered",
       "method": "Sea",
       "eta": "2026-06-02",
       "payment": "PAID ($18,018)",
@@ -485,7 +485,7 @@
           "supplierTint": "sendy",
           "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "1069 ctns total (993 received + 76 pending). Husna Apr 22: 140 cs (8 Apr), 15 cs (14-15 Apr), 228 cs (15 Apr), 410 cs (16-17 Apr), 200 cs (21 Apr). 76 cs (10,640 u) still pending. 340-unit variance vs 150K nominal: 280 u missing cargo (2 cs) + 60 u pack-size rounddown. Husna to double-check on arrival + flag Sendy before final payment. Delivery 40% (NET 40) NOT paid \u2014 due May 22 2026.",
+          "notes": "1069 ctns total (993 received + 76 pending). Husna Apr 22: 140 cs (8 Apr), 15 cs (14-15 Apr), 228 cs (15 Apr), 410 cs (16-17 Apr), 200 cs (21 Apr). 76 cs (10,640 u) still pending. 340-unit variance vs 150K nominal: 280 u missing cargo (2 cs) + 60 u pack-size rounddown. Husna to double-check on arrival + flag Sendy before final payment. Delivery 40% (NET 40) NOT paid \u2014 due May 22 2026. | [Slack Apr 23] Slack ETA: May 20",
           "hasAlert": true
         },
         {
@@ -634,7 +634,7 @@
           "supplierTint": "sendy",
           "paymentModel": "sendy_353530",
           "packSplit": "",
-          "notes": "From 335K. 536 ctns / 75,040 u all received at Bailiny (Husna Apr 23 confirmed). Delivery 30% (NET 40) NOT paid \u2014 all payment due May 29 2026.",
+          "notes": "From 335K. 536 ctns / 75,040 u all received at Bailiny (Husna Apr 23 confirmed). Delivery 30% (NET 40) NOT paid \u2014 all payment due May 29 2026. | [Slack Apr 23] Slack ETA: May 20",
           "hasAlert": false
         },
         {
@@ -650,17 +650,17 @@
           "prodStart": "23 March 2026",
           "prodFinish": "17 April 2026",
           "etaDestLabel": "TFM",
-          "eta": "20 May 2026",
+          "eta": "Del \u00b7 20 May 2026",
           "orderDate": "6 March 2026",
           "depositDate": "8 March 2026 (est.)",
           "productionDays": 40,
           "inTransitDays": 33,
-          "productionStatus": "Shipped",
-          "productionCls": "info",
+          "productionStatus": "Delivered",
+          "productionCls": "ok",
           "paymentStatus": "Paid ($138,138)",
           "paymentCls": "ok",
-          "nextPayment": "Final 40% ~$105,600",
-          "nextPaymentDue": "20 May 2026",
+          "nextPayment": "\u2014 complete \u2014",
+          "nextPaymentDue": "",
           "unitCost": 1.32,
           "totalValue": 264000,
           "depositAmount": 92400,
@@ -670,14 +670,14 @@
           "productionPaid": true,
           "productionDue": "17 April 2026",
           "deliveryAmount": 79200,
-          "deliveryPaid": false,
+          "deliveryPaid": true,
           "deliveryDue": "27 May 2026",
           "batchTotal": 264000,
           "deliveredQty": 0,
           "supplierTint": "sendy",
           "paymentModel": "sendy_353530",
           "packSplit": "",
-          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, factory ship-out Apr 17, ETD Apr 24, ETA May 20 (Husna Apr 23 correction).",
+          "notes": "Via A2Z Fast Sea Zim DDP (HR-003+HR-004). $0.218/u = $43,662 freight. Booked Apr 13, factory ship-out Apr 17, ETD Apr 24, ETA May 20 (Husna Apr 23 correction). | [Slack Apr 23] Slack ETA: May 20",
           "hasAlert": false
         },
         {
@@ -693,17 +693,17 @@
           "prodStart": "23 March 2026",
           "prodFinish": "17 April 2026",
           "etaDestLabel": "TFM",
-          "eta": "2 June 2026",
+          "eta": "Del \u00b7 2 June 2026",
           "orderDate": "6 March 2026",
           "depositDate": "8 March 2026 (est.)",
           "productionDays": 40,
           "inTransitDays": 46,
-          "productionStatus": "Shipped",
-          "productionCls": "info",
+          "productionStatus": "Delivered",
+          "productionCls": "ok",
           "paymentStatus": "Paid ($18,018)",
           "paymentCls": "ok",
-          "nextPayment": "Final 40% ~$31,680",
-          "nextPaymentDue": "2 June 2026",
+          "nextPayment": "\u2014 complete \u2014",
+          "nextPaymentDue": "",
           "unitCost": 1.32,
           "totalValue": 79200,
           "depositAmount": 27720,
@@ -713,14 +713,14 @@
           "productionPaid": true,
           "productionDue": "17 April 2026",
           "deliveryAmount": 23760,
-          "deliveryPaid": false,
+          "deliveryPaid": true,
           "deliveryDue": "27 May 2026",
           "batchTotal": 79200,
           "deliveredQty": 0,
           "supplierTint": "sendy",
           "paymentModel": "sendy_353530",
           "packSplit": "",
-          "notes": "Via Sendy Normal Sea (Husna Apr 23 correction \u2014 was A2Z). Factory ship-out Apr 17, ETD May 22 (per Husna). Shipping $18,018.",
+          "notes": "Via Sendy Normal Sea (Husna Apr 23 correction \u2014 was A2Z). Factory ship-out Apr 17, ETD May 22 (per Husna). Shipping $18,018. | [Slack Apr 23] Slack ETA: May 20",
           "hasAlert": false
         }
       ],
