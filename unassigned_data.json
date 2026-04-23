@@ -1,24 +1,24 @@
 {
-  "generated": "2026-04-23T10:28:39.524667+00:00",
+  "generated": "2026-04-23T10:39:51.764414+00:00",
   "age_metric": "waiting = last_received_message_datetime >= last_message_datetime",
-  "total": 3384,
-  "waiting": 1437,
-  "answered": 1947,
-  "over_1d": 778,
+  "total": 3371,
+  "waiting": 1432,
+  "answered": 1939,
+  "over_1d": 771,
   "over_3d": 0,
   "over_7d": 0,
   "over_30d": 0,
   "oldest_days": 2,
   "oldest_date": "2026-04-20",
-  "oldest_ticket_id": 209494764,
+  "oldest_ticket_id": 217568553,
   "buckets": [
     {
       "label": "0-1d",
-      "count": 659
+      "count": 661
     },
     {
       "label": "1-3d",
-      "count": 778
+      "count": 771
     },
     {
       "label": "3-7d",
