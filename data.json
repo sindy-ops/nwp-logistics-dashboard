@@ -1,26 +1,26 @@
 {
-  "lastRefreshed": "2026-04-23T11:31:19",
+  "lastRefreshed": "2026-04-23T12:08:59",
   "updatedOn": "23/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-23",
-      "fileAge": 0.1
+      "fileAge": 0.7
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-22",
-      "fileAge": 4.8
+      "fileAge": 5.4
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-23",
-      "fileAge": 0.0
+      "fileAge": 0.6
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-23",
-      "fileAge": 0.0
+      "fileAge": 0.6
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
@@ -30,7 +30,7 @@
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 21.3
+      "fileAge": 22.0
     }
   },
   "stock": {
@@ -41,7 +41,7 @@
         "stockDate": "2026-04-22",
         "demand": 8671,
         "dos": 5,
-        "incoming": 750000,
+        "incoming": 790120,
         "effOOS": "2026-04-28",
         "status": "RED - 5d",
         "statusCls": "red-status",
@@ -53,11 +53,11 @@
         "stockDate": "2026-04-23",
         "demand": 2995,
         "dos": 20,
-        "incoming": 190000,
+        "incoming": 150000,
         "effOOS": "2026-05-13",
         "status": "YELLOW - 20d",
         "statusCls": "yellow-status",
-        "qtyNeeded": 20415
+        "qtyNeeded": 60415
       },
       {
         "name": "Amazon FBA",
@@ -74,7 +74,7 @@
     ],
     "totalStock": 115063,
     "totalDemand": 11946,
-    "totalIncoming": 1157344
+    "totalIncoming": 1157464
   },
   "stockProjection": [
     {
@@ -95,47 +95,47 @@
     {
       "date": "May 08",
       "tfm": 0,
-      "bailiny": 111215
+      "bailiny": 161215
     },
     {
       "date": "May 13",
       "tfm": 11502,
-      "bailiny": 96240
+      "bailiny": 146240
     },
     {
       "date": "May 18",
       "tfm": 0,
-      "bailiny": 81265
+      "bailiny": 131265
     },
     {
       "date": "May 23",
       "tfm": 0,
-      "bailiny": 66290
+      "bailiny": 116290
     },
     {
       "date": "May 28",
       "tfm": 0,
-      "bailiny": 51315
+      "bailiny": 101315
     },
     {
       "date": "Jun 02",
-      "tfm": 48082,
-      "bailiny": 126340
+      "tfm": 38082,
+      "bailiny": 86340
     },
     {
       "date": "Jun 07",
-      "tfm": 4727,
-      "bailiny": 111365
+      "tfm": 0,
+      "bailiny": 71365
     },
     {
       "date": "Jun 12",
-      "tfm": 0,
-      "bailiny": 96390
+      "tfm": 1492,
+      "bailiny": 56390
     },
     {
       "date": "Jun 17",
-      "tfm": 0,
-      "bailiny": 81415
+      "tfm": 38137,
+      "bailiny": 41415
     }
   ],
   "demand": {
@@ -322,14 +322,36 @@
       "paymentCls": "paid"
     },
     {
-      "po": "PO-SL-300K-REC",
+      "po": "PO-SL-300K-REC-200K",
       "supplier": "Sendy Li",
-      "qty": 300000,
-      "dest": "TFM+Bailiny",
-      "status": "In Production",
+      "qty": 200000,
+      "dest": "TFM",
+      "status": "Ready To Ship",
       "method": "Sea",
       "eta": "2026-06-01",
-      "payment": "PAID ($118,800)",
+      "payment": "PAID ($158,400)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-300K-REC-50KSDY",
+      "supplier": "Sendy Li",
+      "qty": 50120,
+      "dest": "TFM",
+      "status": "Ready To Ship",
+      "method": "Sea",
+      "eta": "2026-06-11",
+      "payment": "PAID ($54,636)",
+      "paymentCls": "paid"
+    },
+    {
+      "po": "PO-SL-300K-REC-50KBL",
+      "supplier": "Sendy Li",
+      "qty": 50000,
+      "dest": "Bailiny",
+      "status": "Ready To Ship",
+      "method": "Land",
+      "eta": "2026-05-05",
+      "payment": "PAID ($39,600)",
       "paymentCls": "paid"
     },
     {
@@ -728,8 +750,8 @@
     },
     {
       "group": "Recurring 2 \u2014 300K Sendy (Apr batch)",
-      "totalQty": 300000,
-      "poCount": 1,
+      "totalQty": 300120,
+      "poCount": 3,
       "layout": "table",
       "dominantTint": "sendy",
       "paymentHeaders": [
@@ -739,46 +761,132 @@
       ],
       "cards": [
         {
-          "po": "PO-SL-300K-REC",
+          "po": "PO-SL-300K-REC-200K",
           "supplier": "Sendy Li",
-          "qty": 300000,
-          "dest": "TFM+Bailiny",
+          "qty": 200000,
+          "dest": "TFM",
           "shipMethod": "Sea",
-          "carrier": "TBD",
-          "shipDate": "22 April 2026 (est.)",
-          "factoryShipOut": "22 April 2026 (est.)",
-          "etd": "",
+          "carrier": "A2Z Fast Sea Zim DDP",
+          "shipDate": "24 April 2026",
+          "factoryShipOut": "24 April 2026",
+          "etd": "30 April 2026",
           "prodStart": "7 April 2026",
-          "prodFinish": "29 April 2026",
+          "prodFinish": "28 April 2026",
           "etaDestLabel": "TFM",
           "eta": "1 June 2026 (est.)",
-          "orderDate": "13 March 2026 (est.)",
-          "depositDate": "13 March 2026 (est.)",
+          "orderDate": "15 March 2026 (est.)",
+          "depositDate": "15 March 2026 (est.)",
           "productionDays": 40,
-          "inTransitDays": 40,
-          "productionStatus": "In production",
-          "productionCls": "warn",
-          "paymentStatus": "Paid ($118,800)",
+          "inTransitDays": 38,
+          "productionStatus": "Production done",
+          "productionCls": "ok",
+          "paymentStatus": "Paid ($158,400)",
           "paymentCls": "ok",
-          "nextPayment": "Production 35% ~$138,600",
-          "nextPaymentDue": "2 May 2026",
+          "nextPayment": "Final 40% ~$105,600",
+          "nextPaymentDue": "1 June 2026",
           "unitCost": 1.32,
-          "totalValue": 396000,
-          "depositAmount": 118800,
+          "totalValue": 264000,
+          "depositAmount": 79200,
           "depositPaid": true,
-          "depositDue": "13 March 2026",
-          "productionAmount": 118800,
+          "depositDue": "15 March 2026",
+          "productionAmount": 79200,
           "productionPaid": true,
-          "productionDue": "22 April 2026",
-          "deliveryAmount": 158400,
+          "productionDue": "24 April 2026",
+          "deliveryAmount": 105600,
           "deliveryPaid": false,
-          "deliveryDue": "1 June 2026 (est.)",
-          "batchTotal": 396000,
+          "deliveryDue": "3 June 2026",
+          "batchTotal": 264000,
           "deliveredQty": 0,
           "supplierTint": "sendy",
           "paymentModel": "sendy_303040",
           "packSplit": "",
-          "notes": "Recurring batch (Apr). Deposit 30% $118,800 PAID Apr 8 (Airwallex 20260407Q). Production in progress \u2014 target finish Apr 29. Carrier TBD.",
+          "notes": "200K portion of 300K Recurring 2. Split into 2 pickups via Ameer/A2Z: 100K Apr 24 (slipped from Apr 23), 100K Apr 26. Catch A2Z Apr 30 ETD per Husna. Production + deposit $158,400 allocated from $252,636 cumulative transfers.",
+          "hasAlert": false
+        },
+        {
+          "po": "PO-SL-300K-REC-50KSDY",
+          "supplier": "Sendy Li",
+          "qty": 50120,
+          "dest": "TFM",
+          "shipMethod": "Sea",
+          "carrier": "Sendy Li (sea direct)",
+          "shipDate": "28 April 2026",
+          "factoryShipOut": "28 April 2026",
+          "etd": "6 May 2026",
+          "prodStart": "7 April 2026",
+          "prodFinish": "28 April 2026",
+          "etaDestLabel": "TFM",
+          "eta": "11 June 2026 (est.)",
+          "orderDate": "19 March 2026 (est.)",
+          "depositDate": "19 March 2026 (est.)",
+          "productionDays": 40,
+          "inTransitDays": 44,
+          "productionStatus": "Production done",
+          "productionCls": "ok",
+          "paymentStatus": "Paid ($54,636)",
+          "paymentCls": "ok",
+          "nextPayment": "Final 40% ~$26,463",
+          "nextPaymentDue": "11 June 2026",
+          "unitCost": 1.32,
+          "totalValue": 66158,
+          "depositAmount": 19847,
+          "depositPaid": true,
+          "depositDue": "19 March 2026",
+          "productionAmount": 19847,
+          "productionPaid": true,
+          "productionDue": "28 April 2026",
+          "deliveryAmount": 26463,
+          "deliveryPaid": false,
+          "deliveryDue": "7 June 2026",
+          "batchTotal": 66157,
+          "deliveredQty": 0,
+          "supplierTint": "sendy",
+          "paymentModel": "sendy_303040",
+          "packSplit": "",
+          "notes": "50K via Sendy direct sea. 358 ctns \u00d7 140 pcs = 50,120 u per Kaiyu invoice Apr 22. Freight $15,036 PAID Apr 22 (Airwallex P260422-FPKCXVB $133,843 total) + $39,600 product allocation. ETD May 6, ETA Jun 8-11.",
+          "hasAlert": false
+        },
+        {
+          "po": "PO-SL-300K-REC-50KBL",
+          "supplier": "Sendy Li",
+          "qty": 50000,
+          "dest": "Bailiny",
+          "shipMethod": "Land",
+          "carrier": "Sendy Li (CN local)",
+          "shipDate": "28 April 2026",
+          "factoryShipOut": "28 April 2026",
+          "etd": "",
+          "prodStart": "7 April 2026",
+          "prodFinish": "28 April 2026",
+          "etaDestLabel": "Bailiny",
+          "eta": "5 May 2026 (est.)",
+          "orderDate": "19 March 2026 (est.)",
+          "depositDate": "19 March 2026 (est.)",
+          "productionDays": 40,
+          "inTransitDays": 7,
+          "productionStatus": "Production done",
+          "productionCls": "ok",
+          "paymentStatus": "Paid ($39,600)",
+          "paymentCls": "ok",
+          "nextPayment": "Final 40% ~$26,400",
+          "nextPaymentDue": "5 May 2026",
+          "unitCost": 1.32,
+          "totalValue": 66000,
+          "depositAmount": 19800,
+          "depositPaid": true,
+          "depositDue": "19 March 2026",
+          "productionAmount": 19800,
+          "productionPaid": true,
+          "productionDue": "28 April 2026",
+          "deliveryAmount": 26400,
+          "deliveryPaid": false,
+          "deliveryDue": "7 June 2026",
+          "batchTotal": 66000,
+          "deliveredQty": 0,
+          "supplierTint": "sendy",
+          "paymentModel": "sendy_303040",
+          "packSplit": "",
+          "notes": "50K to Bailiny 3PL via land. Ship out Apr 28. Land transit within China. Product deposit+production $39,600 allocated.",
           "hasAlert": false
         }
       ],
