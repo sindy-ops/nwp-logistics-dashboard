@@ -41,19 +41,21 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _gorgias import get as gorgias_get  # noqa: E402
 
 SAMPLE_CAP = 50
-# Fetch window must be at least as wide as the oldest week we score.
-FETCH_WINDOW_DAYS = 30
+# Number of complete weeks to score (most recent + this many previous).
+NUM_WEEKS = 8
+# Fetch window covers all weeks plus a small buffer.
+FETCH_WINDOW_DAYS = NUM_WEEKS * 7 + 3
 
 
 def compute_weeks():
     """Return list of (label, start_date, end_date) tuples — most recent last.
-    Mondays-to-Sundays. Generates the last 2 COMPLETED weeks (current week skipped
-    because it's partial)."""
+    Mondays-to-Sundays. Generates the last NUM_WEEKS COMPLETED weeks."""
     today = datetime.now(timezone.utc).date()
-    # Find the Monday of the current week
     this_monday = today - timedelta(days=today.weekday())
     weeks = []
-    for offset in (2, 1):  # 2 weeks ago, then 1 week ago (most recent last)
+    # offset = 1 means the week that just ended (last complete).
+    # We include weeks with offset 1..NUM_WEEKS (skipping the current partial week).
+    for offset in range(NUM_WEEKS, 0, -1):
         monday = this_monday - timedelta(weeks=offset)
         sunday = monday + timedelta(days=6)
         label = f"Week of {monday:%b %d} – {sunday:%b %d}"

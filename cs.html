@@ -470,6 +470,16 @@ function renderVolumeTable() {
   });
 }
 
+function fmtDuration(sec) {
+  if (!sec) return '—';
+  sec = Math.round(sec);
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  if (h >= 24) return `${Math.floor(h/24)}d ${h%24}h`;
+  if (h > 0) return `${h}h ${m}m`;
+  return `${m}m`;
+}
+
 function renderQueueHealth() {
   const row = document.getElementById('queue-row');
   const buckets = document.getElementById('queue-buckets');
@@ -479,8 +489,6 @@ function renderQueueHealth() {
     return;
   }
   const gen = new Date(QUEUE.generated);
-  // New schema: QUEUE has waiting/answered/over_* where over_* is counted against waiting only.
-  // Fallback to legacy schema if those fields are missing.
   const hasNewSchema = typeof QUEUE.waiting === 'number';
   const waiting = hasNewSchema ? QUEUE.waiting : QUEUE.total;
   const answered = hasNewSchema ? QUEUE.answered : 0;
@@ -488,6 +496,9 @@ function renderQueueHealth() {
   const pctWait = (n) => Math.round(n / Math.max(1, waiting) * 100);
   const over24Cls = QUEUE.over_1d / Math.max(1, waiting) > 0.2 ? 'score-bad' : 'score-ok';
   const oldestCls = QUEUE.oldest_days > 1 ? 'score-bad' : 'score-good';
+  const rt = QUEUE.response_time_24h || {};
+  const firstResp = fmtDuration(rt.median_first_response_sec);
+  const resolution = fmtDuration(rt.median_resolution_sec);
   row.innerHTML = `
     <div class="kpi-card">
       <div class="kpi-label">Unassigned View</div>
@@ -508,6 +519,11 @@ function renderQueueHealth() {
       <div class="kpi-label">Oldest Waiting</div>
       <div class="kpi-value ${oldestCls}">${QUEUE.oldest_days}d</div>
       <div class="kpi-sub">#${QUEUE.oldest_ticket_id || '?'} · client wrote ${QUEUE.oldest_date || ''}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Median First Response (24h)</div>
+      <div class="kpi-value">${firstResp}</div>
+      <div class="kpi-sub">median time from client msg → agent reply · resolution ${resolution}</div>
     </div>
   `;
 

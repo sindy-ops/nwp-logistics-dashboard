@@ -22,9 +22,32 @@ import urllib.request
 from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _gorgias import get as gorgias_get  # noqa: E402
+from _gorgias import get as gorgias_get, post as gorgias_post  # noqa: E402
 
 UNASSIGNED_VIEW_ID = 1616299
+
+
+def fetch_response_time_overview():
+    """Pull last 24h overview stats. Returns dict with median_first_response_time
+    (seconds) and median_resolution_time (seconds). Safe-failing."""
+    try:
+        from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+        now = _dt.now(_tz.utc)
+        start = (now - _td(days=1)).isoformat()
+        end = now.isoformat()
+        body = {"filters": {"period": {"start_datetime": start, "end_datetime": end}}}
+        d = gorgias_post("/api/stats/overview", body)
+        vals = {item["name"]: item.get("value") or 0 for item in d["data"]["data"]}
+        return {
+            "median_first_response_sec": vals.get("median_first_response_time"),
+            "median_resolution_sec": vals.get("median_resolution_time"),
+            "total_messages_sent_24h": vals.get("total_messages_sent"),
+            "total_messages_received_24h": vals.get("total_messages_received"),
+            "total_new_tickets_24h": vals.get("total_new_tickets"),
+        }
+    except Exception as e:
+        print(f"  (response-time stats skipped: {e})", flush=True)
+        return {}
 
 
 def slack_post(channel, text):
@@ -120,6 +143,8 @@ def scan():
 
     order = ["0-1d", "1-3d", "3-7d", "7-14d", "14-30d", "30d+"]
     buckets = [{"label": b, "count": by_bucket.get(b, 0)} for b in order]
+    # Also pull first-response time / 24h overview for an SLA side-metric.
+    rt = fetch_response_time_overview()
     return {
         "generated": now.isoformat(),
         "age_metric": "waiting = last_received_message_datetime >= last_message_datetime",
@@ -134,13 +159,32 @@ def scan():
         "oldest_date": oldest_dt.date().isoformat() if oldest_dt else None,
         "oldest_ticket_id": oldest_id,
         "buckets": buckets,
+        "response_time_24h": rt,
     }
+
+
+def fmt_duration(sec):
+    if not sec:
+        return "—"
+    sec = int(sec)
+    h, r = divmod(sec, 3600)
+    m = r // 60
+    if h >= 24:
+        d = h // 24
+        h = h % 24
+        return f"{d}d {h}h"
+    if h > 0:
+        return f"{h}h {m}m"
+    return f"{m}m"
 
 
 def summary(s):
     pct_of = lambda n, d: int(round(n / max(1, d) * 100))
     waiting = s["waiting"]
     under_24h = waiting - s["over_1d"]
+    rt = s.get("response_time_24h") or {}
+    first_resp = fmt_duration(rt.get("median_first_response_sec"))
+    resolved = fmt_duration(rt.get("median_resolution_sec"))
     return (
         "*Gorgias Unassigned — Queue Health*\n"
         "_SLA = client waiting for response over 24h. "
@@ -154,6 +198,8 @@ def summary(s):
         f":rotating_light: Over 7 days: *{s['over_7d']:,}*\n\n"
         f"Oldest waiting: *{s['oldest_days']}d* "
         f"(ticket #{s['oldest_ticket_id']}, client wrote {s['oldest_date']})\n"
+        f":stopwatch: Median first response (24h): *{first_resp}*  "
+        f":white_check_mark: Median resolution: {resolved}\n"
         "Dashboard: https://dashboard.nw-project.com/cs.html"
     )
 
