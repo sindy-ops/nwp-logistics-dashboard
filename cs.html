@@ -205,11 +205,8 @@
   <!-- ============ SCORE CARD TAB ============ -->
   <div class="pane" id="pane-score">
     <div class="filter-bar">
-      <span class="btn-label">Window</span>
-      <div class="btn-group" id="score-presets">
-        <button class="btn" data-score-preset="7">7d</button>
-        <button class="btn active" data-score-preset="30">30d</button>
-      </div>
+      <span class="btn-label">Week</span>
+      <select id="week-select" class="date-input" style="min-width: 220px;"></select>
       <span class="btn-label" style="margin-left: 8px;">Sample: up to 50 closed tickets per agent</span>
     </div>
 
@@ -242,7 +239,7 @@ let volChart = null;
 let sortCol = 'total', sortDir = 'desc';
 let scoreSortCol = 'avg_total', scoreSortDir = 'desc';
 let winStart = 0, winEnd = 0;   // indices into VOL.days
-let scoreWindow = '30d';        // "7d" | "30d"
+let activeWeekIndex = 0;        // index into SCORE.weeks
 
 async function load() {
   const [vRes, sRes, qRes] = await Promise.all([
@@ -308,15 +305,14 @@ function wireEvents() {
     document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
     renderVolume();
   });
-  // Score presets
-  document.querySelectorAll('[data-score-preset]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      scoreWindow = btn.getAttribute('data-score-preset') + 'd';
-      document.querySelectorAll('[data-score-preset]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  // Score week selector
+  const wkSel = document.getElementById('week-select');
+  if (wkSel) {
+    wkSel.addEventListener('change', () => {
+      activeWeekIndex = parseInt(wkSel.value, 10);
       renderScoreCard();
     });
-  });
+  }
 }
 
 // ================ VOLUME ================
@@ -568,32 +564,57 @@ function totalClass(total) {
 function renderScoreCard() {
   if (!SCORE) {
     document.getElementById('score-kpi-row').innerHTML =
-      '<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">Not available</div><div class="kpi-sub">scorecard_data.json missing — run build_scorecard_data.py</div></div>';
+      '<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">Not available</div><div class="kpi-sub">scorecard_data.json missing</div></div>';
     document.getElementById('score-table').innerHTML = '';
     return;
   }
-  const agents = scoreWindow === '7d' ? SCORE.agents_7d : SCORE.agents_30d;
-  const totalTickets = scoreWindow === '7d' ? SCORE.total_tickets_7d : SCORE.total_tickets_30d;
+  // Populate week selector (idempotent)
+  const wkSel = document.getElementById('week-select');
+  if (wkSel && !wkSel.options.length && SCORE.weeks) {
+    SCORE.weeks.forEach((w, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${w.label} · ${w.total_tickets} tix`;
+      wkSel.appendChild(opt);
+    });
+    wkSel.value = activeWeekIndex;
+  }
+
+  const week = SCORE.weeks ? SCORE.weeks[activeWeekIndex] : null;
+  const agents = week ? week.agents : [];
+  const totalTickets = week ? week.total_tickets : 0;
+
+  // For delta vs previous week
+  const prevWeek = (SCORE.weeks && activeWeekIndex > 0) ? SCORE.weeks[activeWeekIndex - 1] : null;
+  const prevByAgent = {};
+  if (prevWeek) for (const a of prevWeek.agents) prevByAgent[a.agent] = a.avg_total;
 
   if (!agents.length) {
     document.getElementById('score-kpi-row').innerHTML =
-      `<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">No data</div><div class="kpi-sub">No tickets in ${scoreWindow} window</div></div>`;
+      `<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">No data</div><div class="kpi-sub">No tickets in ${week ? week.label : 'this week'}</div></div>`;
     document.getElementById('score-table').innerHTML = '';
     return;
   }
 
-  // Team KPIs
   const teamAvg = agents.reduce((s, a) => s + a.avg_total, 0) / agents.length;
+  const prevTeamAvg = prevWeek && prevWeek.agents.length
+    ? prevWeek.agents.reduce((s, a) => s + a.avg_total, 0) / prevWeek.agents.length
+    : null;
+  const teamDelta = prevTeamAvg !== null ? teamAvg - prevTeamAvg : null;
   const retTix = agents.reduce((s, a) => s + a.retention_tickets, 0);
   const retAtt = agents.reduce((s, a) => s + a.retention_attempted, 0);
   const top = [...agents].sort((a, b) => b.avg_total - a.avg_total)[0];
   const bottom = [...agents].sort((a, b) => a.avg_total - b.avg_total)[0];
+  const deltaStr = (d) => d === null ? '' :
+    (d > 0 ? `<span style="color:var(--accent)"> ▲${d.toFixed(1)}</span>`
+           : d < 0 ? `<span style="color:var(--red)"> ▼${Math.abs(d).toFixed(1)}</span>`
+                   : ' —');
 
   document.getElementById('score-kpi-row').innerHTML = `
     <div class="kpi-card">
       <div class="kpi-label">Team Avg Score</div>
-      <div class="kpi-value ${totalClass(teamAvg)}">${fmt1(teamAvg)}/100</div>
-      <div class="kpi-sub">${totalTickets} tickets · ${agents.length} agents</div>
+      <div class="kpi-value ${totalClass(teamAvg)}">${fmt1(teamAvg)}/100${deltaStr(teamDelta)}</div>
+      <div class="kpi-sub">${totalTickets} tickets · ${agents.length} agents${prevWeek ? ' · vs prev wk' : ''}</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Top Scorer</div>
@@ -639,6 +660,7 @@ function renderScoreCard() {
   let html = '<table><thead><tr>';
   html += th('Agent', 'agent');
   html += th('Total /100', 'avg_total');
+  if (prevWeek) html += '<th>Δ vs prev</th>';
   html += th('A. Technical (/35)', 'sec:A. Technical Accuracy & Retention');
   html += th('B. Docs & Tags (/30)', 'sec:B. Documentation & Tagging');
   html += th('C. Voice (/25)', 'sec:C. Communication & Voice');
@@ -654,9 +676,19 @@ function renderScoreCard() {
     const weakest = a.weakest_areas
       .map(w => `${w.label.replace(/^[A-D]\d\.\s*/, '')} (${fmt1(w.avg)}/${w.max})`)
       .join(', ');
+    const prev = prevByAgent[a.agent];
+    const delta = prev !== undefined ? a.avg_total - prev : null;
+    const deltaCell = prevWeek
+      ? (delta === null
+          ? '<td class="heat-0">new</td>'
+          : `<td>${delta > 0 ? `<span class="score-good">▲${delta.toFixed(1)}</span>`
+                            : delta < 0 ? `<span class="score-bad">▼${Math.abs(delta).toFixed(1)}</span>`
+                                        : '<span class="heat-1">—</span>'}</td>`)
+      : '';
     html += '<tr>';
     html += `<td class="agent-name">${a.agent}</td>`;
     html += `<td class="total-col ${totalClass(a.avg_total)}">${fmt1(a.avg_total)}</td>`;
+    html += deltaCell;
     html += `<td class="${scoreClass(secA.pct)}">${pctBar(secA.pct, 'var(--blue)')}</td>`;
     html += `<td class="${scoreClass(secB.pct)}">${pctBar(secB.pct, 'var(--purple)')}</td>`;
     html += `<td class="${scoreClass(secC.pct)}">${pctBar(secC.pct, 'var(--accent)')}</td>`;
