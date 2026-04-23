@@ -27,7 +27,7 @@ jobs:
         env:
           GORGIAS_AUTH_TOKEN: ${{ secrets.GORGIAS_AUTH_TOKEN }}
           SLACK_NWP_TOKEN: ${{ secrets.SLACK_NWP_TOKEN }}
-          UNASSIGNED_CHANNEL: C0AB7JL4T2N
+          UNASSIGNED_CHANNEL: C0ART9S5PJ9
         run: python scripts/check_unassigned.py --slack
 
       - name: Commit updated JSON
