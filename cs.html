@@ -758,10 +758,10 @@ function fmtLongDate(ymd) {
     year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
   });
 }
-function fmtDualTime(iso) {
+function fmtDual(iso) {
   const d = new Date(iso);
   const lisbon = d.toLocaleString('en-US', {
-    month: 'long', day: 'numeric', year: 'numeric',
+    month: 'short', day: 'numeric',
     hour: 'numeric', minute: '2-digit', hour12: true,
     timeZone: 'Europe/Lisbon'
   });
@@ -778,28 +778,51 @@ function relTime(iso) {
   if (diffSec < 86400) return `${Math.round(diffSec / 3600)} h ago`;
   return `${Math.round(diffSec / 86400)} d ago`;
 }
+function fmtShortRange(ymdStart, ymdEnd) {
+  const s = ymdStart.split('-').map(Number);
+  const e = ymdEnd.split('-').map(Number);
+  const a = new Date(Date.UTC(s[0], s[1]-1, s[2])).toLocaleDateString('en-US', { month:'short', day:'numeric', timeZone:'UTC' });
+  const b = new Date(Date.UTC(e[0], e[1]-1, e[2])).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric', timeZone:'UTC' });
+  return `${a} → ${b}`;
+}
+// Next scheduled cron fire (Lisbon-formatted). Queue = daily 07:00 UTC; weekly = Mon 07:05 UTC.
+function nextDaily() {
+  const now = new Date();
+  const n = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0));
+  if (n <= now) n.setUTCDate(n.getUTCDate() + 1);
+  return n;
+}
+function nextMonday() {
+  const now = new Date();
+  const n = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 5, 0));
+  while (n <= now || n.getUTCDay() !== 1) n.setUTCDate(n.getUTCDate() + 1);
+  return n;
+}
+function fmtNext(d) {
+  return d.toLocaleString('en-US', {
+    month: 'short', day: 'numeric',
+    hour: 'numeric', minute: '2-digit', hour12: true,
+    timeZone: 'Europe/Lisbon'
+  }) + ' Lisbon';
+}
 
 function renderVolumeBanner() {
   const m = VOL.meta;
-  const queueLine = QUEUE && QUEUE.generated
-    ? `<b>Queue snapshot</b>: ${fmtDualTime(QUEUE.generated)} (${relTime(QUEUE.generated)})`
-    : '';
-  const volLine = `<b>Volume data</b>: ${fmtDualTime(m.generated_at)} <span class="sep">·</span> Window: ${fmtLongDate(m.window_start)} → ${fmtLongDate(m.window_end)} (${m.window_days}d)`;
-  document.getElementById('volume-updated').innerHTML =
-    (queueLine ? queueLine + '<br>' : '') + volLine;
+  const lines = [];
+  if (QUEUE && QUEUE.generated) {
+    lines.push(`<b>Queue</b> · ${relTime(QUEUE.generated)} (${fmtDual(QUEUE.generated)}) · next ${fmtNext(nextDaily())}`);
+  }
+  lines.push(`<b>Volume</b> · updated ${fmtDual(m.generated_at)} · next ${fmtNext(nextMonday())}`);
+  lines.push(`<b>Window</b> · ${fmtShortRange(m.window_start, m.window_end)} (${m.window_days}d)`);
+  document.getElementById('volume-updated').innerHTML = lines.join('<br>');
 }
 
 function renderScoreBanner(week, teamAvg) {
   if (!SCORE) { document.getElementById('score-updated').textContent = ''; return; }
-  const weekBit = week
-    ? `<b>Week</b>: ${week.label}`
-    : '<b>Week</b>: —';
-  const avgBit = (typeof teamAvg === 'number')
-    ? ` <span class="sep">·</span> <b>Team Avg</b>: ${teamAvg.toFixed(1)}/100`
-    : '';
-  const updLine = `<b>Updated</b>: ${fmtDualTime(SCORE.generated)}`;
+  const weekLabel = (week && week.label) ? week.label.replace(/^Week of\s*/i, '') : '—';
+  const avgBit = (typeof teamAvg === 'number') ? ` · <b>${teamAvg.toFixed(1)}/100</b>` : '';
   document.getElementById('score-updated').innerHTML =
-    `${weekBit}${avgBit}<br>${updLine}`;
+    `<b>${weekLabel}</b>${avgBit}<br>updated ${fmtDual(SCORE.generated)} · next ${fmtNext(nextMonday())}`;
 }
 
 function renderFooter() {
