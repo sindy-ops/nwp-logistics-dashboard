@@ -1,36 +1,36 @@
 {
-  "lastRefreshed": "2026-04-24T06:40:42",
+  "lastRefreshed": "2026-04-24T06:48:20",
   "updatedOn": "24/04/2026",
   "sourceFreshness": {
     "cc_sales": {
       "name": "CC Sales API",
       "latestDate": "2026-04-24",
-      "fileAge": 0.7
+      "fileAge": 0.8
     },
     "tfm_stock": {
       "name": "TFM Stock (InfoPlus)",
       "latestDate": "2026-04-23",
-      "fileAge": 0.6
+      "fileAge": 0.7
     },
     "bailiny_stock": {
       "name": "Bailiny Stock",
       "latestDate": "2026-04-23",
-      "fileAge": 0.6
+      "fileAge": 0.7
     },
     "airwallex": {
       "name": "Airwallex",
       "latestDate": "2026-04-24",
-      "fileAge": 0.6
+      "fileAge": 0.7
     },
     "pipeline": {
       "name": "Pipeline (Slack)",
       "latestDate": null,
-      "fileAge": 0.6
+      "fileAge": 0.7
     },
     "amazon": {
       "name": "Amazon FBA",
       "latestDate": "2026-04-22",
-      "fileAge": 40.5
+      "fileAge": 40.6
     }
   },
   "stock": {

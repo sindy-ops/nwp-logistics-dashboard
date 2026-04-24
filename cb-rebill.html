@@ -74,6 +74,11 @@
     border-radius:8px; padding:10px 14px; margin-bottom:16px;
     font-size:12px; color:var(--text-dim); line-height:1.55;
   }
+  .source-note summary { cursor: pointer; font-weight: 600; color: var(--text); font-size: 13px; list-style: none; padding: 2px 0; }
+  .source-note summary::-webkit-details-marker { display: none; }
+  .source-note summary::before { content: '▸'; color: var(--text-dim); font-weight: 400; margin-right: 6px; display: inline-block; width: 10px; }
+  .source-note[open] summary::before { content: '▾'; }
+  .source-note[open] summary { margin-bottom: 8px; }
   .source-note strong { color: var(--text); font-weight: 700; }
   .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
   .empty-state {
@@ -111,11 +116,12 @@
     <span class="fs-value" id="fs-coverage">—</span>
   </div>
 
-  <div class="source-note">
+  <details class="source-note">
+    <summary>Source &amp; methodology</summary>
     <strong>Volume source:</strong> Reiner's CB sheet case rows (fightable platforms only: Paypal / Stripe Dispute / Payarc / Aurora / EMS).
     <br><strong>Rebill vs new-sale signal:</strong> email-match join to CheckoutChamp — we join <code>Sheet.Email</code> ↔ <code>CC.emailAddress</code> + amount + date proximity, then read CC's <code>orderType</code> parameter. <code>orderType = RECURRING</code> → rebill; any other value → new-sale. The sheet itself doesn't carry a rebill/new flag, so this join is required. Match rate ~63%; unmatched cases default to new-sale.
     <br><strong>Brand</strong> is from the sheet <code>RMD LC or NR</code> column.
-  </div>
+  </details>
 
   <div class="chart-card" style="padding:14px 20px; margin-bottom:16px;">
     <div class="controls-row" style="justify-content:flex-start;">

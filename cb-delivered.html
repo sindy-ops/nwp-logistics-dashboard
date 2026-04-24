@@ -25,6 +25,11 @@
     border-radius:8px; padding:10px 14px; margin-bottom:16px;
     font-size:12px; color:var(--text-dim); line-height:1.55;
   }
+  .source-note summary { cursor: pointer; font-weight: 600; color: var(--text); font-size: 13px; list-style: none; padding: 2px 0; }
+  .source-note summary::-webkit-details-marker { display: none; }
+  .source-note summary::before { content: '▸'; color: var(--text-dim); font-weight: 400; margin-right: 6px; display: inline-block; width: 10px; }
+  .source-note[open] summary::before { content: '▾'; }
+  .source-note[open] summary { margin-bottom: 8px; }
   .source-note strong { color: var(--text); font-weight: 700; }
   .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
   .freshness-strip {
@@ -103,11 +108,12 @@
     <span class="fs-value" id="fs-coverage">—</span>
   </div>
 
-  <div class="source-note">
+  <details class="source-note">
+    <summary>Source &amp; methodology</summary>
     <strong>Source:</strong> Reiner's CB sheet <code>Fullfilment Status</code> column (99.9% filled — Reiner logs fulfillment status on every CB). No CheckoutChamp lookup needed.
     <br><strong>Bucket mapping:</strong> <code>Delivered</code> / <code>Out for Delivery</code> → <strong>delivered</strong>. <code>Cancelled</code> → <strong>cancelled / refunded</strong>. <code>UFF</code> (unfulfilled) / <code>FF</code> (fulfilled) / <code>In transit</code> / <code>On Hold</code> → <strong>in transit</strong> (order placed but customer hasn't received it at time of dispute). Empty → <strong>unknown</strong>.
     <br><strong>Category</strong> (first-time / upsell / rebill) uses email-match join to CheckoutChamp <code>orderType</code> — same signal as the Rebill tab.
-  </div>
+  </details>
 
   <div class="chart-card" style="padding:14px 20px; margin-bottom:16px;">
     <div class="controls-row" style="justify-content:flex-start;">
