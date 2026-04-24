@@ -737,17 +737,36 @@ function renderScoreCard() {
   });
 }
 
+function fmtLongDate(ymd) {
+  const [y, mo, d] = ymd.split('-').map(Number);
+  return new Date(Date.UTC(y, mo - 1, d)).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+  });
+}
+function fmtDualTime(iso) {
+  const d = new Date(iso);
+  const paris = d.toLocaleString('en-US', {
+    month: 'long', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', hour12: true,
+    timeZone: 'Europe/Paris'
+  });
+  const est = d.toLocaleString('en-US', {
+    hour: 'numeric', minute: '2-digit', hour12: true,
+    timeZone: 'America/New_York'
+  });
+  return `${paris} Paris / ${est} EST`;
+}
+
 function renderFooter() {
   const { days } = windowSlice();
   const m = VOL.meta;
   document.getElementById('subtitle').textContent =
     `${days[0]} → ${days[days.length - 1]} (${days.length} days)`;
-  const gen = new Date(m.generated_at);
   const scoreBit = SCORE
-    ? ` · Score card: ${new Date(SCORE.generated).toLocaleString()}`
+    ? ` · Score card: ${fmtDualTime(SCORE.generated)}`
     : '';
   document.getElementById('footer').textContent =
-    `Volume: ${m.window_start} → ${m.window_end} (${m.window_days}d) · ${gen.toLocaleString()}${scoreBit} · Source: Gorgias · Excludes bots, admin-only, shared inboxes`;
+    `Volume: ${fmtLongDate(m.window_start)} → ${fmtLongDate(m.window_end)} (${m.window_days}d) · ${fmtDualTime(m.generated_at)}${scoreBit} · Source: Gorgias · Excludes bots, admin-only, shared inboxes`;
 }
 
 function render() {
