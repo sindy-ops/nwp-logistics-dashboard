@@ -231,6 +231,7 @@
         <li><b>D. Efficiency (10 pts):</b> First contact resolution, conciseness.</li>
       </ul>
       <p>Scoring is pattern-matching on ticket text and tags, so results are best used to spot trends across tickets rather than judge any single reply. Reliable categories: tags, notes, FCR, conciseness. Proxy categories: solution accuracy, tone, retention tier.</p>
+      <p><b>Retention Attempts KPI</b> — ratio of cancel/return tickets where the agent actually tried to save the customer. A ticket is counted as a <b>retention ticket</b> if it carries one of these Gorgias tags: <code>cancellation request</code>, <code>return request</code>, or <code>subs_cancel</code>. It counts as <b>attempted</b> when the agent's reply contains at least one retention keyword from this list: discount, % off, coupon, free, offer, save, keep, extend, pause, skip, move your, next shipment, would you like, we can offer, as a valued customer, one-time, credit, partial refund. The card shows <code>attempted / retention tickets</code>.</p>
     </details>
 
     <div class="table-card">
@@ -350,26 +351,22 @@ function renderVolumeKpis() {
     sumReplies += t;
   }
   const n = days.length;
+  const replyCoverage = sumTix > 0 ? (sumReplies / sumTix) : 0;
   document.getElementById('kpi-row').innerHTML = `
     <div class="kpi-card">
       <div class="kpi-label">Customer Messages</div>
       <div class="kpi-value">${fmt(sumCust)}</div>
-      <div class="kpi-sub">${fmt(Math.round(sumCust / n))}/day avg</div>
+      <div class="kpi-sub">${fmt(Math.round(sumCust / n))}/day · all inbound from clients</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">New Tickets</div>
       <div class="kpi-value">${fmt(sumTix)}</div>
-      <div class="kpi-sub">${fmt(Math.round(sumTix / n))}/day avg</div>
+      <div class="kpi-sub">${fmt(Math.round(sumTix / n))}/day · one per conversation</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Agent Replies</div>
       <div class="kpi-value">${fmt(sumReplies)}</div>
-      <div class="kpi-sub">${fmt(Math.round(sumReplies / n))}/day avg · ${activeAgents} agents</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Reply : Inbound</div>
-      <div class="kpi-value">${(sumReplies / Math.max(1, sumCust)).toFixed(2)}×</div>
-      <div class="kpi-sub">replies per inbound msg</div>
+      <div class="kpi-sub">${fmt(Math.round(sumReplies / n))}/day · ${replyCoverage.toFixed(2)} per ticket</div>
     </div>`;
 }
 
@@ -502,7 +499,6 @@ function renderQueueHealth() {
     buckets.innerHTML = '';
     return;
   }
-  const gen = new Date(QUEUE.generated);
   const hasNewSchema = typeof QUEUE.waiting === 'number';
   const waiting = hasNewSchema ? QUEUE.waiting : QUEUE.total;
   const answered = hasNewSchema ? QUEUE.answered : 0;
@@ -517,12 +513,12 @@ function renderQueueHealth() {
     <div class="kpi-card">
       <div class="kpi-label">Unassigned View</div>
       <div class="kpi-value">${fmt(QUEUE.total)}</div>
-      <div class="kpi-sub">${fmt(answered)} already answered · as of ${gen.toLocaleString()}</div>
+      <div class="kpi-sub">${fmt(answered)} already answered, not assigned · as of ${fmtDual(QUEUE.generated)}</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Waiting for Reply</div>
       <div class="kpi-value">${fmt(waiting)}</div>
-      <div class="kpi-sub">client is the last author on these tickets</div>
+      <div class="kpi-sub">client is the last author · needs agent reply</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">&gt; 24h (over target)</div>
@@ -535,9 +531,9 @@ function renderQueueHealth() {
       <div class="kpi-sub">#${QUEUE.oldest_ticket_id || '?'} · client wrote ${QUEUE.oldest_date || ''}</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Median First Response (24h)</div>
+      <div class="kpi-label">Median First Response</div>
       <div class="kpi-value">${firstResp}</div>
-      <div class="kpi-sub">median time from client msg → agent reply · resolution ${resolution}</div>
+      <div class="kpi-sub">last 24h Gorgias data · resolution ${resolution}</div>
     </div>
   `;
 
