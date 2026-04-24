@@ -168,6 +168,16 @@
   .source-note[open] summary { margin-bottom: 8px; }
   .source-note strong { color: var(--text); font-weight: 700; }
   .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
+  .source-note .src-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(139,143,163,0.15); }
+  .source-note .src-section:first-of-type { margin-top: 10px; padding-top: 0; border-top: none; }
+  .source-note .src-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 6px; }
+  .source-note .src-reiner { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.25); }
+  .source-note .src-cc     { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
+  .source-note .src-monday { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.25); }
+  .source-note .src-join   { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
+  .source-note .src-none   { background: rgba(139,143,163,0.12); color: var(--text-dim); border: 1px solid var(--card-border); }
+  .source-note .src-body { display: block; margin-top: 2px; color: var(--text-dim); }
+  .source-note .src-why { display: block; margin-top: 4px; font-style: italic; color: var(--text-dim); opacity: 0.85; }
   #sla-table th, #sla-table td { padding:10px 8px; text-align:right; border-bottom:1px solid var(--card-border); }
   #sla-table th { color:var(--text-dim); font-weight:600; text-transform:uppercase; font-size:10px; letter-spacing:1px; }
   #sla-table td { font-variant-numeric:tabular-nums; }
@@ -217,9 +227,34 @@
 
   <details class="source-note">
     <summary>Source &amp; methodology</summary>
-    <strong>Source:</strong> Reiner's CB sheet <code>dispute_date</code> ↔ Monday board <code>date</code> (team-logged). Response time = Monday date − Sheet dispute date.
-    <br><strong>Match method:</strong> <code>PayPal</code> = exact match on sheet <code>ID</code> = Monday <code>item.name</code>. <code>Stripe / Payarc / EMS / Aurora</code> = fuzzy match on (sheet <code>Dispute Amount</code> = Monday <code>total</code>) AND (Monday date − Sheet dispute date between 0 and 14d) AND platform match. Non-PayPal Monday names don't equal sheet IDs, so fuzzy is required.
-    <br><strong>Brand</strong> is joined from Reiner's sheet (<code>RMD LC or NR</code> column).
+
+    <div class="src-section">
+      <span class="src-label src-reiner">Reiner's CB sheet</span>
+      <div class="src-body">
+        Column <code>Dispute date</code> — when the dispute was filed. Also supplies brand (<code>RMD LC or NR</code>).
+      </div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-monday">Monday board</span>
+      <div class="src-body">
+        Column <code>date</code> — when the team logged the case (started fighting it). Response time = Monday date − Sheet dispute date.
+      </div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-none">CheckoutChamp</span>
+      <div class="src-body">Not used.</div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-join">Join key</span>
+      <div class="src-body">
+        <strong>PayPal:</strong> exact match — <code>Monday.name</code> == <code>Sheet.ID</code>.<br>
+        <strong>Stripe / Payarc / EMS / Aurora:</strong> fuzzy match on same amount (<code>Monday.total</code> = <code>Sheet.Dispute Amount</code>) AND date within 14d AND platform match.
+      </div>
+      <div class="src-why">Why fuzzy: for non-PayPal processors, the Monday item name isn't the sheet's dispute ID, so we can't do an exact join.</div>
+    </div>
   </details>
 
   <!-- Filter at top — controls everything on the board (matches rebill/upsell/delivered pattern) -->

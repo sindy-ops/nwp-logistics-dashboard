@@ -138,6 +138,16 @@
   .source-note[open] summary { margin-bottom: 8px; }
   .source-note strong { color: var(--text); font-weight: 700; }
   .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
+  .source-note .src-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(139,143,163,0.15); }
+  .source-note .src-section:first-of-type { margin-top: 10px; padding-top: 0; border-top: none; }
+  .source-note .src-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 6px; }
+  .source-note .src-reiner { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.25); }
+  .source-note .src-cc     { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
+  .source-note .src-monday { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.25); }
+  .source-note .src-join   { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
+  .source-note .src-none   { background: rgba(139,143,163,0.12); color: var(--text-dim); border: 1px solid var(--card-border); }
+  .source-note .src-body { display: block; margin-top: 2px; color: var(--text-dim); }
+  .source-note .src-why { display: block; margin-top: 4px; font-style: italic; color: var(--text-dim); opacity: 0.85; }
   .plat-kind.fight { background: rgba(74,222,128,0.15); color: var(--accent); }
   .plat-kind.auto  { background: rgba(139,143,163,0.18); color: var(--text-dim); }
 
@@ -175,9 +185,26 @@
 
   <details class="source-note">
     <summary>Source &amp; methodology</summary>
-    <strong>Source:</strong> Reiner's CB sheet <code>Daily CB Analysis 3 › Analysis of dispute</code>.
-    Unique ID = sheet column <code>ID</code> (e.g. <code>PP-R-THK-xxx</code> for PayPal, Kount ID for Kount, etc.).
-    Every row = one logged CB; stacked by <code>Platform</code> column, brand from <code>RMD LC or NR</code>. No CC join.
+
+    <div class="src-section">
+      <span class="src-label src-reiner">Reiner's CB sheet</span>
+      <div class="src-body">
+        Every row in <code>Daily CB Analysis 3 › Analysis of dispute</code> = one logged CB. Counted by <code>Platform</code> column; brand from <code>RMD LC or NR</code> column.
+      </div>
+      <div class="src-why">Why: this is the authoritative CB log Reiner maintains.</div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-none">CheckoutChamp</span>
+      <div class="src-body">Not used. Pure sheet count.</div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-join">Unique ID</span>
+      <div class="src-body">
+        Sheet column <code>ID</code> (e.g. <code>PP-R-THK-xxx</code> for PayPal, Kount ID for Kount, etc.).
+      </div>
+    </div>
   </details>
 
   <div class="stats-row" id="stats"></div>

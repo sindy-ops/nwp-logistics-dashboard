@@ -135,6 +135,16 @@
   .source-note[open] summary { margin-bottom: 8px; }
   .source-note strong { color: var(--text); font-weight: 700; }
   .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
+  .source-note .src-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(139,143,163,0.15); }
+  .source-note .src-section:first-of-type { margin-top: 10px; padding-top: 0; border-top: none; }
+  .source-note .src-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 6px; }
+  .source-note .src-reiner { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.25); }
+  .source-note .src-cc     { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
+  .source-note .src-monday { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.25); }
+  .source-note .src-join   { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
+  .source-note .src-none   { background: rgba(139,143,163,0.12); color: var(--text-dim); border: 1px solid var(--card-border); }
+  .source-note .src-body { display: block; margin-top: 2px; color: var(--text-dim); }
+  .source-note .src-why { display: block; margin-top: 4px; font-style: italic; color: var(--text-dim); opacity: 0.85; }
 
   .footer-meta {
     margin-top: 16px; font-size: 11px; color: var(--text-dim); text-align: center;
@@ -172,10 +182,32 @@
 
   <details class="source-note">
     <summary>Source &amp; methodology</summary>
-    <strong>Source:</strong> Monday board <code>Chargeback 2025-2026</code> (the team's working queue — what Lyn/Abegail/Reymon/Michael actually process).
-    Unique ID = <code>Monday.item.name</code> which matches Reiner's sheet column <code>ID</code>.
-    <br><strong>Brand</strong> is joined from Reiner's CB sheet (78% match today — rows without a sheet match show as UNKNOWN).
-    Monday doesn't record brand on its own.
+
+    <div class="src-section">
+      <span class="src-label src-monday">Monday board</span>
+      <div class="src-body">
+        Board <code>Chargeback 2025-2026</code> — the team's working queue (what Lyn/Abegail/Reymon/Michael process). Columns used: <code>person</code>, <code>updated_at</code>, <code>platform</code>, <code>total</code>.
+      </div>
+      <div class="src-why">Why: Monday tracks who fought which case and when.</div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-reiner">Reiner's CB sheet</span>
+      <div class="src-body">
+        Used only to pull the <code>RMD LC or NR</code> brand column onto each Monday row. 78% join rate today; rows without a sheet match show brand = UNKNOWN.
+      </div>
+      <div class="src-why">Why: Monday doesn't carry brand, sheet does.</div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-none">CheckoutChamp</span>
+      <div class="src-body">Not used.</div>
+    </div>
+
+    <div class="src-section">
+      <span class="src-label src-join">Join key</span>
+      <div class="src-body"><code>Monday.item.name</code> = <code>Sheet.ID</code> (same dispute ID in both systems).</div>
+    </div>
   </details>
 
   <div class="person-cards" id="person-cards"></div>
