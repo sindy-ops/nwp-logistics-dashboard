@@ -156,6 +156,13 @@
   .fs-label { font-weight:700; text-transform:uppercase; letter-spacing:1px; }
   .fs-value { color:var(--text); font-weight:600; font-variant-numeric:tabular-nums; }
   .fs-divider { opacity:0.5; }
+  .source-note {
+    background: rgba(139,143,163,0.06); border: 1px solid var(--card-border);
+    border-radius:8px; padding:10px 14px; margin-bottom:16px;
+    font-size:12px; color:var(--text-dim); line-height:1.55;
+  }
+  .source-note strong { color: var(--text); font-weight: 700; }
+  .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
   #sla-table th, #sla-table td { padding:10px 8px; text-align:right; border-bottom:1px solid var(--card-border); }
   #sla-table th { color:var(--text-dim); font-weight:600; text-transform:uppercase; font-size:10px; letter-spacing:1px; }
   #sla-table td { font-variant-numeric:tabular-nums; }
@@ -201,6 +208,12 @@
     <span class="fs-divider">·</span>
     <span class="fs-label">ANALYZED</span>
     <span class="fs-value" id="fs-coverage">—</span>
+  </div>
+
+  <div class="source-note">
+    <strong>Source:</strong> Reiner's CB sheet <code>dispute_date</code> ↔ Monday board <code>date</code> (team-logged). Response time = Monday date − Sheet dispute date.
+    <br><strong>Match method:</strong> <code>PayPal</code> = exact match on sheet <code>ID</code> = Monday <code>item.name</code>. <code>Stripe / Payarc / EMS / Aurora</code> = fuzzy match on (sheet <code>Dispute Amount</code> = Monday <code>total</code>) AND (Monday date − Sheet dispute date between 0 and 14d) AND platform match. Non-PayPal Monday names don't equal sheet IDs, so fuzzy is required.
+    <br><strong>Brand</strong> is joined from Reiner's sheet (<code>RMD LC or NR</code> column).
   </div>
 
   <!-- Filter at top — controls everything on the board (matches rebill/upsell/delivered pattern) -->

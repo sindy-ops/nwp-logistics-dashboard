@@ -126,6 +126,13 @@
   .fs-label { font-weight:700; text-transform:uppercase; letter-spacing:1px; }
   .fs-value { color:var(--text); font-weight:600; font-variant-numeric:tabular-nums; }
   .fs-divider { opacity:0.5; }
+  .source-note {
+    background: rgba(139,143,163,0.06); border: 1px solid var(--card-border);
+    border-radius:8px; padding:10px 14px; margin-bottom:16px;
+    font-size:12px; color:var(--text-dim); line-height:1.55;
+  }
+  .source-note strong { color: var(--text); font-weight: 700; }
+  .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
   .plat-kind.fight { background: rgba(74,222,128,0.15); color: var(--accent); }
   .plat-kind.auto  { background: rgba(139,143,163,0.18); color: var(--text-dim); }
 
@@ -159,6 +166,12 @@
     <span class="fs-divider">·</span>
     <span class="fs-label">ANALYZED</span>
     <span class="fs-value" id="fs-coverage">100% of Sheet CBs (all disputes)</span>
+  </div>
+
+  <div class="source-note">
+    <strong>Source:</strong> Reiner's CB sheet <code>Daily CB Analysis 3 › Analysis of dispute</code>.
+    Unique ID = sheet column <code>ID</code> (e.g. <code>PP-R-THK-xxx</code> for PayPal, Kount ID for Kount, etc.).
+    Every row = one logged CB; stacked by <code>Platform</code> column, brand from <code>RMD LC or NR</code>. No CC join.
   </div>
 
   <div class="stats-row" id="stats"></div>

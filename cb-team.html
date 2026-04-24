@@ -123,6 +123,13 @@
   .fs-label { font-weight:700; text-transform:uppercase; letter-spacing:1px; }
   .fs-value { color:var(--text); font-weight:600; font-variant-numeric:tabular-nums; }
   .fs-divider { opacity:0.5; }
+  .source-note {
+    background: rgba(139,143,163,0.06); border: 1px solid var(--card-border);
+    border-radius:8px; padding:10px 14px; margin-bottom:16px;
+    font-size:12px; color:var(--text-dim); line-height:1.55;
+  }
+  .source-note strong { color: var(--text); font-weight: 700; }
+  .source-note code { background: rgba(139,143,163,0.15); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; color: var(--text); }
 
   .footer-meta {
     margin-top: 16px; font-size: 11px; color: var(--text-dim); text-align: center;
@@ -156,6 +163,13 @@
     <span class="fs-divider">·</span>
     <span class="fs-label">ANALYZED</span>
     <span class="fs-value" id="fs-coverage">100% of Monday CBs (all fought cases)</span>
+  </div>
+
+  <div class="source-note">
+    <strong>Source:</strong> Monday board <code>Chargeback 2025-2026</code> (the team's working queue — what Lyn/Abegail/Reymon/Michael actually process).
+    Unique ID = <code>Monday.item.name</code> which matches Reiner's sheet column <code>ID</code>.
+    <strong>Brand</strong> is joined from Reiner's CB sheet (78% match today — rows without a sheet match show as UNKNOWN).
+    Monday doesn't record brand on its own.
   </div>
 
   <div class="person-cards" id="person-cards"></div>
