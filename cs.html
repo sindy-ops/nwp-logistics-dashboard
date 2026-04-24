@@ -101,6 +101,13 @@
     background: var(--card); border: 1px solid var(--card-border);
     border-radius: 12px; padding: 20px 24px 24px; margin-bottom: 20px;
   }
+  .updated-banner {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    font-size: 12px; color: var(--text-dim); line-height: 1.55;
+  }
+  .updated-banner b { color: var(--text); font-weight: 600; }
+  .updated-banner .sep { margin: 0 8px; opacity: 0.5; }
   .table-card { overflow-x: auto; padding-bottom: 20px; }
   .chart-header { display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
@@ -170,6 +177,7 @@
 
   <!-- ============ VOLUME TAB ============ -->
   <div class="pane active" id="pane-volume">
+    <div class="updated-banner" id="volume-updated">Loading…</div>
     <div class="kpi-row" id="queue-row" style="margin-bottom: 14px;"></div>
     <div id="queue-buckets" style="margin-bottom: 24px;"></div>
 
@@ -204,6 +212,7 @@
 
   <!-- ============ SCORE CARD TAB ============ -->
   <div class="pane" id="pane-score">
+    <div class="updated-banner" id="score-updated">Loading…</div>
     <div class="filter-bar">
       <span class="btn-label">Week</span>
       <select id="week-select" class="date-input" style="min-width: 220px;"></select>
@@ -249,7 +258,10 @@ async function load() {
     fetch('agents.json?t=' + Date.now()).catch(() => null),
   ]);
   VOL = await vRes.json();
-  if (sRes && sRes.ok) SCORE = await sRes.json();
+  if (sRes && sRes.ok) {
+    SCORE = await sRes.json();
+    if (SCORE.weeks && SCORE.weeks.length) activeWeekIndex = SCORE.weeks.length - 1;
+  }
   if (qRes && qRes.ok) QUEUE = await qRes.json();
   if (aRes && aRes.ok) AGENTS = (await aRes.json()).agents || {};
   const totalDays = VOL.days.length;
@@ -584,6 +596,7 @@ function renderScoreCard() {
     document.getElementById('score-kpi-row').innerHTML =
       '<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">Not available</div><div class="kpi-sub">scorecard_data.json missing</div></div>';
     document.getElementById('score-table').innerHTML = '';
+    document.getElementById('score-updated').textContent = 'Score card data not available';
     return;
   }
   // Populate week selector (idempotent)
@@ -611,10 +624,12 @@ function renderScoreCard() {
     document.getElementById('score-kpi-row').innerHTML =
       `<div class="kpi-card"><div class="kpi-label">Score Card</div><div class="kpi-value">No data</div><div class="kpi-sub">No tickets in ${week ? week.label : 'this week'}</div></div>`;
     document.getElementById('score-table').innerHTML = '';
+    renderScoreBanner(week, null);
     return;
   }
 
   const teamAvg = agents.reduce((s, a) => s + a.avg_total, 0) / agents.length;
+  renderScoreBanner(week, teamAvg);
   const prevTeamAvg = prevWeek && prevWeek.agents.length
     ? prevWeek.agents.reduce((s, a) => s + a.avg_total, 0) / prevWeek.agents.length
     : null;
@@ -745,28 +760,55 @@ function fmtLongDate(ymd) {
 }
 function fmtDualTime(iso) {
   const d = new Date(iso);
-  const paris = d.toLocaleString('en-US', {
+  const lisbon = d.toLocaleString('en-US', {
     month: 'long', day: 'numeric', year: 'numeric',
     hour: 'numeric', minute: '2-digit', hour12: true,
-    timeZone: 'Europe/Paris'
+    timeZone: 'Europe/Lisbon'
   });
   const est = d.toLocaleString('en-US', {
     hour: 'numeric', minute: '2-digit', hour12: true,
     timeZone: 'America/New_York'
   });
-  return `${paris} Paris / ${est} EST`;
+  return `${lisbon} Lisbon / ${est} EST`;
+}
+function relTime(iso) {
+  const diffSec = (Date.now() - new Date(iso).getTime()) / 1000;
+  if (diffSec < 60) return 'just now';
+  if (diffSec < 3600) return `${Math.round(diffSec / 60)} min ago`;
+  if (diffSec < 86400) return `${Math.round(diffSec / 3600)} h ago`;
+  return `${Math.round(diffSec / 86400)} d ago`;
+}
+
+function renderVolumeBanner() {
+  const m = VOL.meta;
+  const queueLine = QUEUE && QUEUE.generated
+    ? `<b>Queue snapshot</b>: ${fmtDualTime(QUEUE.generated)} (${relTime(QUEUE.generated)})`
+    : '';
+  const volLine = `<b>Volume data</b>: ${fmtDualTime(m.generated_at)} <span class="sep">·</span> Window: ${fmtLongDate(m.window_start)} → ${fmtLongDate(m.window_end)} (${m.window_days}d)`;
+  document.getElementById('volume-updated').innerHTML =
+    (queueLine ? queueLine + '<br>' : '') + volLine;
+}
+
+function renderScoreBanner(week, teamAvg) {
+  if (!SCORE) { document.getElementById('score-updated').textContent = ''; return; }
+  const weekBit = week
+    ? `<b>Week</b>: ${week.label}`
+    : '<b>Week</b>: —';
+  const avgBit = (typeof teamAvg === 'number')
+    ? ` <span class="sep">·</span> <b>Team Avg</b>: ${teamAvg.toFixed(1)}/100`
+    : '';
+  const updLine = `<b>Updated</b>: ${fmtDualTime(SCORE.generated)}`;
+  document.getElementById('score-updated').innerHTML =
+    `${weekBit}${avgBit}<br>${updLine}`;
 }
 
 function renderFooter() {
   const { days } = windowSlice();
-  const m = VOL.meta;
   document.getElementById('subtitle').textContent =
     `${days[0]} → ${days[days.length - 1]} (${days.length} days)`;
-  const scoreBit = SCORE
-    ? ` · Score card: ${fmtDualTime(SCORE.generated)}`
-    : '';
+  renderVolumeBanner();
   document.getElementById('footer').textContent =
-    `Volume: ${fmtLongDate(m.window_start)} → ${fmtLongDate(m.window_end)} (${m.window_days}d) · ${fmtDualTime(m.generated_at)}${scoreBit} · Source: Gorgias · Excludes bots, admin-only, shared inboxes`;
+    'Source: Gorgias · Excludes bots, admin-only, shared inboxes';
 }
 
 function render() {
