@@ -39175,7 +39175,7 @@
 
   document.getElementById('subtitle').textContent =
     `${data.window_start} → ${data.window_end}  ·  ${data.notice}`;
-  document.getElementById('fs-updated').textContent = data.generated_at.replace('T', ' ');
+  document.getElementById('fs-updated').textContent = (function(iso){ if(!iso)return '—'; const [d,t]=iso.split('T'); const [y,m,day]=d.split('-').map(Number); const months=['January','February','March','April','May','June','July','August','September','October','November','December']; return `${months[m-1]} ${day}, ${y} ${(t||'').split('.')[0]} (Lisbon)`; })(data.generated_at);
   document.getElementById('fs-coverage').textContent =
     `${Math.round(data.coverage.match_rate*100)}% (${fmtNum(data.coverage.with_sku)} of ${fmtNum(data.coverage.total_cbs)} CBs with Product SKU)`;
 
