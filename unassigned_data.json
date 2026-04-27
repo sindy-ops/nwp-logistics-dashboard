@@ -1,24 +1,24 @@
 {
-  "generated": "2026-04-26T10:07:23.628993+00:00",
+  "generated": "2026-04-27T12:11:57.043073+00:00",
   "age_metric": "waiting = last_received_message_datetime >= last_message_datetime",
-  "total": 2364,
-  "waiting": 1035,
-  "answered": 1329,
-  "over_1d": 623,
+  "total": 1823,
+  "waiting": 791,
+  "answered": 1032,
+  "over_1d": 318,
   "over_3d": 0,
   "over_7d": 0,
   "over_30d": 0,
   "oldest_days": 2,
-  "oldest_date": "2026-04-23",
-  "oldest_ticket_id": 215397377,
+  "oldest_date": "2026-04-25",
+  "oldest_ticket_id": 218001475,
   "buckets": [
     {
       "label": "0-1d",
-      "count": 412
+      "count": 473
     },
     {
       "label": "1-3d",
-      "count": 623
+      "count": 318
     },
     {
       "label": "3-7d",
@@ -38,10 +38,10 @@
     }
   ],
   "response_time_24h": {
-    "median_first_response_sec": 1049,
-    "median_resolution_sec": 0,
-    "total_messages_sent_24h": 2556,
-    "total_messages_received_24h": 1930,
-    "total_new_tickets_24h": 808
+    "median_first_response_sec": 1275,
+    "median_resolution_sec": 1,
+    "total_messages_sent_24h": 2669,
+    "total_messages_received_24h": 1935,
+    "total_new_tickets_24h": 824
   }
 }
