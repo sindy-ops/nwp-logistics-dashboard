@@ -207,21 +207,18 @@
 </div>
 
 <script id="dv-data" type="application/json">{
-  "generated_at": "2026-04-24T05:54:59",
-  "window_start": "2026-01-25",
-  "window_end": "2026-04-24",
+  "generated_at": "2026-04-27T12:38:34",
+  "window_start": "2026-01-28",
+  "window_end": "2026-04-27",
   "window_days": 90,
   "coverage": {
-    "total_cbs": 4292,
-    "with_sku": 4282,
-    "with_fulfillment": 4284,
+    "total_cbs": 4368,
+    "with_sku": 4358,
+    "with_fulfillment": 4360,
     "match_rate": 0.9977,
-    "with_cc_match": 4282
+    "with_cc_match": 4358
   },
   "dates": [
-    "2026-01-25",
-    "2026-01-26",
-    "2026-01-27",
     "2026-01-28",
     "2026-01-29",
     "2026-01-30",
@@ -308,25 +305,25 @@
     "2026-04-21",
     "2026-04-22",
     "2026-04-23",
-    "2026-04-24"
+    "2026-04-24",
+    "2026-04-25",
+    "2026-04-26",
+    "2026-04-27"
   ],
-  "notice": "real data \u2014 Sheet Product SKU + Fulfillment Status (direct), email-match fallback for rebill",
+  "notice": "real data \u2014 Sheet Product SKU + Fulfillment Status (direct), CC.orderId PK join for rebill",
   "totals": {
-    "delivered": 968,
-    "in_transit": 2768,
-    "not_delivered": 548,
+    "delivered": 991,
+    "in_transit": 2820,
+    "not_delivered": 549,
     "unknown": 8,
-    "delivered_pct": 0.226,
-    "in_transit_pct": 0.645,
-    "not_delivered_pct": 0.128,
+    "delivered_pct": 0.227,
+    "in_transit_pct": 0.646,
+    "not_delivered_pct": 0.126,
     "unknown_pct": 0.002,
-    "total": 4292
+    "total": 4368
   },
   "series": {
     "delivered": [
-      3,
-      3,
-      6,
       1,
       5,
       2,
@@ -412,13 +409,13 @@
       31,
       33,
       17,
-      6,
+      39,
+      2,
+      0,
+      0,
       0
     ],
     "in_transit": [
-      8,
-      5,
-      6,
       5,
       19,
       16,
@@ -504,13 +501,13 @@
       68,
       45,
       52,
-      3,
+      69,
+      5,
+      0,
+      0,
       0
     ],
     "not_delivered": [
-      1,
-      1,
-      3,
       1,
       2,
       3,
@@ -596,6 +593,9 @@
       4,
       2,
       4,
+      5,
+      1,
+      0,
       0,
       0
     ],
@@ -623,9 +623,6 @@
       0,
       0,
       0,
-      0,
-      0,
-      0,
       1,
       0,
       0,
@@ -681,6 +678,9 @@
       0,
       0,
       2,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -695,21 +695,21 @@
   "by_status_detail": [
     {
       "status": "Delivered",
-      "cbs": 968,
+      "cbs": 991,
       "color": "#4ade80",
-      "pct": 0.226
+      "pct": 0.227
     },
     {
       "status": "In transit / pending ship",
-      "cbs": 2768,
+      "cbs": 2820,
       "color": "#f59e0b",
-      "pct": 0.645
+      "pct": 0.646
     },
     {
       "status": "Cancelled / refunded",
-      "cbs": 548,
+      "cbs": 549,
       "color": "#ef4444",
-      "pct": 0.128
+      "pct": 0.126
     },
     {
       "status": "Unknown (no status)",
@@ -720,15 +720,6 @@
   ],
   "cases": [
     {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
-    },
-    {
       "date": "2026-02-02",
       "category": "first_time",
       "delivery_status": "in_transit",
@@ -811,7 +802,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -982,7 +973,7 @@
     },
     {
       "date": "2026-04-18",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1026,184 +1017,13 @@
       "platform": "Stripe Dispute"
     },
     {
-      "date": "2026-01-25",
-      "category": "rebill",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
       "date": "2026-04-18",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
       "has_upsell": false,
       "platform": "Stripe Dispute"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "upsell",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "Knee Massager",
-      "has_upsell": true,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "rebill",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
-    },
-    {
-      "date": "2026-01-26",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
     },
     {
       "date": "2026-04-18",
@@ -1222,123 +1042,6 @@
       "upsell_product": "",
       "has_upsell": false,
       "platform": "Stripe Dispute"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "upsell",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "Foot Massager",
-      "has_upsell": true,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "first_time",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "upsell",
-      "delivery_status": "in_transit",
-      "brand": "LC",
-      "upsell_product": "LC Knee Massager",
-      "has_upsell": true,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "upsell",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "Knee Massager",
-      "has_upsell": true,
-      "platform": "Payarc"
-    },
-    {
-      "date": "2026-01-27",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
     },
     {
       "date": "2026-04-18",
@@ -1405,7 +1108,7 @@
     },
     {
       "date": "2026-01-28",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1450,7 +1153,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "upsell",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "Knee Massager",
@@ -1459,7 +1162,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -1495,7 +1198,7 @@
     },
     {
       "date": "2026-01-29",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -1585,7 +1288,7 @@
     },
     {
       "date": "2026-01-29",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1603,7 +1306,7 @@
     },
     {
       "date": "2026-01-29",
-      "category": "upsell",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "Triple Complex",
@@ -1621,6 +1324,24 @@
     },
     {
       "date": "2026-01-29",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-01-29",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-01-29",
       "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -1639,34 +1360,16 @@
     },
     {
       "date": "2026-01-29",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-01-29",
       "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-29",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-29",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-01-29",
-      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1711,7 +1414,7 @@
     },
     {
       "date": "2026-02-01",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1792,7 +1495,7 @@
     },
     {
       "date": "2026-01-31",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1801,7 +1504,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1810,7 +1513,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "Foot Massager",
@@ -1819,7 +1522,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "Fortify",
@@ -1846,7 +1549,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -1855,7 +1558,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -1918,7 +1621,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -1990,7 +1693,7 @@
     },
     {
       "date": "2026-02-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -2008,7 +1711,7 @@
     },
     {
       "date": "2026-02-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -2125,7 +1828,7 @@
     },
     {
       "date": "2026-02-02",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -2215,7 +1918,7 @@
     },
     {
       "date": "2026-02-03",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -2251,7 +1954,7 @@
     },
     {
       "date": "2026-02-03",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -2440,7 +2143,7 @@
     },
     {
       "date": "2026-02-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -2494,7 +2197,7 @@
     },
     {
       "date": "2026-02-04",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -2593,7 +2296,7 @@
     },
     {
       "date": "2026-02-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -2665,7 +2368,7 @@
     },
     {
       "date": "2026-02-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -2827,7 +2530,7 @@
     },
     {
       "date": "2026-02-08",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "RMD",
       "upsell_product": "DLF",
@@ -2845,7 +2548,7 @@
     },
     {
       "date": "2026-02-08",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "RMD",
       "upsell_product": "",
@@ -2908,7 +2611,7 @@
     },
     {
       "date": "2026-02-07",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -3016,7 +2719,7 @@
     },
     {
       "date": "2026-02-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3088,7 +2791,7 @@
     },
     {
       "date": "2026-02-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -3151,7 +2854,7 @@
     },
     {
       "date": "2026-02-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3178,7 +2881,7 @@
     },
     {
       "date": "2026-02-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -3250,7 +2953,7 @@
     },
     {
       "date": "2026-02-09",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3457,7 +3160,7 @@
     },
     {
       "date": "2026-02-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3493,7 +3196,7 @@
     },
     {
       "date": "2026-02-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3538,7 +3241,7 @@
     },
     {
       "date": "2026-02-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3583,7 +3286,7 @@
     },
     {
       "date": "2026-02-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3592,7 +3295,7 @@
     },
     {
       "date": "2026-02-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -3610,7 +3313,7 @@
     },
     {
       "date": "2026-02-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -3700,7 +3403,7 @@
     },
     {
       "date": "2026-02-11",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -4015,7 +3718,7 @@
     },
     {
       "date": "2026-02-15",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -4042,7 +3745,7 @@
     },
     {
       "date": "2026-02-15",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -4168,6 +3871,15 @@
     },
     {
       "date": "2026-02-14",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-02-14",
       "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -4177,43 +3889,34 @@
     },
     {
       "date": "2026-02-14",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-02-14",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-02-14",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-02-14",
       "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-02-14",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-02-14",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-02-14",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-02-14",
-      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -4249,7 +3952,7 @@
     },
     {
       "date": "2026-02-14",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -4258,7 +3961,7 @@
     },
     {
       "date": "2026-02-14",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -4267,7 +3970,7 @@
     },
     {
       "date": "2026-02-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -4456,7 +4159,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -4582,7 +4285,7 @@
     },
     {
       "date": "2026-02-16",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -4906,7 +4609,7 @@
     },
     {
       "date": "2026-02-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -4969,7 +4672,7 @@
     },
     {
       "date": "2026-02-18",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -5095,7 +4798,7 @@
     },
     {
       "date": "2026-02-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -5140,7 +4843,7 @@
     },
     {
       "date": "2026-04-08",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -5248,7 +4951,7 @@
     },
     {
       "date": "2026-02-19",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -5329,7 +5032,7 @@
     },
     {
       "date": "2026-02-19",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -5338,7 +5041,7 @@
     },
     {
       "date": "2026-02-19",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -5401,7 +5104,7 @@
     },
     {
       "date": "2026-02-18",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -5509,7 +5212,7 @@
     },
     {
       "date": "2026-04-07",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -5914,7 +5617,7 @@
     },
     {
       "date": "2026-02-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -6067,7 +5770,7 @@
     },
     {
       "date": "2026-02-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -6076,7 +5779,7 @@
     },
     {
       "date": "2026-02-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -6085,7 +5788,7 @@
     },
     {
       "date": "2026-02-20",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -6139,7 +5842,7 @@
     },
     {
       "date": "2026-02-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -6157,7 +5860,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -6193,7 +5896,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -6211,7 +5914,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -6238,7 +5941,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -6328,7 +6031,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "Fortify",
@@ -6382,7 +6085,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -6400,7 +6103,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -6454,7 +6157,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -6508,7 +6211,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -6850,7 +6553,7 @@
     },
     {
       "date": "2026-02-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7021,7 +6724,7 @@
     },
     {
       "date": "2026-02-25",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -7084,7 +6787,7 @@
     },
     {
       "date": "2026-02-25",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7093,7 +6796,7 @@
     },
     {
       "date": "2026-02-25",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7246,7 +6949,7 @@
     },
     {
       "date": "2026-02-25",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7255,7 +6958,7 @@
     },
     {
       "date": "2026-02-24",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7354,7 +7057,7 @@
     },
     {
       "date": "2026-02-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -7372,7 +7075,7 @@
     },
     {
       "date": "2026-02-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -7381,7 +7084,7 @@
     },
     {
       "date": "2026-02-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -7390,7 +7093,7 @@
     },
     {
       "date": "2026-02-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "Fortify",
@@ -7498,7 +7201,7 @@
     },
     {
       "date": "2026-02-26",
-      "category": "upsell",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "Fortify",
@@ -7714,7 +7417,7 @@
     },
     {
       "date": "2026-04-03",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7741,7 +7444,7 @@
     },
     {
       "date": "2026-04-03",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7813,7 +7516,7 @@
     },
     {
       "date": "2026-04-02",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7822,7 +7525,7 @@
     },
     {
       "date": "2026-04-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7831,7 +7534,7 @@
     },
     {
       "date": "2026-03-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -7993,7 +7696,7 @@
     },
     {
       "date": "2026-02-28",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -8038,7 +7741,7 @@
     },
     {
       "date": "2026-02-28",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -8407,7 +8110,7 @@
     },
     {
       "date": "2026-02-27",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -8434,7 +8137,7 @@
     },
     {
       "date": "2026-02-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -8443,7 +8146,7 @@
     },
     {
       "date": "2026-02-27",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -8560,7 +8263,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -8605,7 +8308,7 @@
     },
     {
       "date": "2026-03-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -8614,7 +8317,7 @@
     },
     {
       "date": "2026-03-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -8623,7 +8326,7 @@
     },
     {
       "date": "2026-03-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -8632,7 +8335,7 @@
     },
     {
       "date": "2026-03-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -8749,132 +8452,6 @@
     },
     {
       "date": "2026-03-02",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-02",
       "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
@@ -8884,7 +8461,133 @@
     },
     {
       "date": "2026-03-02",
-      "category": "rebill",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-02",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -8947,7 +8650,7 @@
     },
     {
       "date": "2026-03-02",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -9010,7 +8713,7 @@
     },
     {
       "date": "2026-03-01",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -9073,7 +8776,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -9118,7 +8821,7 @@
     },
     {
       "date": "2026-03-03",
-      "category": "upsell",
+      "category": "first_time",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "Triple Complex",
@@ -9226,7 +8929,7 @@
     },
     {
       "date": "2026-03-03",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -9235,7 +8938,7 @@
     },
     {
       "date": "2026-03-03",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -9424,7 +9127,7 @@
     },
     {
       "date": "2026-03-03",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "Fortify",
@@ -9442,7 +9145,7 @@
     },
     {
       "date": "2026-03-03",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -9451,7 +9154,7 @@
     },
     {
       "date": "2026-03-03",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -9568,7 +9271,7 @@
     },
     {
       "date": "2026-03-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -9579,6 +9282,87 @@
       "date": "2026-03-04",
       "category": "upsell",
       "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "Fortify",
+      "has_upsell": true,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "first_time",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-04",
+      "category": "upsell",
+      "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "Fortify",
       "has_upsell": true,
@@ -9613,88 +9397,7 @@
     },
     {
       "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
       "category": "upsell",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "Fortify",
-      "has_upsell": true,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-04",
-      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -9910,6 +9613,15 @@
     },
     {
       "date": "2026-03-04",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Aurora"
+    },
+    {
+      "date": "2026-03-04",
       "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
@@ -9928,15 +9640,6 @@
     },
     {
       "date": "2026-03-04",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Aurora"
-    },
-    {
-      "date": "2026-03-04",
       "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
@@ -9946,7 +9649,7 @@
     },
     {
       "date": "2026-03-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -9973,7 +9676,7 @@
     },
     {
       "date": "2026-03-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -9991,7 +9694,7 @@
     },
     {
       "date": "2026-03-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -10099,7 +9802,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -10189,7 +9892,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -10198,7 +9901,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -10261,7 +9964,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -10288,7 +9991,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -10360,7 +10063,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -10495,7 +10198,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -10513,7 +10216,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "LC",
       "upsell_product": "",
@@ -10522,7 +10225,7 @@
     },
     {
       "date": "2026-03-05",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "LC",
       "upsell_product": "",
@@ -10846,7 +10549,7 @@
     },
     {
       "date": "2026-03-07",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -10990,7 +10693,7 @@
     },
     {
       "date": "2026-03-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -11143,7 +10846,7 @@
     },
     {
       "date": "2026-03-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -11296,7 +10999,7 @@
     },
     {
       "date": "2026-03-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -11431,7 +11134,7 @@
     },
     {
       "date": "2026-03-06",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -11476,7 +11179,7 @@
     },
     {
       "date": "2026-03-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -11665,7 +11368,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -11719,7 +11422,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -11737,7 +11440,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -11782,7 +11485,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -11809,7 +11512,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -11872,7 +11575,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -11917,7 +11620,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -12025,7 +11728,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12097,7 +11800,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12430,7 +12133,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12493,7 +12196,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12574,7 +12277,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12700,7 +12403,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12727,7 +12430,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12952,7 +12655,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -12961,7 +12664,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -13051,7 +12754,7 @@
     },
     {
       "date": "2026-03-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -13186,7 +12889,7 @@
     },
     {
       "date": "2026-03-11",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -13231,7 +12934,7 @@
     },
     {
       "date": "2026-03-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -13393,7 +13096,7 @@
     },
     {
       "date": "2026-03-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -13528,7 +13231,7 @@
     },
     {
       "date": "2026-03-12",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -13537,7 +13240,7 @@
     },
     {
       "date": "2026-03-12",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -13798,7 +13501,7 @@
     },
     {
       "date": "2026-03-12",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -13861,7 +13564,7 @@
     },
     {
       "date": "2026-03-12",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -14005,7 +13708,7 @@
     },
     {
       "date": "2026-03-12",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -14149,7 +13852,7 @@
     },
     {
       "date": "2026-03-15",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -14163,6 +13866,15 @@
       "brand": "NR",
       "upsell_product": "",
       "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-15",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "LC",
+      "upsell_product": "Marine Collagen",
+      "has_upsell": true,
       "platform": "Paypal"
     },
     {
@@ -14176,15 +13888,6 @@
     },
     {
       "date": "2026-03-15",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "LC",
-      "upsell_product": "Marine Collagen",
-      "has_upsell": true,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-15",
       "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -14203,7 +13906,7 @@
     },
     {
       "date": "2026-03-15",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -14302,7 +14005,7 @@
     },
     {
       "date": "2026-03-15",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -14428,7 +14131,7 @@
     },
     {
       "date": "2026-03-14",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -14455,7 +14158,7 @@
     },
     {
       "date": "2026-03-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -14491,7 +14194,7 @@
     },
     {
       "date": "2026-03-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -14537,15 +14240,6 @@
     {
       "date": "2026-03-14",
       "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-14",
-      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -14573,6 +14267,15 @@
     {
       "date": "2026-03-14",
       "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-14",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "Fortify",
@@ -14581,7 +14284,7 @@
     },
     {
       "date": "2026-03-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "LC",
       "upsell_product": "",
@@ -14671,7 +14374,7 @@
     },
     {
       "date": "2026-03-14",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -14725,7 +14428,7 @@
     },
     {
       "date": "2026-03-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -14734,7 +14437,7 @@
     },
     {
       "date": "2026-03-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -14761,7 +14464,7 @@
     },
     {
       "date": "2026-03-13",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15211,7 +14914,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15220,7 +14923,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15238,7 +14941,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15562,7 +15265,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15571,7 +15274,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15625,7 +15328,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15814,7 +15517,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -15832,7 +15535,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -15886,7 +15589,7 @@
     },
     {
       "date": "2026-03-13",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -15922,7 +15625,7 @@
     },
     {
       "date": "2026-03-11",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -15976,7 +15679,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -15985,7 +15688,7 @@
     },
     {
       "date": "2026-03-24",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -16030,7 +15733,7 @@
     },
     {
       "date": "2026-03-23",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -16237,7 +15940,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -16255,7 +15958,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -16543,7 +16246,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -16570,7 +16273,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -16651,7 +16354,7 @@
     },
     {
       "date": "2026-03-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -16696,7 +16399,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -16714,7 +16417,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -16732,7 +16435,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -16768,7 +16471,7 @@
     },
     {
       "date": "2026-03-17",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -17137,7 +16840,7 @@
     },
     {
       "date": "2026-03-18",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -17803,7 +17506,7 @@
     },
     {
       "date": "2026-03-19",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -17866,7 +17569,7 @@
     },
     {
       "date": "2026-03-19",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -17875,7 +17578,7 @@
     },
     {
       "date": "2026-03-19",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -18109,7 +17812,7 @@
     },
     {
       "date": "2026-03-18",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -18145,7 +17848,16 @@
     },
     {
       "date": "2026-03-22",
-      "category": "first_time",
+      "category": "upsell",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-22",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -18155,15 +17867,6 @@
     {
       "date": "2026-03-22",
       "category": "first_time",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-22",
-      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -18226,7 +17929,7 @@
     },
     {
       "date": "2026-03-22",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -18280,7 +17983,7 @@
     },
     {
       "date": "2026-03-22",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -18307,7 +18010,7 @@
     },
     {
       "date": "2026-03-22",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -18577,7 +18280,7 @@
     },
     {
       "date": "2026-03-22",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -18712,15 +18415,6 @@
     },
     {
       "date": "2026-03-21",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-21",
       "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -18730,6 +18424,15 @@
     },
     {
       "date": "2026-03-21",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-21",
       "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
@@ -18757,7 +18460,7 @@
     },
     {
       "date": "2026-03-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -18946,7 +18649,7 @@
     },
     {
       "date": "2026-03-20",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -19081,7 +18784,7 @@
     },
     {
       "date": "2026-03-20",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -19171,7 +18874,7 @@
     },
     {
       "date": "2026-03-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -19378,7 +19081,7 @@
     },
     {
       "date": "2026-03-20",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -19450,7 +19153,7 @@
     },
     {
       "date": "2026-03-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -19459,7 +19162,7 @@
     },
     {
       "date": "2026-03-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -19486,7 +19189,7 @@
     },
     {
       "date": "2026-03-20",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -19657,7 +19360,7 @@
     },
     {
       "date": "2026-03-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -19783,7 +19486,16 @@
     },
     {
       "date": "2026-03-23",
-      "category": "first_time",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-23",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -19802,15 +19514,6 @@
     {
       "date": "2026-03-23",
       "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-23",
-      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20035,7 +19738,7 @@
     },
     {
       "date": "2026-03-23",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20089,7 +19792,7 @@
     },
     {
       "date": "2026-03-22",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20179,7 +19882,7 @@
     },
     {
       "date": "2026-03-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20197,7 +19900,7 @@
     },
     {
       "date": "2026-03-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20206,7 +19909,7 @@
     },
     {
       "date": "2026-03-23",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -20323,7 +20026,7 @@
     },
     {
       "date": "2026-03-23",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20503,7 +20206,7 @@
     },
     {
       "date": "2026-03-24",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20611,7 +20314,7 @@
     },
     {
       "date": "2026-03-24",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20629,7 +20332,7 @@
     },
     {
       "date": "2026-03-24",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -20656,7 +20359,7 @@
     },
     {
       "date": "2026-03-24",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -20746,7 +20449,7 @@
     },
     {
       "date": "2026-03-24",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21277,7 +20980,7 @@
     },
     {
       "date": "2026-03-10",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -21322,16 +21025,7 @@
     },
     {
       "date": "2026-03-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-25",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21358,7 +21052,7 @@
     },
     {
       "date": "2026-03-25",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21368,6 +21062,15 @@
     {
       "date": "2026-03-25",
       "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-25",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21430,6 +21133,33 @@
     },
     {
       "date": "2026-03-25",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-25",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-25",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-25",
       "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -21439,43 +21169,7 @@
     },
     {
       "date": "2026-03-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-25",
       "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-25",
-      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21505,13 +21199,22 @@
       "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-25",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
       "upsell_product": "Knee Massager",
       "has_upsell": true,
       "platform": "Paypal"
     },
     {
       "date": "2026-03-25",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -21619,7 +21322,7 @@
     },
     {
       "date": "2026-03-25",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21754,7 +21457,7 @@
     },
     {
       "date": "2026-03-25",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21862,7 +21565,7 @@
     },
     {
       "date": "2026-03-25",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -21880,7 +21583,7 @@
     },
     {
       "date": "2026-03-25",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -21925,7 +21628,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -21943,7 +21646,7 @@
     },
     {
       "date": "2026-03-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22033,7 +21736,7 @@
     },
     {
       "date": "2026-03-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22186,7 +21889,7 @@
     },
     {
       "date": "2026-03-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22267,7 +21970,7 @@
     },
     {
       "date": "2026-03-26",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -22375,7 +22078,7 @@
     },
     {
       "date": "2026-03-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22438,7 +22141,7 @@
     },
     {
       "date": "2026-03-26",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -22457,15 +22160,6 @@
     {
       "date": "2026-03-26",
       "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-26",
-      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22493,6 +22187,15 @@
     {
       "date": "2026-03-26",
       "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-26",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "Fortify",
@@ -22501,7 +22204,7 @@
     },
     {
       "date": "2026-03-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22573,7 +22276,7 @@
     },
     {
       "date": "2026-03-26",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -22681,7 +22384,7 @@
     },
     {
       "date": "2026-03-08",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22690,7 +22393,7 @@
     },
     {
       "date": "2026-03-08",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22762,7 +22465,7 @@
     },
     {
       "date": "2026-03-07",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -22807,7 +22510,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22843,7 +22546,7 @@
     },
     {
       "date": "2026-03-29",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -22951,7 +22654,7 @@
     },
     {
       "date": "2026-03-29",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -23221,78 +22924,6 @@
     },
     {
       "date": "2026-03-28",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-03-28",
       "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -23320,6 +22951,78 @@
     },
     {
       "date": "2026-03-28",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-03-28",
       "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -23374,7 +23077,7 @@
     },
     {
       "date": "2026-03-28",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -23599,7 +23302,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -23698,7 +23401,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -23752,7 +23455,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -23779,7 +23482,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -23932,7 +23635,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -23941,7 +23644,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -23995,7 +23698,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24049,7 +23752,7 @@
     },
     {
       "date": "2026-03-27",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -24220,7 +23923,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24301,7 +24004,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24337,7 +24040,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -24418,7 +24121,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24490,7 +24193,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24580,7 +24283,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24589,7 +24292,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -24598,7 +24301,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24634,7 +24337,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24643,7 +24346,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24832,7 +24535,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -24886,7 +24589,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -24922,7 +24625,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -24985,7 +24688,7 @@
     },
     {
       "date": "2026-03-30",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25012,7 +24715,7 @@
     },
     {
       "date": "2026-03-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25030,7 +24733,7 @@
     },
     {
       "date": "2026-03-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25210,7 +24913,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25273,7 +24976,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25282,7 +24985,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25318,7 +25021,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -25552,7 +25255,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25597,7 +25300,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -25651,7 +25354,7 @@
     },
     {
       "date": "2026-03-31",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -25705,7 +25408,7 @@
     },
     {
       "date": "2026-03-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -26101,7 +25804,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -26137,7 +25840,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -26155,7 +25858,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -26317,7 +26020,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -26362,7 +26065,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -26371,7 +26074,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -26380,7 +26083,7 @@
     },
     {
       "date": "2026-04-01",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -26416,7 +26119,7 @@
     },
     {
       "date": "2026-02-28",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -26443,7 +26146,7 @@
     },
     {
       "date": "2026-02-27",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -26479,7 +26182,7 @@
     },
     {
       "date": "2026-04-02",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -26551,7 +26254,7 @@
     },
     {
       "date": "2026-04-02",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -26623,7 +26326,7 @@
     },
     {
       "date": "2026-04-02",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -26641,7 +26344,7 @@
     },
     {
       "date": "2026-04-02",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -26992,7 +26695,7 @@
     },
     {
       "date": "2026-02-25",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -27037,7 +26740,7 @@
     },
     {
       "date": "2026-02-24",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -27181,7 +26884,7 @@
     },
     {
       "date": "2026-04-05",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -27226,7 +26929,7 @@
     },
     {
       "date": "2026-04-05",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -27343,7 +27046,7 @@
     },
     {
       "date": "2026-04-04",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -27433,34 +27136,34 @@
     },
     {
       "date": "2026-04-04",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-04",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-04",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-04",
       "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-04",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-04",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-04",
-      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -27568,7 +27271,7 @@
     },
     {
       "date": "2026-04-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -27667,7 +27370,7 @@
     },
     {
       "date": "2026-04-04",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -27721,7 +27424,7 @@
     },
     {
       "date": "2026-04-03",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -27919,7 +27622,7 @@
     },
     {
       "date": "2026-04-03",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28009,7 +27712,7 @@
     },
     {
       "date": "2026-04-03",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28054,7 +27757,7 @@
     },
     {
       "date": "2026-04-03",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28324,7 +28027,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -28333,7 +28036,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -28342,7 +28045,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -28414,7 +28117,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28432,7 +28135,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28540,7 +28243,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28666,7 +28369,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "LC",
       "upsell_product": "",
@@ -28675,7 +28378,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -28711,7 +28414,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -28783,7 +28486,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28846,7 +28549,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28900,7 +28603,7 @@
     },
     {
       "date": "2026-04-06",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -28954,7 +28657,7 @@
     },
     {
       "date": "2026-02-20",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -29026,7 +28729,7 @@
     },
     {
       "date": "2026-02-20",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -29449,7 +29152,7 @@
     },
     {
       "date": "2026-04-07",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -29494,7 +29197,7 @@
     },
     {
       "date": "2026-04-07",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -29593,7 +29296,7 @@
     },
     {
       "date": "2026-02-18",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -29701,7 +29404,7 @@
     },
     {
       "date": "2026-04-08",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -29719,7 +29422,7 @@
     },
     {
       "date": "2026-04-08",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -29728,7 +29431,7 @@
     },
     {
       "date": "2026-04-08",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -29818,7 +29521,7 @@
     },
     {
       "date": "2026-04-08",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -29917,7 +29620,7 @@
     },
     {
       "date": "2026-04-08",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -30115,15 +29818,6 @@
     },
     {
       "date": "2026-04-08",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
-    },
-    {
-      "date": "2026-04-08",
       "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -30134,24 +29828,6 @@
     {
       "date": "2026-04-08",
       "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
-    },
-    {
-      "date": "2026-04-08",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Payarc"
-    },
-    {
-      "date": "2026-04-08",
-      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -30179,6 +29855,33 @@
     {
       "date": "2026-04-08",
       "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-08",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-08",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-08",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -30214,7 +29917,7 @@
     },
     {
       "date": "2026-04-08",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -30250,7 +29953,7 @@
     },
     {
       "date": "2026-02-15",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -30295,7 +29998,7 @@
     },
     {
       "date": "2026-02-13",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -30367,24 +30070,6 @@
     },
     {
       "date": "2026-04-09",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
       "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -30395,114 +30080,6 @@
     {
       "date": "2026-04-09",
       "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -30548,6 +30125,132 @@
     {
       "date": "2026-04-09",
       "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -30574,7 +30277,7 @@
     },
     {
       "date": "2026-04-09",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -30628,6 +30331,51 @@
     },
     {
       "date": "2026-04-09",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-09",
       "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -30638,51 +30386,6 @@
     {
       "date": "2026-04-09",
       "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-09",
-      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -30835,7 +30538,7 @@
     },
     {
       "date": "2026-04-09",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -31033,7 +30736,7 @@
     },
     {
       "date": "2026-02-13",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -31078,7 +30781,7 @@
     },
     {
       "date": "2026-02-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -31096,7 +30799,7 @@
     },
     {
       "date": "2026-02-11",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -31708,7 +31411,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -31735,7 +31438,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -31780,7 +31483,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -31843,7 +31546,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -31969,7 +31672,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -32050,7 +31753,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -32248,7 +31951,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -32311,7 +32014,7 @@
     },
     {
       "date": "2026-04-10",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -32338,7 +32041,7 @@
     },
     {
       "date": "2026-02-07",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -32392,7 +32095,7 @@
     },
     {
       "date": "2026-02-04",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -32419,7 +32122,7 @@
     },
     {
       "date": "2026-04-13",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -32428,7 +32131,7 @@
     },
     {
       "date": "2026-04-13",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -32446,7 +32149,7 @@
     },
     {
       "date": "2026-04-13",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -32509,7 +32212,7 @@
     },
     {
       "date": "2026-04-13",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -32536,7 +32239,7 @@
     },
     {
       "date": "2026-04-13",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -33067,7 +32770,7 @@
     },
     {
       "date": "2026-04-13",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33148,7 +32851,7 @@
     },
     {
       "date": "2026-02-04",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33310,7 +33013,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33319,7 +33022,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -33364,34 +33067,34 @@
     },
     {
       "date": "2026-04-14",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-14",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-14",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-14",
       "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-14",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-14",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-14",
-      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33517,7 +33220,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -33652,7 +33355,7 @@
     },
     {
       "date": "2026-04-13",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33715,7 +33418,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33724,7 +33427,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33841,7 +33544,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -33904,7 +33607,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34012,7 +33715,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34057,7 +33760,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34219,7 +33922,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34282,7 +33985,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34291,7 +33994,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34336,7 +34039,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34345,7 +34048,7 @@
     },
     {
       "date": "2026-04-14",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34408,7 +34111,7 @@
     },
     {
       "date": "2026-01-30",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34489,7 +34192,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34498,7 +34201,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34624,7 +34327,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34678,7 +34381,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34723,7 +34426,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -34741,7 +34444,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34759,7 +34462,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34795,7 +34498,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34957,7 +34660,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -34966,7 +34669,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -35002,7 +34705,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -35038,7 +34741,7 @@
     },
     {
       "date": "2026-04-16",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -35209,7 +34912,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -35236,7 +34939,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -35245,7 +34948,7 @@
     },
     {
       "date": "2026-04-15",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -35506,7 +35209,7 @@
     },
     {
       "date": "2026-01-28",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -35523,33 +35226,6 @@
       "platform": "Stripe Dispute"
     },
     {
-      "date": "2026-01-27",
-      "category": "upsell",
-      "delivery_status": "not_delivered",
-      "brand": "NR",
-      "upsell_product": "Triple Complex",
-      "has_upsell": true,
-      "platform": "Stripe Dispute"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Stripe Dispute"
-    },
-    {
-      "date": "2026-01-25",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Stripe Dispute"
-    },
-    {
       "date": "2026-04-19",
       "category": "rebill",
       "delivery_status": "in_transit",
@@ -35569,7 +35245,7 @@
     },
     {
       "date": "2026-04-19",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -35668,7 +35344,7 @@
     },
     {
       "date": "2026-04-19",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -35767,7 +35443,7 @@
     },
     {
       "date": "2026-04-19",
-      "category": "rebill",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -35857,7 +35533,7 @@
     },
     {
       "date": "2026-04-19",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -36001,7 +35677,7 @@
     },
     {
       "date": "2026-04-18",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -36082,7 +35758,7 @@
     },
     {
       "date": "2026-04-18",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -36127,7 +35803,7 @@
     },
     {
       "date": "2026-04-18",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -36478,7 +36154,7 @@
     },
     {
       "date": "2026-04-17",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -36523,7 +36199,7 @@
     },
     {
       "date": "2026-04-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -36775,52 +36451,52 @@
     },
     {
       "date": "2026-04-17",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-17",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-17",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-17",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-17",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-17",
       "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-17",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-17",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-17",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-17",
-      "category": "rebill",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-17",
-      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -36829,7 +36505,7 @@
     },
     {
       "date": "2026-04-17",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -36838,7 +36514,7 @@
     },
     {
       "date": "2026-04-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -36856,7 +36532,7 @@
     },
     {
       "date": "2026-04-17",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -37153,7 +36829,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -37261,7 +36937,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -37270,7 +36946,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -37315,7 +36991,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -37459,7 +37135,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -37765,7 +37441,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -37783,7 +37459,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -37819,7 +37495,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -37864,7 +37540,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "rebill",
+      "category": "first_time",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -37891,7 +37567,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "LC",
       "upsell_product": "",
@@ -37900,7 +37576,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "LC",
       "upsell_product": "",
@@ -37909,7 +37585,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "LC",
       "upsell_product": "Foot Massager",
@@ -37990,7 +37666,7 @@
     },
     {
       "date": "2026-04-20",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -37999,7 +37675,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38008,7 +37684,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38080,7 +37756,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -38098,7 +37774,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38107,43 +37783,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38170,7 +37810,52 @@
     },
     {
       "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
       "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38197,7 +37882,34 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38216,24 +37928,6 @@
     {
       "date": "2026-04-21",
       "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38242,25 +37936,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -38296,6 +37972,159 @@
     },
     {
       "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
       "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
@@ -38306,6 +38135,42 @@
     {
       "date": "2026-04-21",
       "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -38342,15 +38207,6 @@
     {
       "date": "2026-04-21",
       "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38368,7 +38224,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38386,187 +38242,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -38575,7 +38251,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38593,7 +38269,7 @@
     },
     {
       "date": "2026-04-21",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38764,7 +38440,25 @@
     },
     {
       "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
       "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -38791,25 +38485,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38836,7 +38512,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38845,7 +38521,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -38863,7 +38539,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "not_delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -38872,7 +38548,52 @@
     },
     {
       "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
       "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38899,52 +38620,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "delivered",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -38971,7 +38647,61 @@
     },
     {
       "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
       "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39025,7 +38755,43 @@
     },
     {
       "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
       "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-22",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39070,7 +38836,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39088,7 +38854,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39097,97 +38863,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
-      "delivery_status": "in_transit",
-      "brand": "NR",
-      "upsell_product": "",
-      "has_upsell": false,
-      "platform": "Paypal"
-    },
-    {
-      "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39214,7 +38890,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39232,7 +38908,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "upsell",
       "delivery_status": "delivered",
       "brand": "NR",
       "upsell_product": "",
@@ -39259,7 +38935,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39268,7 +38944,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39295,7 +38971,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39313,7 +38989,7 @@
     },
     {
       "date": "2026-04-22",
-      "category": "first_time",
+      "category": "rebill",
       "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
@@ -39340,8 +39016,1016 @@
     },
     {
       "date": "2026-04-22",
+      "category": "rebill",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-24",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-24",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-24",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-24",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-24",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-24",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-24",
       "category": "first_time",
       "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-24",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Stripe Dispute"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "Fortify",
+      "has_upsell": true,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "Triple Complex",
+      "has_upsell": true,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "Fortify",
+      "has_upsell": true,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "Triple Complex",
+      "has_upsell": true,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Paypal"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Aurora"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Aurora"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Aurora"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Aurora"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Aurora"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Aurora"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "EMS"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "EMS"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "not_delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "rebill",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "in_transit",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "first_time",
+      "delivery_status": "delivered",
+      "brand": "NR",
+      "upsell_product": "",
+      "has_upsell": false,
+      "platform": "Payarc"
+    },
+    {
+      "date": "2026-04-23",
+      "category": "upsell",
+      "delivery_status": "in_transit",
       "brand": "NR",
       "upsell_product": "",
       "has_upsell": false,
